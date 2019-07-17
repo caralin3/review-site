@@ -1,0 +1,15 @@
+// colors
+$primary: #0c98ac;
+$black: #000;
+$white: #fff;
+
+// breakpoints
+$x-small: 'screen and (min-width: 320px)';
+$small: 'screen and (min-width: 375px)';
+$medium: 'screen and (min-width: 768px)';
+$large: 'screen and (min-width: 992px)';
+$x-large: 'screen and (min-width: 1045px)';
+$xx-large: 'screen and (min-width: 1184px)';
+
+// detect
+$ie: 'all and (-ms-high-contrast: none), (-ms-high-contrast: active)';

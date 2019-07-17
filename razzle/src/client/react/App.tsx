@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Home } from './components';
-import './App.scss';
+import '../appearance/styles/index.scss';
 
 const App = () => (
   <Switch>
