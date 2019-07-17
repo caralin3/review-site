@@ -3,17 +3,16 @@ import React from 'react';
 export interface ButtonProps {
   onClick: () => void;
   size?: 'sm' | 'md' | 'lg';
-  text: string;
-  variant: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary';
 }
 
 export const Button: React.FC<ButtonProps> = ({
+  children,
   onClick,
   size,
-  text,
   variant
 }) => (
   <button className={`btn-${variant}`} onClick={onClick}>
-    {text}
+    {children}
   </button>
 );

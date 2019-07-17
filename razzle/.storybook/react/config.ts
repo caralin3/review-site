@@ -1,4 +1,5 @@
 import { configure } from '@storybook/react';
+import '../../src/client/appearance/styles/index.scss';
 
 // automatically import all files ending in *.stories.tsx
 const req = require.context('../../stories/react', true, /\.stories\.tsx$/);

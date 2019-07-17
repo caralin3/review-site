@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '.';
 
 export class Home extends React.Component {
   render() {
@@ -27,6 +28,9 @@ export class Home extends React.Component {
             <a href="https://palmer.chat">Community Slack</a>
           </li>
         </ul>
+        <Button onClick={() => null} variant="primary">
+          Hello Button
+        </Button>
       </div>
     );
   }
