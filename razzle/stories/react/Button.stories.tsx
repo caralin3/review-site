@@ -1,14 +1,45 @@
 import React from 'react';
-
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
-
 import { Button } from '../../src/client/react/components';
 
-// storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
-
 storiesOf('Button', module)
-  .add('small, danger', () => <Button onClick={action('clicked')} size="sm" variant="danger">Small Button</Button>)
-  .add('medium, primary', () => <Button onClick={action('clicked')} variant="primary">Medium Button</Button>)
-  .add('large, success', () => <Button onClick={action('clicked')} size="lg" variant="success">Large Button</Button>);
+  .add('small', () => (
+    <>
+      <Button onClick={action('clicked primary')} size="sm" variant="primary">
+        Primary
+      </Button>
+      <Button onClick={action('clicked danger')} size="sm" variant="danger">
+        Danger
+      </Button>
+      <Button onClick={action('clicked success')} size="sm" variant="success">
+        Success
+      </Button>
+    </>
+  ))
+  .add('medium', () => (
+    <>
+      <Button onClick={action('clicked primary')} variant="primary">
+        Primary
+      </Button>
+      <Button onClick={action('clicked danger')} variant="danger">
+        Danger
+      </Button>
+      <Button onClick={action('clicked success')} variant="success">
+        Success
+      </Button>
+    </>
+  ))
+  .add('large', () => (
+    <>
+      <Button onClick={action('clicked primary')} size="lg" variant="primary">
+        Primary
+      </Button>
+      <Button onClick={action('clicked danger')} size="lg" variant="danger">
+        Danger
+      </Button>
+      <Button onClick={action('clicked success')} size="lg" variant="success">
+        Success
+      </Button>
+    </>
+  ));

@@ -25,6 +25,10 @@ button {
   }
 }
 
+ul {
+  list-style: none;
+}
+
 input,
 datalist,
 textarea {
@@ -33,54 +37,54 @@ textarea {
 
 .show-small {
   @media #{$medium} {
-    display: none;
+    display: none !important;
   }
 }
 
 .show-medium {
-  display: none;
+  display: none !important;
 
   @media #{$medium} {
-    display: block;
+    display: block !important;
   }
 }
 
-.show-medium-inline-block {
-  display: none;
+.show-medium-flex {
+  display: none !important;
 
   @media #{$medium} {
-    display: inline-block;
+    display: flex !important;
   }
 }
 
 .show-large {
-  display: none;
+  display: none !important;
 
   @media #{$large} {
-    display: block;
+    display: block !important;
   }
 }
 
-.show-large-inline-block {
-  display: none;
+.show-large-flex {
+  display: none !important;
 
   @media #{$large} {
-    display: inline-block;
+    display: flex !important;
   }
 }
 
 .show-x-large {
-  display: none;
+  display: none !important;
 
   @media #{$x-large} {
-    display: block;
+    display: block !important;
   }
 }
 
-.show-x-large-inline-block {
-  display: none;
+.show-x-large-flex {
+  display: none !important;
 
   @media #{$x-large} {
-    display: inline-block;
+    display: flex !important;
   }
 }

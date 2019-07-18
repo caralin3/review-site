@@ -9,7 +9,7 @@
     "start:prod": "NODE_ENV=production node build/server.js",
     "storybook:react": "start-storybook -c .storybook/react -p 6006",
     "build-storybook:react": "build-storybook -c .storybook/react",
-    "ts:format": "prettier --write src/**/*.ts src/**/*.tsx",
+    "ts:format": "prettier --write src/**/*.ts src/**/*.tsx stories/**/*.tsx",
     "ts:lint": "tslint --project ./",
     "scss:format": "prettier --write src/**/*.scss",
     "scss:lint": "stylelint src/**/*.scss",
@@ -24,13 +24,15 @@
     "razzle": "^3.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-router-dom": "^5.0.1"
+    "react-router-dom": "^5.0.1",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",
     "@storybook/addon-a11y": "^5.1.9",
     "@storybook/addon-actions": "^5.1.9",
     "@storybook/addon-links": "^5.1.9",
+    "@storybook/addon-viewport": "^5.1.9",
     "@storybook/addons": "^5.1.9",
     "@storybook/react": "^5.1.9",
     "@types/classnames": "^2.2.9",

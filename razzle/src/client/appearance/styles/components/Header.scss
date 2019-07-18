@@ -1,0 +1,91 @@
+@import './mixins.scss';
+@import './variables.scss';
+
+.header {
+  display: flex;
+
+  &__nav {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__brand {
+    @include brand;
+  }
+
+  &__links {
+    align-items: center;
+    display: flex;
+  }
+
+  &__link {
+    margin-left: 1rem;
+
+    &:hover,
+    &:focus {
+      color: $primary;
+    }
+
+    &--active {
+      color: $primary;
+      font-weight: bold;
+    }
+  }
+
+  &__mobile {
+    &-links {
+      display: none;
+
+      &--open {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: fixed;
+        margin-top: 3rem;
+        overflow-x: hidden;
+        right: 0;
+        text-align: center;
+        top: 0;
+        transition: 2s;
+        width: 100%;
+        z-index: 1;
+      }
+
+      &--closed {
+        width: 0;
+      }
+    }
+
+    &-link {
+      margin-bottom: 1rem;
+
+      &:hover,
+      &:focus {
+        color: $primary;
+      }
+
+      &--active {
+        color: $primary;
+        font-weight: bold;
+      }
+    }
+
+    &-menu {
+      display: block;
+      font-size: 24px;
+
+      &:hover,
+      &:focus {
+        color: $primary;
+        cursor: pointer;
+      }
+
+      &--hide {
+        display: none;
+      }
+    }
+  }
+}

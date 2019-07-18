@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button } from '.';
+import { Header } from './Header';
 
 export class Home extends React.Component {
   render() {
     return (
       <div className="Home">
+        <Header />
         <div className="Home-header">
           <img
             src={require('../../appearance/images/react.svg')}

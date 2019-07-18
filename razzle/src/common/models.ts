@@ -2,9 +2,7 @@ export type UserRole = 'admin' | 'general';
 
 export interface User {
   email: string;
-  firstName: string;
   id: string;
-  lastName: string;
   role: UserRole;
   username: string;
 }

@@ -1,0 +1,7 @@
+@import './variables.scss';
+
+@mixin brand {
+  color: $primary;
+  font-size: 24px;
+  font-weight: bold;
+}
