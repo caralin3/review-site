@@ -1,11 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import StoryRouter from 'storybook-react-router';
 import { Banner, SearchBar } from '../../src/client/react/components';
 
 storiesOf('Components|Banner', module)
-  .addDecorator(StoryRouter())
   .add('with text', () => (
     <Banner>
       <p className="banner__text">Review your favorite movies and tv shows.</p>

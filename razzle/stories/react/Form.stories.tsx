@@ -1,7 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import StoryRouter from 'storybook-react-router';
 import {
   Button,
   Form,
@@ -11,7 +10,6 @@ import {
 } from '../../src/client/react/components';
 
 storiesOf('Components|Form', module)
-  .addDecorator(StoryRouter())
   .add('with input fields', () => (
     <Form onSubmit={action('Submitted')}>
       <Label htmlFor="name">

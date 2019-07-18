@@ -1,11 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import StoryRouter from 'storybook-react-router';
 import { DisconnectedLayout as Layout } from '../../src/client/react/components';
 import { admin1, user1 } from '../../src/client/mock';
 
 storiesOf('Components|Layout', module)
-  .addDecorator(StoryRouter())
   .add('logged out', () => (
     <Layout>
       <div>Content</div>

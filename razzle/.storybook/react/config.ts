@@ -1,6 +1,7 @@
 import { configure, addDecorator, addParameters } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import StoryRouter from 'storybook-react-router';
 import '../../src/client/appearance/styles/index.scss';
 
 // automatically import all files ending in *.stories.tsx
@@ -10,6 +11,7 @@ function loadStories() {
 }
 
 addDecorator(withA11y);
+addDecorator(StoryRouter())
 addParameters({ viewport: { viewports: INITIAL_VIEWPORTS } });
 
 configure(loadStories, module);
