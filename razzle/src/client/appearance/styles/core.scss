@@ -11,9 +11,7 @@ a {
   color: currentColor;
   text-decoration: none;
 
-  &:hover,
-  &:active,
-  &:focus {
+  &:hover {
     cursor: pointer;
   }
 }
@@ -21,7 +19,10 @@ a {
 button {
   background: none;
   border: none;
-  outline: none;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 input,

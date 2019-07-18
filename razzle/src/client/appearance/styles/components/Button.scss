@@ -1,7 +1,60 @@
 @import './variables.scss';
 
 .btn {
+  border-radius: 2rem;
+  font-weight: bold;
+
+  &-sm {
+    font-size: 12px;
+    padding: 0.5rem 1rem;
+  }
+
+  &-md {
+    font-size: 14px;
+    padding: 1rem 1.5rem;
+  }
+
+  &-lg {
+    font-size: 16px;
+    padding: 1rem 2rem;
+  }
+
   &-primary {
-    background-color: $primary;
+    border: 1px solid $primary;
+    color: $primary;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $primary;
+      color: $white;
+      outline: $primary;
+    }
+  }
+
+  &-success {
+    border: 1px solid $success;
+    color: $success;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $success;
+      color: $white;
+      outline: $success;
+    }
+  }
+
+  &-danger {
+    border: 1px solid $danger;
+    color: $danger;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $danger;
+      color: $white;
+      outline: $danger;
+    }
   }
 }
