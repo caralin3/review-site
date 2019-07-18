@@ -3,6 +3,11 @@
 
 .header {
   display: flex;
+    padding: 0.5rem 0;
+
+  @media #{$medium} {
+    padding: 0;
+  }
 
   &__nav {
     align-items: center;
@@ -40,6 +45,7 @@
 
       &--open {
         align-items: center;
+        background-color: $white;
         display: flex;
         flex-direction: column;
         height: 100%;
@@ -61,6 +67,10 @@
 
     &-link {
       margin-bottom: 1rem;
+
+      &:first-of-type {
+        padding-top: 2rem;
+      }
 
       &:hover,
       &:focus {

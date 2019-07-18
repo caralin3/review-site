@@ -4,7 +4,14 @@
 .footer {
   align-items: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  padding: 1rem 0;
+
+  @media #{$medium} {
+    flex-direction: row;
+    padding: 0.5rem 0;
+  }
 
   &__brand {
     @include brand;
@@ -13,7 +20,7 @@
   }
 
   &__content {
-    color: $secondary;
+    color: $primary;
     flex-grow: 1;
     margin-top: 3px;
   }
