@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { Button } from '../../src/client/react/components';
 
-storiesOf('Button', module)
+storiesOf('Components|Button', module)
   .add('small', () => (
     <>
       <Button onClick={action('clicked primary')} size="sm" variant="primary">

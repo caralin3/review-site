@@ -1,19 +1,19 @@
 import React from 'react';
-import { Button, Layout } from '.';
+import { Banner, Button, Layout } from '.';
 
 export class Home extends React.Component {
   render() {
     return (
       <Layout>
         <div className="Home">
-          <div className="Home-header">
+          <Banner>
             <img
               src={require('../../appearance/images/react.svg')}
               className="Home-logo"
               alt="logo"
             />
             <h2>Welcome to Razzle</h2>
-          </div>
+          </Banner>
           <p className="Home-intro">
             To get started, edit <code>src/App.js</code> or{' '}
             <code>src/Home.js</code> and save to reload.

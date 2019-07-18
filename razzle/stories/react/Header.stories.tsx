@@ -4,7 +4,7 @@ import StoryRouter from 'storybook-react-router';
 import { Header } from '../../src/client/react/components';
 import { admin1, user1 } from '../../src/client/mock';
 
-storiesOf('Header', module)
+storiesOf('Components|Header', module)
   .addDecorator(StoryRouter())
   .add('logged out', () => <Header />)
   .add('admin user logged in', () => <Header user={admin1} />)
