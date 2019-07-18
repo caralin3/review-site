@@ -18,7 +18,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       aria-label="Search"
       value={query}
       onChange={onChange}
-      placeholder="Search for content..."
+      placeholder="Search..."
     />
     <i className="fas fa-search search__icon" onClick={onSearch} />
   </div>

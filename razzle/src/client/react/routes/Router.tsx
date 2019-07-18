@@ -19,13 +19,25 @@ export const routes = {
     name: 'Sign Up',
     path: '/register'
   },
+  movie: {
+    name: 'Movies',
+    path: '/movie/:id?'
+  },
+  show: {
+    name: 'TV Shows',
+    path: '/show/:id?'
+  },
+  search: {
+    name: 'Search',
+    path: '/search'
+  },
   editor: {
     name: 'New Item',
     path: '/editor'
   },
   profile: {
     name: 'Profile',
-    path: '/profile/:username?'
+    path: '/profile/:username'
   },
   settings: {
     name: 'Settings',

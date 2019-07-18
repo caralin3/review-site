@@ -5,3 +5,4 @@ export * from './Form';
 export * from './Header';
 export * from './Layout';
 export * from './SearchBar';
+export * from './Tabs';

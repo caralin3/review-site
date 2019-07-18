@@ -16,14 +16,18 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
 
   const generalLinks = [
     routes.home,
-    routes.settings,
+    routes.movie,
+    routes.show,
+    routes.search,
     { path: `/profile/${user && user.username}`, name: user && user.username }
   ];
 
   const adminLinks = [
     routes.home,
     routes.editor,
-    routes.settings,
+    routes.movie,
+    routes.show,
+    routes.search,
     { path: `/profile/${user && user.username}`, name: user && user.username }
   ];
 

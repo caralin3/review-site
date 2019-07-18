@@ -1,0 +1,31 @@
+@import './mixins.scss';
+@import './variables.scss';
+
+.tablist {
+  display: flex;
+  border-bottom: 1px solid $gray;
+}
+
+.tabPanel {
+  [hidden='false'] {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.tab {
+  font-size: 16px;
+  outline: none;
+  padding: 1rem;
+
+  &:focus,
+  &:hover,
+  &:active {
+    color: $primary;
+  }
+
+  &--selected {
+    border-bottom: 2px solid $primary;
+    color: $primary;
+  }
+}
