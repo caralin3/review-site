@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { routes } from '../routes';
 import { Container } from '.';
 
-export interface FooterProps { }
+export interface FooterProps {}
 
 export const Footer: React.FC<FooterProps> = () => (
   <footer className="footer">
