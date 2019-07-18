@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
-// import {
-//   HomePage
-// } from '../pages';
+import { Home } from '../pages';
 
 export interface RouteMap {
-  [route: string]: React.ComponentClass<any, any>;
+  [route: string]: any;
 }
 
 export const routes = {
@@ -36,11 +34,15 @@ export const routes = {
 };
 
 export const routeMap: RouteMap = {
-  // [routes.home]: HomePage,
+  [routes.home.path]: Home
 };
 
-export const Router = (
+export const Router = () => (
   <Switch>
-    {/* <Route exact={true} path={routes.home} component={routeMap[routes.home]} /> */}
+    <Route
+      exact={true}
+      path={routes.home.path}
+      component={routeMap[routes.home.path]}
+    />
   </Switch>
 );

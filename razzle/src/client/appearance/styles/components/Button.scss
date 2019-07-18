@@ -1,7 +1,7 @@
 @import './variables.scss';
 
 .btn {
-  border-radius: 2rem;
+  border-radius: 0.25rem;
   font-weight: bold;
 
   &-sm {
@@ -11,7 +11,7 @@
 
   &-md {
     font-size: 14px;
-    padding: 1rem 2rem;
+    padding: 0.8rem 1.8rem;
   }
 
   &-lg {
@@ -55,6 +55,15 @@
       background-color: $danger;
       color: $white;
       outline: $danger;
+    }
+  }
+
+  &-disabled {
+    border: 1px solid $gray;
+    color: $gray;
+
+    &:hover {
+      cursor: not-allowed;
     }
   }
 }

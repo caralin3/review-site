@@ -1,0 +1,27 @@
+@import './variables.scss';
+
+.search {
+  align-items: center;
+  display: flex;
+  padding-left: 1rem;
+  width: 100%;
+
+  @media #{$medium} {
+    max-width: 50rem;
+  }
+
+  &__icon {
+    border-radius: 50%;
+    font-size: 24px;
+    margin-left: 0.5rem;
+    padding: 1rem;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $accent;
+      color: $white;
+      cursor: pointer;
+    }
+  }
+}

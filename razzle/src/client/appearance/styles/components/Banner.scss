@@ -10,7 +10,7 @@
   padding: 2rem;
 
   @media #{$medium} {
-    height: 10rem;
+    max-height: 15rem;
     padding: 3rem 2rem;
   }
 

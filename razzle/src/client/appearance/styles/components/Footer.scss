@@ -3,6 +3,7 @@
 
 .footer {
   align-items: center;
+  // background-color: $primary;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,11 +17,13 @@
   &__brand {
     @include brand;
 
+    // color: $white;
     flex-grow: 1;
   }
 
   &__content {
     color: $primary;
+    // color: $white;
     flex-grow: 1;
     margin-top: 3px;
   }
