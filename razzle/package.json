@@ -15,7 +15,11 @@
     "scss:lint": "stylelint src/**/*.scss",
     "lint": "concurrently -n \"ts:lint,scss:lint\" -c \"red,green\" \"yarn run ts:lint\" \"yarn run scss:lint\"",
     "format": "concurrently -n \"ts:format,scss:format\" -c \"red,green\" \"yarn run ts:format\" \"yarn run scss:format\"",
-    "check": "yarn run format && yarn run lint"
+    "a11y:axe": "axe http://localhost:3000 --tags wcag2a,wcag2aa,best-practice --browser chrome",
+    "a11y:pa11y": "pa11y http://localhost:3000 --standard WCAG2AA",
+    "a11y": "concurrently --names \"a11y:axe,a11y:pa11y\" --prefix-colors \"blue,green\" \"yarn run a11y:axe\" \"yarn run a11y:pa11y\"",
+    "check:lint": "yarn run format && yarn run lint",
+    "check": "yarn run format && yarn run lint && yarn run a11y"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -48,12 +52,14 @@
     "@types/storybook__addon-links": "^3.3.5",
     "@types/storybook__react": "^4.0.2",
     "@types/webpack-env": "^1.14.0",
+    "axe-cli": "^3.1.0",
     "babel-loader": "^8.0.6",
     "concurrently": "^4.1.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "husky": "^3.0.0",
     "install": "^0.13.0",
+    "pa11y": "^5.2.0",
     "prettier": "^1.18.2",
     "razzle-plugin-scss": "./lib/razzle-plugin-scss",
     "razzle-plugin-typescript": "^3.0.0",

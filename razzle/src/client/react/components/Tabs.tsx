@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-export interface TabListProps { }
+export interface TabListProps {}
 
 export const TabList: React.FC<TabListProps> = ({ children }) => (
   <div className="tablist" role="tablist">
@@ -21,17 +21,17 @@ export const TabPanel: React.FC<TabPanelProps> = ({
   selected,
   tabId
 }) => (
-    <div
-      className="tabPanel"
-      role="tabpanel"
-      id={id}
-      tabIndex={0}
-      aria-labelledby={tabId}
-      hidden={selected !== tabId}
-    >
-      {children}
-    </div>
-  );
+  <div
+    className="tabPanel"
+    role="tabpanel"
+    id={id}
+    tabIndex={0}
+    aria-labelledby={tabId}
+    hidden={selected !== tabId}
+  >
+    {children}
+  </div>
+);
 
 export interface TabProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -49,18 +49,18 @@ export const Tab: React.FC<TabProps> = ({
   selected,
   ...props
 }) => (
-    <button
-      className={classNames(props.className, 'tab', {
-        'tab--selected': selected === id
-      })}
-      ref={innerRef}
-      role="tab"
-      aria-selected={selected === id}
-      aria-controls={panelId}
-      id={id}
-      tabIndex={selected === id ? 0 : -1}
-      {...props}
-    >
-      {children}
-    </button>
-  );
+  <button
+    className={classNames(props.className, 'tab', {
+      'tab--selected': selected === id
+    })}
+    ref={innerRef}
+    role="tab"
+    aria-selected={selected === id}
+    aria-controls={panelId}
+    id={id}
+    tabIndex={selected === id ? 0 : -1}
+    {...props}
+  >
+    {children}
+  </button>
+);
