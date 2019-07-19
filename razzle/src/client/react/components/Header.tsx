@@ -47,7 +47,11 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
           <ul className="header__links show-medium-flex">
             {links.map(link => (
               <li className="header__link" key={link.name}>
-                <NavLink activeClassName="header__link--active" to={link.path}>
+                <NavLink
+                  exact={true}
+                  activeClassName="header__link--active"
+                  to={link.path}
+                >
                   {link.name}
                 </NavLink>
               </li>
