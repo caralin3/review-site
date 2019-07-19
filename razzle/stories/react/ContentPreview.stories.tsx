@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { ContentPreview } from '../../src/client/react/components';
-import { movie1, show1 } from '../../src/client/mock/content';
+import { movie1, show1 } from '../../src/client/mock';
 
 storiesOf('Components|ContentPreview', module)
   .add('with movie', () => (

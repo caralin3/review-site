@@ -46,7 +46,9 @@ textarea {
     color: $primary;
   }
 
-  &:hover, &:focus, &:active {
+  &:hover,
+  &:focus,
+  &:active {
     color: $primary;
     line-height: 1.5;
     border-bottom: 2px solid $primary;

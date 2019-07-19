@@ -1,8 +1,8 @@
 import React from 'react';
-import { Content } from '../../../common';
-import { StarRating, WatchButton } from '.';
-import { routes } from '../routes';
 import { Link } from 'react-router-dom';
+import { Content } from '../../../common';
+import { routes } from '../routes';
+import { StarRating, WatchButton } from '.';
 
 export interface ContentPreviewProps {
   content: Content;
