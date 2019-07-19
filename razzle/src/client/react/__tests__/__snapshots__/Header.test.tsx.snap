@@ -1,0 +1,429 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders admin links correctly 1`] = `
+<header
+  className="header"
+>
+  <div
+    className="container header__nav"
+  >
+    <nav
+      className="header__nav"
+    >
+      <a
+        aria-current="page"
+        className="header__brand active"
+        href="/"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        reviewer
+      </a>
+      <ul
+        className="header__links show-medium-flex"
+      >
+        <li
+          className="header__link"
+        >
+          <a
+            aria-current="page"
+            className="header__link--active"
+            href="/"
+            onClick={[Function]}
+            style={Object {}}
+          >
+            Home
+          </a>
+        </li>
+        <li
+          className="header__link"
+        >
+          <a
+            aria-current={null}
+            href="/editor"
+            onClick={[Function]}
+          >
+            New Item
+          </a>
+        </li>
+        <li
+          className="header__link"
+        >
+          <a
+            aria-current={null}
+            href="/movies"
+            onClick={[Function]}
+          >
+            Movies
+          </a>
+        </li>
+        <li
+          className="header__link"
+        >
+          <a
+            aria-current={null}
+            href="/shows"
+            onClick={[Function]}
+          >
+            TV Shows
+          </a>
+        </li>
+        <li
+          className="header__link"
+        >
+          <a
+            aria-current={null}
+            href="/search"
+            onClick={[Function]}
+          >
+            Search
+          </a>
+        </li>
+        <li
+          className="header__link"
+        >
+          <a
+            aria-current={null}
+            href="/profile/admin"
+            onClick={[Function]}
+          >
+            admin
+          </a>
+        </li>
+      </ul>
+      <i
+        className="fas fa-bars header__mobile-menu show-small"
+        onClick={[Function]}
+      />
+      <ul
+        className="header__mobile-links show-small"
+      >
+        <li
+          className="header__mobile-link"
+        >
+          <a
+            aria-current="page"
+            className="header__mobile-link--active"
+            href="/"
+            onClick={[Function]}
+            style={Object {}}
+          >
+            Home
+          </a>
+        </li>
+        <li
+          className="header__mobile-link"
+        >
+          <a
+            aria-current={null}
+            href="/editor"
+            onClick={[Function]}
+          >
+            New Item
+          </a>
+        </li>
+        <li
+          className="header__mobile-link"
+        >
+          <a
+            aria-current={null}
+            href="/movies"
+            onClick={[Function]}
+          >
+            Movies
+          </a>
+        </li>
+        <li
+          className="header__mobile-link"
+        >
+          <a
+            aria-current={null}
+            href="/shows"
+            onClick={[Function]}
+          >
+            TV Shows
+          </a>
+        </li>
+        <li
+          className="header__mobile-link"
+        >
+          <a
+            aria-current={null}
+            href="/search"
+            onClick={[Function]}
+          >
+            Search
+          </a>
+        </li>
+        <li
+          className="header__mobile-link"
+        >
+          <a
+            aria-current={null}
+            href="/profile/admin"
+            onClick={[Function]}
+          >
+            admin
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+`;
+
+exports[`Header renders logged in links correctly 1`] = `
+<header
+  className="header"
+>
+  <div
+    className="container header__nav"
+  >
+    <nav
+      className="header__nav"
+    >
+      <a
+        aria-current="page"
+        className="header__brand active"
+        href="/"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        reviewer
+      </a>
+      <ul
+        className="header__links show-medium-flex"
+      >
+        <li
+          className="header__link"
+        >
+          <a
+            aria-current="page"
+            className="header__link--active"
+            href="/"
+            onClick={[Function]}
+            style={Object {}}
+          >
+            Home
+          </a>
+        </li>
+        <li
+          className="header__link"
+        >
+          <a
+            aria-current={null}
+            href="/movies"
+            onClick={[Function]}
+          >
+            Movies
+          </a>
+        </li>
+        <li
+          className="header__link"
+        >
+          <a
+            aria-current={null}
+            href="/shows"
+            onClick={[Function]}
+          >
+            TV Shows
+          </a>
+        </li>
+        <li
+          className="header__link"
+        >
+          <a
+            aria-current={null}
+            href="/search"
+            onClick={[Function]}
+          >
+            Search
+          </a>
+        </li>
+        <li
+          className="header__link"
+        >
+          <a
+            aria-current={null}
+            href="/profile/jDoe"
+            onClick={[Function]}
+          >
+            jDoe
+          </a>
+        </li>
+      </ul>
+      <i
+        className="fas fa-bars header__mobile-menu show-small"
+        onClick={[Function]}
+      />
+      <ul
+        className="header__mobile-links show-small"
+      >
+        <li
+          className="header__mobile-link"
+        >
+          <a
+            aria-current="page"
+            className="header__mobile-link--active"
+            href="/"
+            onClick={[Function]}
+            style={Object {}}
+          >
+            Home
+          </a>
+        </li>
+        <li
+          className="header__mobile-link"
+        >
+          <a
+            aria-current={null}
+            href="/movies"
+            onClick={[Function]}
+          >
+            Movies
+          </a>
+        </li>
+        <li
+          className="header__mobile-link"
+        >
+          <a
+            aria-current={null}
+            href="/shows"
+            onClick={[Function]}
+          >
+            TV Shows
+          </a>
+        </li>
+        <li
+          className="header__mobile-link"
+        >
+          <a
+            aria-current={null}
+            href="/search"
+            onClick={[Function]}
+          >
+            Search
+          </a>
+        </li>
+        <li
+          className="header__mobile-link"
+        >
+          <a
+            aria-current={null}
+            href="/profile/jDoe"
+            onClick={[Function]}
+          >
+            jDoe
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+`;
+
+exports[`Header renders logged out links correctly 1`] = `
+<header
+  className="header"
+>
+  <div
+    className="container header__nav"
+  >
+    <nav
+      className="header__nav"
+    >
+      <a
+        aria-current="page"
+        className="header__brand active"
+        href="/"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        reviewer
+      </a>
+      <ul
+        className="header__links show-medium-flex"
+      >
+        <li
+          className="header__link"
+        >
+          <a
+            aria-current="page"
+            className="header__link--active"
+            href="/"
+            onClick={[Function]}
+            style={Object {}}
+          >
+            Home
+          </a>
+        </li>
+        <li
+          className="header__link"
+        >
+          <a
+            aria-current={null}
+            href="/login"
+            onClick={[Function]}
+          >
+            Login
+          </a>
+        </li>
+        <li
+          className="header__link"
+        >
+          <a
+            aria-current={null}
+            href="/register"
+            onClick={[Function]}
+          >
+            Sign Up
+          </a>
+        </li>
+      </ul>
+      <i
+        className="fas fa-bars header__mobile-menu show-small"
+        onClick={[Function]}
+      />
+      <ul
+        className="header__mobile-links show-small"
+      >
+        <li
+          className="header__mobile-link"
+        >
+          <a
+            aria-current="page"
+            className="header__mobile-link--active"
+            href="/"
+            onClick={[Function]}
+            style={Object {}}
+          >
+            Home
+          </a>
+        </li>
+        <li
+          className="header__mobile-link"
+        >
+          <a
+            aria-current={null}
+            href="/login"
+            onClick={[Function]}
+          >
+            Login
+          </a>
+        </li>
+        <li
+          className="header__mobile-link"
+        >
+          <a
+            aria-current={null}
+            href="/register"
+            onClick={[Function]}
+          >
+            Sign Up
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+`;

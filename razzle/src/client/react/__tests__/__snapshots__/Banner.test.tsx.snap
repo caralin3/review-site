@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Banner renders correctly 1`] = `
+<div
+  className="banner"
+>
+  <i
+    className="fas fa-film banner__icon"
+  />
+  <h1
+    className="banner__brand"
+  >
+    reviewer
+  </h1>
+  <p>
+    More content
+  </p>
+</div>
+`;

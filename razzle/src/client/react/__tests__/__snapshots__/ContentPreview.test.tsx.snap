@@ -1,0 +1,523 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentPreview renders movie content correctly 1`] = `
+<div
+  className="content-preview"
+>
+  <div
+    className="show-small"
+  >
+    <div
+      className="content-preview__header"
+    >
+      <span
+        className="content-preview__title"
+      >
+        <div>
+          Harry Potter and the Chamber of Secrets
+        </div>
+      </span>
+      <div
+        className="stars"
+      >
+        <i
+          className="fas fa-star stars--active"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        />
+        <i
+          className="fas fa-star stars--active"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        />
+        <i
+          className="fas fa-star stars--active"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        />
+        <i
+          className="fas fa-star stars--active"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        />
+        <i
+          className="fas fa-star"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        />
+      </div>
+    </div>
+    <div
+      className="content-preview__details"
+    >
+      <p>
+        Movie
+      </p>
+      <p>
+        2002
+      </p>
+      <p>
+        PG
+      </p>
+      <p>
+        95
+         mins
+      </p>
+      <p
+        className="show-medium"
+      >
+        Family
+      </p>
+      <p
+        className="show-small"
+      >
+        Family
+      </p>
+    </div>
+  </div>
+  <div
+    className="content-preview__mobile show-small"
+  >
+    <img
+      alt="poster image"
+      className="content-preview__image"
+      src=""
+    />
+    <p
+      className="content-preview__synopsis"
+    >
+      As students are paralyzed, Harry and the gang must go to the chamber  of secrets to find the culprit.
+      <span
+        className="content-preview__footer-mobile"
+      >
+        Read more...
+        <button
+          className="btn btn-sm btn-primary"
+          onClick={[MockFunction]}
+        >
+          <span
+            className="show-small"
+          >
+            <span>
+              <i
+                className="fas fa-plus"
+              />
+                Watch
+               
+            </span>
+          </span>
+          <span
+            className="show-medium"
+          >
+            <span>
+              <i
+                className="fas fa-plus"
+              />
+                Add to Watch List
+               
+            </span>
+          </span>
+        </button>
+      </span>
+    </p>
+  </div>
+  <img
+    alt="poster image"
+    className="content-preview__image show-medium"
+    src=""
+  />
+  <div
+    className="content-preview__text show-medium"
+  >
+    <div>
+      <div
+        className="content-preview__header"
+      >
+        <span
+          className="content-preview__title"
+        >
+          <div>
+            Harry Potter and the Chamber of Secrets
+          </div>
+        </span>
+        <div
+          className="stars"
+        >
+          <i
+            className="fas fa-star stars--active"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          />
+          <i
+            className="fas fa-star stars--active"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          />
+          <i
+            className="fas fa-star stars--active"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          />
+          <i
+            className="fas fa-star stars--active"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          />
+          <i
+            className="fas fa-star"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          />
+        </div>
+      </div>
+      <div
+        className="content-preview__details"
+      >
+        <p>
+          Movie
+        </p>
+        <p>
+          2002
+        </p>
+        <p>
+          PG
+        </p>
+        <p>
+          95
+           mins
+        </p>
+        <p
+          className="show-medium"
+        >
+          Family
+        </p>
+        <p
+          className="show-small"
+        >
+          Family
+        </p>
+      </div>
+    </div>
+    <p
+      className="content-preview__synopsis"
+    >
+      As students are paralyzed, Harry and the gang must go to the chamber  of secrets to find the culprit.
+    </p>
+    <p
+      className="content-preview__footer"
+    >
+      <a
+        className="link"
+        href="/movies/1fb69fe3-ac0b-49ce-9daf-f3e774eb981f"
+        onClick={[Function]}
+      >
+        Read more...
+      </a>
+      <button
+        className="btn btn-sm btn-primary"
+        onClick={[MockFunction]}
+      >
+        <span
+          className="show-small"
+        >
+          <span>
+            <i
+              className="fas fa-plus"
+            />
+              Watch
+             
+          </span>
+        </span>
+        <span
+          className="show-medium"
+        >
+          <span>
+            <i
+              className="fas fa-plus"
+            />
+              Add to Watch List
+             
+          </span>
+        </span>
+      </button>
+    </p>
+  </div>
+</div>
+`;
+
+exports[`ContentPreview renders series content correctly 1`] = `
+<div
+  className="content-preview"
+>
+  <div
+    className="show-small"
+  >
+    <div
+      className="content-preview__header"
+    >
+      <span
+        className="content-preview__title"
+      >
+        <div>
+          Younger
+        </div>
+        <span
+          className="content-preview__network"
+        >
+          TV Land
+        </span>
+      </span>
+      <div
+        className="stars"
+      >
+        <i
+          className="fas fa-star stars--fill"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        />
+        <i
+          className="fas fa-star stars--fill"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        />
+        <i
+          className="fas fa-star stars--fill"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        />
+        <i
+          className="fas fa-star"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        />
+        <i
+          className="fas fa-star"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        />
+      </div>
+    </div>
+    <div
+      className="content-preview__details"
+    >
+      <p>
+        Series
+      </p>
+      <p>
+        2015-
+      </p>
+      <p>
+        TV-14
+      </p>
+      <p>
+        24
+         mins
+      </p>
+      <p
+        className="show-medium"
+      >
+        Comedy,Drama,Romance
+      </p>
+      <p
+        className="show-small"
+      >
+        Comedy,Drama
+      </p>
+    </div>
+  </div>
+  <div
+    className="content-preview__mobile show-small"
+  >
+    <img
+      alt="poster image"
+      className="content-preview__image"
+      src=""
+    />
+    <p
+      className="content-preview__synopsis"
+    >
+      A 40 year old pretends to be 26 to get back into the publishing world.    Lorem ipsum dolor sit amet, consectetur adipiscing elit,     sed do eiusmod tempor incididunt ut labo
+      ...
+      <span
+        className="content-preview__footer-mobile"
+      >
+        Read more...
+        <button
+          className="btn btn-sm btn-primary btn-primary-fill"
+          onClick={[MockFunction]}
+        >
+          <span
+            className="show-small"
+          >
+            <span>
+              <i
+                className="fas fa-minus"
+              />
+                Unwatch
+               
+            </span>
+          </span>
+          <span
+            className="show-medium"
+          >
+            <span>
+              <i
+                className="fas fa-minus"
+              />
+                Remove from Watch List
+               
+            </span>
+          </span>
+        </button>
+      </span>
+    </p>
+  </div>
+  <img
+    alt="poster image"
+    className="content-preview__image show-medium"
+    src=""
+  />
+  <div
+    className="content-preview__text show-medium"
+  >
+    <div>
+      <div
+        className="content-preview__header"
+      >
+        <span
+          className="content-preview__title"
+        >
+          <div>
+            Younger
+          </div>
+          <span
+            className="content-preview__network"
+          >
+            TV Land
+          </span>
+        </span>
+        <div
+          className="stars"
+        >
+          <i
+            className="fas fa-star stars--fill"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          />
+          <i
+            className="fas fa-star stars--fill"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          />
+          <i
+            className="fas fa-star stars--fill"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          />
+          <i
+            className="fas fa-star"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          />
+          <i
+            className="fas fa-star"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+          />
+        </div>
+      </div>
+      <div
+        className="content-preview__details"
+      >
+        <p>
+          Series
+        </p>
+        <p>
+          2015-
+        </p>
+        <p>
+          TV-14
+        </p>
+        <p>
+          24
+           mins
+        </p>
+        <p
+          className="show-medium"
+        >
+          Comedy,Drama,Romance
+        </p>
+        <p
+          className="show-small"
+        >
+          Comedy,Drama
+        </p>
+      </div>
+    </div>
+    <p
+      className="content-preview__synopsis"
+    >
+      A 40 year old pretends to be 26 to get back into the publishing world.    Lorem ipsum dolor sit amet, consectetur adipiscing elit,     sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi     ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit     in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur     sint occaec
+      ...
+    </p>
+    <p
+      className="content-preview__footer"
+    >
+      <a
+        className="link"
+        href="/shows/444f885d-f4b5-4a06-8c5b-ae0e449c1ccd"
+        onClick={[Function]}
+      >
+        Read more...
+      </a>
+      <button
+        className="btn btn-sm btn-primary btn-primary-fill"
+        onClick={[MockFunction]}
+      >
+        <span
+          className="show-small"
+        >
+          <span>
+            <i
+              className="fas fa-minus"
+            />
+              Unwatch
+             
+          </span>
+        </span>
+        <span
+          className="show-medium"
+        >
+          <span>
+            <i
+              className="fas fa-minus"
+            />
+              Remove from Watch List
+             
+          </span>
+        </span>
+      </button>
+    </p>
+  </div>
+</div>
+`;

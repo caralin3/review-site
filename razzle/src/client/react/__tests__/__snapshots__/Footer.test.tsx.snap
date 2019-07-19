@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer renders correctly 1`] = `
+<footer
+  className="footer"
+>
+  <div
+    className="container footer"
+  >
+    <a
+      aria-current="page"
+      className="footer__brand active"
+      href="/"
+      onClick={[Function]}
+      style={Object {}}
+    >
+      reviewer
+    </a>
+    <span
+      className="footer__content"
+    >
+      A sample learning project © 2019
+    </span>
+  </div>
+</footer>
+`;

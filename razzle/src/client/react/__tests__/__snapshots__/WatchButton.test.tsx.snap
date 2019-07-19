@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WatchButton renders correctly 1`] = `
+<button
+  className="btn btn-sm btn-primary"
+  onClick={[MockFunction]}
+>
+  <span
+    className="show-small"
+  >
+    <span>
+      <i
+        className="fas fa-plus"
+      />
+        Watch
+       
+    </span>
+  </span>
+  <span
+    className="show-medium"
+  >
+    <span>
+      <i
+        className="fas fa-plus"
+      />
+        Add to Watch List
+       
+    </span>
+  </span>
+</button>
+`;

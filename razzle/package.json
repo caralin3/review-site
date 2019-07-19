@@ -19,7 +19,7 @@
     "a11y:pa11y": "pa11y http://localhost:3000 --standard WCAG2AA",
     "a11y": "concurrently --names \"a11y:axe,a11y:pa11y\" --prefix-colors \"blue,green\" \"yarn run a11y:axe\" \"yarn run a11y:pa11y\"",
     "check:lint": "yarn run format && yarn run lint",
-    "check": "yarn run format && yarn run lint && yarn run a11y"
+    "check": "yarn run check:lint && yarn run a11y"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -47,6 +47,7 @@
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
     "@types/react-router-dom": "^4.3.4",
+    "@types/react-test-renderer": "^16.8.2",
     "@types/storybook-react-router": "^1.0.0",
     "@types/storybook__addon-actions": "^3.4.3",
     "@types/storybook__addon-links": "^3.3.5",
@@ -63,6 +64,7 @@
     "prettier": "^1.18.2",
     "razzle-plugin-scss": "./lib/razzle-plugin-scss",
     "razzle-plugin-typescript": "^3.0.0",
+    "react-test-renderer": "^16.8.6",
     "storybook-react-router": "^1.0.5",
     "stylelint": "^10.1.0",
     "stylelint-config-prettier": "^5.2.0",
