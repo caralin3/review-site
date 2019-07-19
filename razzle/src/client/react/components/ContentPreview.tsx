@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Content } from '../../../common';
+import { Content, User } from '../../../common';
 import { routes } from '../routes';
 import { StarRating, WatchButton } from '.';
 
@@ -8,12 +8,14 @@ export interface ContentPreviewProps {
   content: Content;
   onRate: (star: number) => void;
   onWatch: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  user?: User;
 }
 
 export const ContentPreview: React.FC<ContentPreviewProps> = ({
   content,
   onRate,
-  onWatch
+  onWatch,
+  user
 }) => {
   const titleSection = (
     <div className="content-preview__header">
@@ -63,7 +65,9 @@ export const ContentPreview: React.FC<ContentPreviewProps> = ({
           {content.synopsis.length > 175 && '...'}
           <span className="content-preview__footer-mobile">
             Read more...
-            <WatchButton watching={content.watchList} onClick={onWatch} />
+            {user && (
+              <WatchButton watching={content.watchList} onClick={onWatch} />
+            )}
           </span>
         </p>
       </div>
@@ -92,7 +96,9 @@ export const ContentPreview: React.FC<ContentPreviewProps> = ({
           >
             Read more...
           </Link>
-          <WatchButton watching={content.watchList} onClick={onWatch} />
+          {user && (
+            <WatchButton watching={content.watchList} onClick={onWatch} />
+          )}
         </p>
       </div>
     </div>

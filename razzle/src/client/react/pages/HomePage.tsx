@@ -84,11 +84,15 @@ export const DisconnectedHomePage: React.FC<HomePageProps> = ({ history }) => {
   };
 
   const handleRating = (value: number, id: string) => {
-    console.log('Rating ', value, id);
+    if (user) {
+      console.log('Rating ', value, id);
+    }
   };
 
   const handleWatch = (watching: boolean) => {
-    console.log('Watching ', watching);
+    if (user) {
+      console.log('Watching ', watching);
+    }
   };
 
   return (
@@ -152,6 +156,7 @@ export const DisconnectedHomePage: React.FC<HomePageProps> = ({ history }) => {
                       content={content}
                       onRate={val => handleRating(val, content.id)}
                       onWatch={() => handleWatch(content.watchList)}
+                      user={user}
                     />
                   </li>
                 ))}
@@ -168,6 +173,7 @@ export const DisconnectedHomePage: React.FC<HomePageProps> = ({ history }) => {
                     content={movie}
                     onRate={val => handleRating(val, movie.id)}
                     onWatch={() => handleWatch(movie.watchList)}
+                    user={user}
                   />
                 </li>
               ))}
@@ -183,6 +189,7 @@ export const DisconnectedHomePage: React.FC<HomePageProps> = ({ history }) => {
                     content={show}
                     onRate={val => handleRating(val, show.id)}
                     onWatch={() => handleWatch(show.watchList)}
+                    user={user}
                   />
                 </li>
               ))}
