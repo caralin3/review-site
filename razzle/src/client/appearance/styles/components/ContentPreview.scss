@@ -1,0 +1,108 @@
+@import './mixins.scss';
+@import './variables.scss';
+
+.content-preview {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+
+  @media #{$medium} {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__image {
+    background-color: $gray;
+    height: 15rem;
+    width: 10rem;
+
+    @media #{$medium} {
+      width: 12rem;
+    }
+  }
+
+  &__text {
+    flex: 1;
+    padding: 0 1rem;
+  }
+
+  &__header,
+  &__mobile {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__header {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  &__title {
+    display: flex;
+    max-width: 14rem;
+
+    @media #{$medium} {
+      max-width: none;
+    }
+  }
+
+  &__network {
+    background-color: rgba($gray, 0.75);
+    font-size: 12px;
+    margin: 0 0.5rem;
+    padding: 0.5rem;
+
+    @media #{$medium} {
+      margin: 0 1rem;
+    }
+  }
+
+  &__details {
+    align-items: center;
+    display: flex;
+    font-size: 12px;
+    justify-content: flex-start;
+
+    @media #{$medium} {
+      font-size: 16px;
+      padding: 0;
+    }
+
+    > p {
+      padding-right: 1rem;
+
+      &:last-of-type {
+        padding-right: 0;
+      }
+    }
+  }
+
+  &__synopsis {
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+    margin: 0;
+    padding-left: 1rem;
+
+    @media #{$medium} {
+      max-width: 50rem;
+      padding-left: 0;
+    }
+  }
+
+  &__footer {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    &-mobile {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 0 0;
+
+      > button {
+        margin-top: 1rem;
+      }
+    }
+  }
+}

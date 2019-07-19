@@ -21,11 +21,11 @@ export const routes = {
   },
   movie: {
     name: 'Movies',
-    path: '/movie/:id?'
+    path: '/movies'
   },
   show: {
     name: 'TV Shows',
-    path: '/show/:id?'
+    path: '/shows'
   },
   search: {
     name: 'Search',
@@ -37,7 +37,7 @@ export const routes = {
   },
   profile: {
     name: 'Profile',
-    path: '/profile/:username'
+    path: '/profile'
   },
   settings: {
     name: 'Settings',

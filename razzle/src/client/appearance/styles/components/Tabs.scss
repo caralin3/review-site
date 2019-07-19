@@ -11,6 +11,10 @@
     display: flex;
     flex-direction: column;
   }
+
+  &:focus {
+    outline: 1px solid $primary;
+  }
 }
 
 .tab {

@@ -1,5 +1,10 @@
 @import './variables.scss';
 
+@mixin active($color, $bgColor) {
+  background-color: $bgColor;
+  color: $color;
+}
+
 .btn {
   border-radius: 0.25rem;
   font-weight: bold;
@@ -30,6 +35,20 @@
       color: $white;
       outline: $primary;
     }
+
+    &-fill {
+      background-color: $primary;
+      color: $white;
+      outline: $primary;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: $white;
+        border: 1px solid $primary;
+        color: $primary;
+      }
+    }
   }
 
   &-success {
@@ -43,6 +62,20 @@
       color: $white;
       outline: $success;
     }
+
+    &-fill {
+      background-color: $success;
+      color: $white;
+      outline: $success;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: $white;
+        border: 1px solid $success;
+        color: $success;
+      }
+    }
   }
 
   &-danger {
@@ -55,6 +88,20 @@
       background-color: $danger;
       color: $white;
       outline: $danger;
+    }
+
+    &-fill {
+      background-color: $danger;
+      color: $white;
+      outline: $danger;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: $white;
+        border: 1px solid $danger;
+        color: $danger;
+      }
     }
   }
 

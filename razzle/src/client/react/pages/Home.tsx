@@ -6,9 +6,13 @@ import {
   SearchBar,
   Tab,
   TabList,
-  TabPanel
+  TabPanel,
+  ContentPreview
 } from '../components';
 import { user1, admin1 } from '../../mock';
+import { content } from '../../mock/content';
+import { Link } from 'react-router-dom';
+import { routes } from '../routes';
 
 export interface HomeProps {}
 
@@ -16,12 +20,18 @@ export const DisconnectedHome: React.FC<HomeProps> = () => {
   const [tab, setTab] = React.useState<'movie' | 'show' | 'watch'>('movie');
   const [query, setQuery] = React.useState('');
 
+  const user = user1;
+  const admin = admin1;
+
+  React.useEffect(() => {
+    if (user) {
+      setTab('watch');
+    }
+  }, []);
+
   const handleSearch = async () => {
     console.log('Search with ', query);
   };
-
-  const user = user1;
-  const admin = admin1;
 
   return (
     <Layout user={user}>
@@ -36,7 +46,6 @@ export const DisconnectedHome: React.FC<HomeProps> = () => {
           query={query}
         />
       </Banner>
-      {/* @TODO: Watch list reviews when logged in */}
       <Container>
         <TabList>
           {user && (
@@ -68,14 +77,64 @@ export const DisconnectedHome: React.FC<HomeProps> = () => {
         </TabList>
         {user && (
           <TabPanel selected={tab} id="watch-list" tabId="watch">
-            <p>Watch List</p>
+            <ul className="home__preview-list">
+              {content.content
+                .filter(con => con.watchList)
+                .map(content => (
+                  <li className="home__preview-item" key={content.id}>
+                    <Link
+                      to={
+                        content.type === 'Movie'
+                          ? `${routes.movie.path}/${content.id}`
+                          : `${routes.show.path}/${content.id}`
+                      }
+                    >
+                      <ContentPreview
+                        {...content}
+                        onRate={() => null}
+                        onWatch={() => null}
+                        type="Movie"
+                      />
+                    </Link>
+                  </li>
+                ))}
+            </ul>
           </TabPanel>
         )}
         <TabPanel selected={tab} id="movie-panel" tabId="movie">
-          <p>Movies</p>
+          <ul className="home__preview-list">
+            {content.content
+              .filter(con => con.type === 'Movie')
+              .map(movie => (
+                <li className="home__preview-item" key={movie.id}>
+                  <Link to={`${routes.movie.path}/${movie.id}`}>
+                    <ContentPreview
+                      {...movie}
+                      onRate={() => null}
+                      onWatch={() => null}
+                    />
+                  </Link>
+                </li>
+              ))}
+          </ul>
         </TabPanel>
         <TabPanel selected={tab} id="show-panel" tabId="show">
-          <p>TV Shows</p>
+          <ul className="home__preview-list">
+            {content.content
+              .filter(con => con.type === 'Series')
+              .map(show => (
+                <li className="home__preview-item" key={show.id}>
+                  <Link to={`${routes.show.path}/${show.id}`}>
+                    <ContentPreview
+                      {...show}
+                      onRate={() => null}
+                      onWatch={() => null}
+                      year={`${show.year}-${show.endYear ? show.endYear : ''}`}
+                    />
+                  </Link>
+                </li>
+              ))}
+          </ul>
         </TabPanel>
       </Container>
     </Layout>

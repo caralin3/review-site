@@ -23,6 +23,14 @@ storiesOf('Components|Button', module)
       >
         Disabled
       </Button>
+      <Button
+        onClick={action('clicked filled')}
+        size="sm"
+        variant="primary"
+        fill
+      >
+        Filled
+      </Button>
     </>
   ))
   .add('medium', () => (
@@ -38,6 +46,9 @@ storiesOf('Components|Button', module)
       </Button>
       <Button onClick={action('clicked success')} disabled variant="disabled">
         Disabled
+      </Button>
+      <Button onClick={action('clicked filled')} variant="success" fill>
+        Filled
       </Button>
     </>
   ))
@@ -59,6 +70,14 @@ storiesOf('Components|Button', module)
         variant="disabled"
       >
         Disabled
+      </Button>
+      <Button
+        onClick={action('clicked filled')}
+        size="lg"
+        variant="danger"
+        fill
+      >
+        Filled
       </Button>
     </>
   ));

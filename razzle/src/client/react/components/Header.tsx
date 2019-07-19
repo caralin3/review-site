@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { User } from '../../../common';
 import { routes } from '../routes';
-import { NavLink } from 'react-router-dom';
 import { Container } from '.';
 
 export interface HeaderProps {

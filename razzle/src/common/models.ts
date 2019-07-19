@@ -16,9 +16,10 @@ export interface Author {
 
 export interface Review {
   author: Author;
+  body: string; // @TODO: rich text field
+  created: string;
   id: string;
   rating: number;
-  description: string;
 }
 
 export type MPA = 'G' | 'PG' | 'PG-13' | 'TV-14' | 'TV-MA' | 'R';
@@ -33,20 +34,7 @@ export type Genre =
   | 'Romance'
   | 'Thriller';
 
-export interface Movie {
-  actors: string[];
-  director: string;
-  duration: number;
-  id: string;
-  image: string;
-  genres: Genre[];
-  mpa: MPA;
-  rating: number;
-  reviews: Review[];
-  synopsis: string;
-  title: string;
-  year: number;
-}
+export type ContentType = 'Movie' | 'Series';
 
 export interface Episode {
   id: string;
@@ -62,17 +50,23 @@ export interface Season {
   episodes: Episode[];
 }
 
-export interface Show {
+export interface Content {
   actors: string[];
-  endYear: number;
+  director: string;
+  duration: number;
+  endYear?: number;
   id: string;
   image: string;
   genres: Genre[];
   mpa: MPA;
+  myRating?: number;
+  network?: string;
   rating: number;
-  reviews: Review[];
-  seasons: Season[];
-  startYear: number;
-  synopsis: string;
+  // reviews: Review[];
+  seasons?: Season[];
+  synopsis: string; // @TODO: rich text field
   title: string;
+  watchList: boolean;
+  year: number;
+  type: ContentType;
 }

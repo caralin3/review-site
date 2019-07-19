@@ -1,0 +1,41 @@
+@import './variables.scss';
+
+.stars {
+  color: $gray;
+  font-size: 12px;
+
+  @media #{$medium} {
+    font-size: 16px;
+  }
+
+  &--active {
+    color: $star;
+  }
+
+  &--fill {
+    color: $primary;
+  }
+
+  &--hovering {
+    color: $primary;
+  }
+
+  > .fa-star {
+    margin-right: 0.3rem;
+
+    @media #{$medium} {
+      margin-right: 0.5rem;
+    }
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: $primary;
+      cursor: pointer;
+    }
+  }
+}
