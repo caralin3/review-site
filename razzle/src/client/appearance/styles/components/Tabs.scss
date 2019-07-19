@@ -13,7 +13,7 @@
   }
 
   &:focus {
-    outline: 1px solid $primary;
+    outline: solid 1px $primary;
   }
 }
 
@@ -26,6 +26,10 @@
   &:hover,
   &:active {
     color: $primary;
+  }
+
+  &:focus {
+    outline: solid 1px $primary;
   }
 
   &--selected {

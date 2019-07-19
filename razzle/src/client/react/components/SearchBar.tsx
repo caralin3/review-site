@@ -20,6 +20,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       onChange={onChange}
       placeholder="Search..."
     />
-    <i className="fas fa-search search__icon" onClick={onSearch} />
+    <i className="fas fa-search search__icon" tabIndex={0} onClick={onSearch} />
   </div>
 );

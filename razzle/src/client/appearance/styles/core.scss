@@ -35,6 +35,24 @@ textarea {
   background-color: $white;
 }
 
+.link {
+  font-weight: bold;
+
+  &:focus {
+    outline: 1px solid $primary;
+  }
+
+  &:visited {
+    color: $primary;
+  }
+
+  &:hover, &:focus, &:active {
+    color: $primary;
+    line-height: 1.5;
+    border-bottom: 2px solid $primary;
+  }
+}
+
 .show-small {
   @media #{$medium} {
     display: none !important;

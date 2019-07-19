@@ -40,6 +40,7 @@ export const TabPanel: React.FC<TabPanelProps> = ({
 export interface TabProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   id: string;
+  innerRef?: any;
   panelId: string;
   selected: string;
 }
@@ -47,6 +48,7 @@ export interface TabProps
 export const Tab: React.FC<TabProps> = ({
   children,
   id,
+  innerRef,
   panelId,
   selected,
   ...props
@@ -55,6 +57,7 @@ export const Tab: React.FC<TabProps> = ({
     className={classNames(props.className, 'tab', {
       'tab--selected': selected === id
     })}
+    ref={innerRef}
     role="tab"
     aria-selected={selected === id}
     aria-controls={panelId}

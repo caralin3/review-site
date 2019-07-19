@@ -1,58 +1,48 @@
 import React from 'react';
-import { ContentType, Genre, MPA } from '../../../common';
+import { Content } from '../../../common';
 import { StarRating, WatchButton } from '.';
+import { routes } from '../routes';
+import { Link } from 'react-router-dom';
 
 export interface ContentPreviewProps {
-  duration: number;
-  genres: Genre[];
-  image: string;
-  mpa: MPA;
-  myRating?: number;
-  network?: string;
+  content: Content;
   onRate: (star: number) => void;
   onWatch: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  rating: number;
-  synopsis: string;
-  title: string;
-  type: ContentType;
-  watchList: boolean;
-  year: number | string;
 }
 
 export const ContentPreview: React.FC<ContentPreviewProps> = ({
-  duration,
-  genres,
-  image,
-  mpa,
-  myRating,
-  network,
+  content,
   onRate,
-  onWatch,
-  rating,
-  synopsis,
-  title,
-  type,
-  watchList,
-  year
+  onWatch
 }) => {
   const titleSection = (
     <div className="content-preview__header">
       <span className="content-preview__title">
-        <div>{title}</div>
-        {network && <span className="content-preview__network">{network}</span>}
+        <div>{content.title}</div>
+        {content.network && (
+          <span className="content-preview__network">{content.network}</span>
+        )}
       </span>
-      <StarRating rating={rating} myRating={myRating} onClick={onRate} />
+      <StarRating
+        rating={content.rating}
+        myRating={content.myRating}
+        onClick={onRate}
+      />
     </div>
   );
 
   const detailsSection = (
     <div className="content-preview__details">
-      <p>{type}</p>
-      <p>{year}</p>
-      <p>{mpa}</p>
-      <p>{duration} mins</p>
-      <p className="show-medium">{genres.toString()}</p>
-      <p className="show-small">{genres.slice(0, 2).toString()}</p>
+      <p>{content.type}</p>
+      <p>
+        {content.type === 'Movie'
+          ? content.year
+          : `${content.year}-${content.endYear ? content.endYear : ''}`}
+      </p>
+      <p>{content.mpa}</p>
+      <p>{content.duration} mins</p>
+      <p className="show-medium">{content.genres.toString()}</p>
+      <p className="show-small">{content.genres.slice(0, 2).toString()}</p>
     </div>
   );
 
@@ -65,21 +55,21 @@ export const ContentPreview: React.FC<ContentPreviewProps> = ({
       <div className="content-preview__mobile show-small">
         <img
           className="content-preview__image"
-          src={image}
+          src={content.image}
           alt="poster image"
         />
         <p className="content-preview__synopsis">
-          {synopsis.substring(0, 175)}
-          {synopsis.length > 175 && '...'}
+          {content.synopsis.substring(0, 175)}
+          {content.synopsis.length > 175 && '...'}
           <span className="content-preview__footer-mobile">
             Read more...
-            <WatchButton watching={watchList} onClick={onWatch} />
+            <WatchButton watching={content.watchList} onClick={onWatch} />
           </span>
         </p>
       </div>
       <img
         className="content-preview__image show-medium"
-        src={image}
+        src={content.image}
         alt="poster image"
       />
       <div className="content-preview__text show-medium">
@@ -88,12 +78,21 @@ export const ContentPreview: React.FC<ContentPreviewProps> = ({
           {detailsSection}
         </div>
         <p className="content-preview__synopsis">
-          {synopsis.substring(0, 450)}
-          {synopsis.length > 450 && '...'}
+          {content.synopsis.substring(0, 450)}
+          {content.synopsis.length > 450 && '...'}
         </p>
         <p className="content-preview__footer">
-          Read more...
-          <WatchButton watching={watchList} onClick={onWatch} />
+          <Link
+            className="link"
+            to={
+              content.type === 'Movie'
+                ? `${routes.movie.path}/${content.id}`
+                : `${routes.show.path}/${content.id}`
+            }
+          >
+            Read more...
+          </Link>
+          <WatchButton watching={content.watchList} onClick={onWatch} />
         </p>
       </div>
     </div>
