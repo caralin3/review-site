@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { HomePage, SearchPage } from '../pages';
+import {
+  ContentPage,
+  HomePage,
+  LoginPage,
+  RegisterPage,
+  SearchPage
+} from '../pages';
 
 export interface RouteMap {
   [route: string]: any;
@@ -47,7 +53,11 @@ export const routes = {
 
 export const routeMap: RouteMap = {
   [routes.home.path]: HomePage,
-  [routes.search.path]: SearchPage
+  [routes.login.path]: LoginPage,
+  [routes.register.path]: RegisterPage,
+  [routes.search.path]: SearchPage,
+  [routes.movie.path]: ContentPage,
+  [routes.show.path]: ContentPage
 };
 
 export const Router = () => (
@@ -59,8 +69,28 @@ export const Router = () => (
     />
     <Route
       exact={true}
+      path={routes.login.path}
+      component={routeMap[routes.login.path]}
+    />
+    <Route
+      exact={true}
+      path={routes.register.path}
+      component={routeMap[routes.register.path]}
+    />
+    <Route
+      exact={true}
       path={routes.search.path}
       component={routeMap[routes.search.path]}
+    />
+    <Route
+      exact={true}
+      path={`${routes.movie.path}/:id?`}
+      component={routeMap[routes.movie.path]}
+    />
+    <Route
+      exact={true}
+      path={`${routes.show.path}/:id?`}
+      component={routeMap[routes.show.path]}
     />
   </Switch>
 );
