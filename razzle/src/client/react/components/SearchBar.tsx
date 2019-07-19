@@ -3,7 +3,7 @@ import { SearchInput } from '.';
 
 export interface SearchBarProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onSearch: (e: React.MouseEvent<HTMLElement>) => void;
+  onSearch: () => void;
   query: string;
 }
 
@@ -16,10 +16,19 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     <SearchInput
       id="search"
       aria-label="Search"
-      value={query}
       onChange={onChange}
+      defaultValue={query}
       placeholder="Search..."
     />
-    <i className="fas fa-search search__icon" tabIndex={0} onClick={onSearch} />
+    <i
+      className="fas fa-search search__icon"
+      tabIndex={0}
+      onClick={onSearch}
+      onKeyDown={e => {
+        if (e.keyCode === 13) {
+          onSearch();
+        }
+      }}
+    />
   </div>
 );

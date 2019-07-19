@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Home } from '../pages';
+import { HomePage, SearchPage } from '../pages';
 
 export interface RouteMap {
   [route: string]: any;
@@ -46,7 +46,8 @@ export const routes = {
 };
 
 export const routeMap: RouteMap = {
-  [routes.home.path]: Home
+  [routes.home.path]: HomePage,
+  [routes.search.path]: SearchPage
 };
 
 export const Router = () => (
@@ -55,6 +56,11 @@ export const Router = () => (
       exact={true}
       path={routes.home.path}
       component={routeMap[routes.home.path]}
+    />
+    <Route
+      exact={true}
+      path={routes.search.path}
+      component={routeMap[routes.search.path]}
     />
   </Switch>
 );

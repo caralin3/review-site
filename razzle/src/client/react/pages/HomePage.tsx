@@ -1,4 +1,6 @@
+import qs from 'querystring';
 import React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router';
 import {
   Banner,
   Container,
@@ -10,10 +12,11 @@ import {
   ContentPreview
 } from '../components';
 import { admin1, content, user1 } from '../../mock';
+import { routes } from '../routes';
 
-export interface HomeProps {}
+export interface HomePageProps extends RouteComponentProps<{}> {}
 
-export const DisconnectedHome: React.FC<HomeProps> = () => {
+export const DisconnectedHomePage: React.FC<HomePageProps> = ({ history }) => {
   const [tab, setTab] = React.useState<'movie' | 'show' | 'watch'>('movie');
   const [query, setQuery] = React.useState('');
   const watchTab = React.useRef(null);
@@ -76,7 +79,8 @@ export const DisconnectedHome: React.FC<HomeProps> = () => {
   };
 
   const handleSearch = () => {
-    console.log('Search with ', query);
+    const queryString = qs.stringify({ query });
+    history.push(`${routes.search.path}?${queryString}`);
   };
 
   const handleRating = (value: number, id: string) => {
@@ -90,6 +94,8 @@ export const DisconnectedHome: React.FC<HomeProps> = () => {
   return (
     <Layout user={user}>
       <Banner>
+        <i className="fas fa-film banner__icon" />
+        <h1 className="banner__brand">reviewer</h1>
         <p className="banner__text">
           Review your favorite movies and tv shows. Start looking for movies and
           shows below.
@@ -187,4 +193,4 @@ export const DisconnectedHome: React.FC<HomeProps> = () => {
   );
 };
 
-export const Home = DisconnectedHome;
+export const HomePage = withRouter(DisconnectedHomePage);
