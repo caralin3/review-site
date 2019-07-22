@@ -1,19 +1,6 @@
 @import './mixins.scss';
 @import './variables.scss';
 
-.home {
-  &__preview-list {
-    margin: 0;
-    min-height: 100vh;
-    padding: 0;
-  }
+// .home {
 
-  &__preview-item {
-    border-bottom: 1px solid $gray;
-    padding-top: 1rem;
-
-    &:last-of-type {
-      border-bottom: none;
-    }
-  }
-}
+// }

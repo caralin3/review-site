@@ -9,7 +9,8 @@ import {
   Tab,
   TabList,
   TabPanel,
-  ContentPreview
+  ContentPreview,
+  ContentPreviewList
 } from '../components';
 import { admin1, content, user1 } from '../../mock';
 import { routes } from '../routes';
@@ -147,53 +148,29 @@ export const DisconnectedHomePage: React.FC<HomePageProps> = ({ history }) => {
         </TabList>
         {user && (
           <TabPanel selected={tab} id="watch-list" tabId="watch">
-            <ul className="home__preview-list">
-              {content.content
-                .filter(con => con.watchList)
-                .map(content => (
-                  <li className="home__preview-item" key={content.id}>
-                    <ContentPreview
-                      content={content}
-                      onRate={val => handleRating(val, content.id)}
-                      onWatch={() => handleWatch(content.watchList)}
-                      user={user}
-                    />
-                  </li>
-                ))}
-            </ul>
+            <ContentPreviewList
+              contentList={content.content.filter(con => con.watchList)}
+              handleRating={handleRating}
+              handleWatch={handleWatch}
+              user={user}
+            />
           </TabPanel>
         )}
         <TabPanel selected={tab} id="movie-panel" tabId="movie">
-          <ul className="home__preview-list">
-            {content.content
-              .filter(con => con.type === 'Movie')
-              .map(movie => (
-                <li className="home__preview-item" key={movie.id}>
-                  <ContentPreview
-                    content={movie}
-                    onRate={val => handleRating(val, movie.id)}
-                    onWatch={() => handleWatch(movie.watchList)}
-                    user={user}
-                  />
-                </li>
-              ))}
-          </ul>
+          <ContentPreviewList
+            contentList={content.content.filter(con => con.type === 'Movie')}
+            handleRating={handleRating}
+            handleWatch={handleWatch}
+            user={user}
+          />
         </TabPanel>
         <TabPanel selected={tab} id="show-panel" tabId="show">
-          <ul className="home__preview-list">
-            {content.content
-              .filter(con => con.type === 'Series')
-              .map(show => (
-                <li className="home__preview-item" key={show.id}>
-                  <ContentPreview
-                    content={show}
-                    onRate={val => handleRating(val, show.id)}
-                    onWatch={() => handleWatch(show.watchList)}
-                    user={user}
-                  />
-                </li>
-              ))}
-          </ul>
+          <ContentPreviewList
+            contentList={content.content.filter(con => con.type === 'Series')}
+            handleRating={handleRating}
+            handleWatch={handleWatch}
+            user={user}
+          />
         </TabPanel>
       </Container>
     </Layout>

@@ -1,6 +1,7 @@
 export * from './Banner';
 export * from './Button';
 export * from './ContentPreview';
+export * from './ContentPreviewList';
 export * from './Footer';
 export * from './Form';
 export * from './Header';

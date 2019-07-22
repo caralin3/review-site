@@ -7,7 +7,7 @@ import { StarRating, WatchButton } from '.';
 export interface ContentPreviewProps {
   content: Content;
   onRate: (star: number) => void;
-  onWatch: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onWatch: () => void;
   user?: User;
 }
 
