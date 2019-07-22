@@ -1,0 +1,31 @@
+@import './mixins.scss';
+@import './variables.scss';
+
+.editor-page {
+  &__row {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__input {
+    @media #{$medium} {
+      flex-grow: 1;
+      // max-width: 50rem;
+      // width: 100%;
+    }
+  }
+}
+
+#movie-type,
+#tv-type {
+  // align-items: center;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  margin-right: 1rem;
+  padding: 1rem 0 0;
+  text-align: center;
+  width: 8rem;
+}

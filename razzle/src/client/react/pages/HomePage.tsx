@@ -97,7 +97,7 @@ export const DisconnectedHomePage: React.FC<HomePageProps> = ({ history }) => {
   };
 
   return (
-    <Layout user={user}>
+    <Layout user={admin}>
       <Banner>
         <i className="fas fa-film banner__icon" />
         <h1 className="banner__brand">reviewer</h1>

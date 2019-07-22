@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import {
   ContentPage,
+  EditorPage,
   HomePage,
   LoginPage,
   RegisterPage,
@@ -38,7 +39,7 @@ export const routes = {
     path: '/search'
   },
   editor: {
-    name: 'New Item',
+    name: 'Content Editor',
     path: '/editor'
   },
   profile: {
@@ -55,6 +56,7 @@ export const routeMap: RouteMap = {
   [routes.home.path]: HomePage,
   [routes.login.path]: LoginPage,
   [routes.register.path]: RegisterPage,
+  [routes.editor.path]: EditorPage,
   [routes.search.path]: SearchPage,
   [routes.movie.path]: ContentPage,
   [routes.show.path]: ContentPage
@@ -81,6 +83,11 @@ export const Router = () => (
       exact={true}
       path={routes.search.path}
       component={routeMap[routes.search.path]}
+    />
+    <Route
+      exact={true}
+      path={`${routes.editor.path}/:id?`}
+      component={routeMap[routes.editor.path]}
     />
     <Route
       exact={true}

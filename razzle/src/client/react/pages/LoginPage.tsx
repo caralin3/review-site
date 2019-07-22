@@ -52,7 +52,7 @@ export const DisconnectedLoginPage: React.FC<LoginPageProps> = ({
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: 'email' | 'password'
+    field: keyof LoginUser
   ) => {
     const value: string = e.target.value;
     setLoginUser({

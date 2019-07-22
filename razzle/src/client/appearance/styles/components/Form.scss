@@ -39,6 +39,13 @@
       }
     }
 
+    &-number {
+      @media #{$medium} {
+        max-width: none;
+        width: 5rem;
+      }
+    }
+
     &:focus {
       border: 1.5px solid $primary;
     }
