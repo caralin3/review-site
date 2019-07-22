@@ -35,8 +35,9 @@ textarea {
   background-color: $white;
 }
 
-.link {
+.cta {
   font-weight: bold;
+  line-height: 1.5;
 
   &:focus {
     outline: 1px solid $primary;
@@ -50,8 +51,19 @@ textarea {
   &:focus,
   &:active {
     color: $primary;
-    line-height: 1.5;
     border-bottom: 2px solid $primary;
+  }
+}
+
+.link {
+  &:focus {
+    outline: 1px solid $primary;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $primary;
   }
 }
 

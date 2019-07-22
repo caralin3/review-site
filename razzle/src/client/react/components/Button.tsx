@@ -24,5 +24,7 @@ export const Button: React.FC<ButtonProps> = ({
     {...props}
   >
     {children}
+    {props.disabled && '  '}
+    {props.disabled && <i className="fas fa-circle-notch fa-spin" />}
   </button>
 );

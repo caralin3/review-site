@@ -51,6 +51,16 @@ export const TextInput: React.FC<
   React.InputHTMLAttributes<HTMLInputElement>
 > = ({ ...props }) => <input className="form__input" type="text" {...props} />;
 
+export const EmailInput: React.FC<
+  React.InputHTMLAttributes<HTMLInputElement>
+> = ({ ...props }) => <input className="form__input" type="email" {...props} />;
+
+export const PasswordInput: React.FC<
+  React.InputHTMLAttributes<HTMLInputElement>
+> = ({ ...props }) => (
+  <input className="form__input" type="password" {...props} />
+);
+
 export const SearchInput: React.FC<
   React.InputHTMLAttributes<HTMLInputElement>
 > = ({ ...props }) => (

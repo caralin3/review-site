@@ -87,7 +87,7 @@ export const ContentPreview: React.FC<ContentPreviewProps> = ({
         </p>
         <p className="content-preview__footer">
           <Link
-            className="link"
+            className="cta"
             to={
               content.type === 'Movie'
                 ? `${routes.movie.path}/${content.id}`

@@ -24,7 +24,7 @@ export const DisconnectedHomePage: React.FC<HomePageProps> = ({ history }) => {
   const movieTab = React.useRef(null);
   const showTab = React.useRef(null);
 
-  const user = user1;
+  const user = undefined;
   const admin = admin1;
 
   React.useEffect(() => {

@@ -21,7 +21,7 @@ export const StarRating: React.FC<StarRatingProps> = ({
     }
     return stars;
   };
-
+  // @TODO: Prevent hover if no user
   return (
     <div className="stars">
       {stars().map(star => (

@@ -12,7 +12,12 @@ export interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ user }) => {
   const [showMenu, setShowMenu] = React.useState(false);
 
-  const nonAuthLinks = [routes.home, routes.login, routes.register];
+  const nonAuthLinks = [
+    routes.home,
+    routes.search,
+    routes.login,
+    routes.register
+  ];
 
   const generalLinks = [
     routes.home,
