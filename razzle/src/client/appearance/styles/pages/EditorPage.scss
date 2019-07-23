@@ -2,28 +2,141 @@
 @import './variables.scss';
 
 .editor-page {
-  &__row {
+  &__col {
     align-items: center;
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+    flex-direction: column;
+  }
+
+  &__row {
+    @media #{$medium} {
+      align-items: flex-start;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-around,
+    &-buttons {
+      align-items: center;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    &-around {
+      @media #{$medium} {
+        width: 50%;
+      }
+    }
+  }
+
+  &__label-left {
+    @media #{$medium} {
+      padding-right: 2rem;
+    }
   }
 
   &__input {
-    @media #{$medium} {
-      flex-grow: 1;
-      // max-width: 50rem;
-      // width: 100%;
+    width: 18rem;
+
+    @media #{$large} {
+      width: 22rem;
+    }
+  }
+
+  &__fieldset {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: 15rem;
+  }
+
+  &__checkbox {
+    color: $gray;
+    margin-right: 1rem;
+
+    &--checked {
+      color: $primary;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: $primary;
+      outline: 1px solid $primary;
+    }
+
+    &-label {
+      align-items: center;
+      flex-direction: row;
+      width: 6rem;
+
+      &:hover {
+        cursor: pointer;
+        > i {
+          color: $primary;
+        }
+      }
+    }
+  }
+
+  &__checkInput {
+    opacity: 0;
+  }
+
+  &__buttons-add {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+  }
+
+  &__header {
+    align-items: center;
+    color: $primary;
+    display: flex;
+
+    &::after {
+      border-top: 1px solid $primary;
+      content: '';
+      flex: 1;
+      margin-left: 0.5rem;
+    }
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__episode {
+    &-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      @media #{$medium} {
+        flex-direction: row;
+      }
+    }
+
+    &-list {
+      margin: 0;
+      padding: 0;
+    }
+
+    &-item {
+      border-bottom: 1px solid $gray;
+      padding-top: 1rem;
+
+      &:last-of-type {
+        border-bottom: none;
+      }
     }
   }
 }
 
 #movie-type,
 #tv-type {
-  // align-items: center;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
   margin-right: 1rem;
   padding: 1rem 0 0;
   text-align: center;

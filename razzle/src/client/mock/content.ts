@@ -1,4 +1,4 @@
-import { Content, Episode, Season } from '../../common';
+import { Content, Episode } from '../../common';
 
 export const movie1: Content = {
   actors: ['Daniel Radcliffe', 'Emma Watson', 'Rupert Grint'],
@@ -9,7 +9,6 @@ export const movie1: Content = {
   genres: ['Family'],
   mpa: 'PG',
   rating: 4,
-  // reviews: [reviewContent1, review2Content1],
   synopsis:
     'As students are paralyzed, Harry and the gang must go to the chamber\
   of secrets to find the culprit.',
@@ -34,7 +33,6 @@ export const movie2: Content = {
   genres: ['Comedy', 'Family'],
   mpa: 'PG',
   rating: 4,
-  // reviews: [reviewContent2],
   synopsis: 'A dozen children in one house.',
   title: 'Cheaper By the Dozen',
   watchList: true,
@@ -51,7 +49,6 @@ export const movie3: Content = {
   genres: ['Romance'],
   mpa: 'PG-13',
   rating: 3,
-  // reviews: [reviewContent3],
   synopsis: "She's looking for the perfect man.",
   title: 'The Perfect Man',
   watchList: false,
@@ -63,6 +60,8 @@ export const episode1: Episode = {
   id: 'b1c2094b-9e6a-43d7-8802-a25ee6bf32e8',
   date: '2015-06-03',
   duration: 22,
+  num: 1,
+  season: 1,
   synopsis: 'Liza pretends to be 26 to get a job.',
   title: 'Pilot'
 };
@@ -71,6 +70,8 @@ export const episode2: Episode = {
   id: '0cc13a19-d04d-4ed3-9602-3345e2d579db',
   date: '2015-06-10',
   duration: 24,
+  num: 2,
+  season: 1,
   synopsis: 'Liza and Kelsey must land an author.',
   title: 'Millenial'
 };
@@ -79,20 +80,15 @@ export const episode3: Episode = {
   id: 'd2f13170-a98c-48e3-9fa6-d4526152b80f',
   date: '2016-06-12',
   duration: 32,
+  num: 1,
+  season: 2,
   synopsis: "Josh know's Liza's secret.",
   title: 'The New Normal'
 };
 
-export const season1: Season = {
-  id: 'b9a98159-0a54-4322-a425-a53a825569eb',
-  num: 1,
-  episodes: [episode1, episode2]
-};
-
-export const season2: Season = {
-  id: '2e3fb849-fe1d-4f83-9e8e-e56c4e364778',
-  num: 2,
-  episodes: [episode3]
+export const episodes = {
+  episodes: [episode1, episode2, episode3],
+  contentCount: 3
 };
 
 export const show1: Content = {
@@ -106,8 +102,6 @@ export const show1: Content = {
   myRating: 3,
   network: 'TV Land',
   rating: 5,
-  // reviews: [reviewShow1],
-  seasons: [season1, season2],
   synopsis:
     'A 40 year old pretends to be 26 to get back into the publishing world.\
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, \

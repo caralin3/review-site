@@ -37,17 +37,13 @@ export type Genre =
 export type ContentType = 'Movie' | 'Series';
 
 export interface Episode {
-  id: string;
   date: string;
   duration: number;
-  synopsis: string;
-  title: string;
-}
-
-export interface Season {
   id: string;
   num: number;
-  episodes: Episode[];
+  season: number;
+  synopsis: string;
+  title: string;
 }
 
 export interface Content {
@@ -62,8 +58,6 @@ export interface Content {
   myRating?: number;
   network?: string;
   rating: number;
-  // reviews: Review[];
-  seasons?: Season[];
   synopsis: string; // @TODO: rich text field
   title: string;
   watchList: boolean;

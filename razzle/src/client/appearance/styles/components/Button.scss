@@ -36,6 +36,12 @@
       outline: $primary;
     }
 
+    &-selected {
+      background-color: $primary;
+      color: $white;
+      outline: $primary;
+    }
+
     &-fill {
       background-color: $primary;
       color: $white;
@@ -63,6 +69,12 @@
       outline: $success;
     }
 
+    &-selected {
+      background-color: $success;
+      color: $white;
+      outline: $success;
+    }
+
     &-fill {
       background-color: $success;
       color: $white;
@@ -85,6 +97,12 @@
     &:hover,
     &:focus,
     &:active {
+      background-color: $danger;
+      color: $white;
+      outline: $danger;
+    }
+
+    &-selected {
       background-color: $danger;
       color: $white;
       outline: $danger;

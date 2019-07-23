@@ -1,21 +1,33 @@
+import classNames from 'classnames';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
-import { ContentType, Genre, MPA, Season } from '../../../common';
+import { ContentType, Genre, MPA, Episode } from '../../../common';
+import { admin1 } from '../../mock';
 import {
   Button,
+  Checkbox,
   Container,
+  DateInput,
+  EpisodeItem,
   Form,
   FormValidation,
   Label,
   Layout,
   NumberInput,
   SelectInput,
-  TextInput,
-  TextArea
+  TextArea,
+  TextInput
 } from '../components';
-import { routes } from '../routes';
 import { getValidation, isValid, validateRequired } from '../utility';
+
+export interface EditorEpisode {
+  date: string;
+  duration: number;
+  num: number;
+  season: number;
+  synopsis: string;
+  title: string;
+}
 
 export interface EditorContent {
   actors: string[];
@@ -26,7 +38,6 @@ export interface EditorContent {
   genres: Genre[];
   mpa: MPA;
   network?: string;
-  seasons?: Season[];
   synopsis: string;
   title: string;
   year: number;
@@ -35,7 +46,7 @@ export interface EditorContent {
 
 export interface EditorPageProps extends RouteComponentProps<{ id?: string }> {
   // addContent: (user: EditorContent) => void;
-  // editContent: (user: EditorContent) => void;
+  // updateContent: (user: EditorContent) => void;
 }
 
 export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
@@ -43,8 +54,20 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
   match: { params }
 }) => {
   const [errors, setErrors] = React.useState<string[]>([]);
+  const [episodeErrors, setEpisodeErrors] = React.useState<string[]>([]);
   const [loading, setLoading] = React.useState(false);
   const [submit, setSubmit] = React.useState(false);
+  const [submitEp, setSubmitEp] = React.useState(false);
+  const [addingEps, setAddingEps] = React.useState(true);
+  const [episodes, setEpisodes] = React.useState<Episode[]>([]);
+  const [episode, setEpisode] = React.useState<EditorEpisode>({
+    date: '',
+    duration: 0,
+    num: 0,
+    season: 0,
+    synopsis: '',
+    title: ''
+  });
   const [editorContent, setEditorContent] = React.useState<EditorContent>({
     actors: [],
     director: '',
@@ -53,8 +76,7 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
     image: '',
     genres: [],
     mpa: 'G',
-    // network?: '',
-    // seasons?: [],
+    network: '',
     synopsis: '',
     title: '',
     year: 0,
@@ -70,6 +92,7 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
     setErrors([]);
     setLoading(false);
     setSubmit(false);
+    setSubmitEp(false);
   };
 
   const isValidForm = () => {
@@ -80,22 +103,45 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
       genres,
       mpa,
       network,
-      seasons,
       synopsis,
       title,
+      type,
       year
     } = editorContent;
-    return (
+
+    const baseFormValid =
       isValid(validateRequired(actors)) &&
       isValid(validateRequired(director)) &&
       isValid(validateRequired(duration)) &&
       isValid(validateRequired(genres)) &&
       isValid(validateRequired(mpa)) &&
-      // isValid(validateRequired(network)) &&
-      // isValid(validateRequired(seasons)) &&
       isValid(validateRequired(synopsis)) &&
       isValid(validateRequired(title)) &&
-      isValid(validateRequired(year))
+      isValid(validateRequired(year));
+
+    if (type === 'Movie') {
+      return baseFormValid;
+    }
+
+    if (!isValid(validateRequired(episodes))) {
+      setEpisodeErrors(['Must submit episodes']);
+    }
+
+    return (
+      baseFormValid &&
+      isValid(validateRequired(network)) &&
+      isValid(validateRequired(episodes))
+    );
+  };
+
+  const isValidEpisode = () => {
+    const { date, duration, season, synopsis, title } = episode;
+    return (
+      isValid(validateRequired(date)) &&
+      isValid(validateRequired(duration)) &&
+      isValid(validateRequired(season)) &&
+      isValid(validateRequired(synopsis)) &&
+      isValid(validateRequired(title))
     );
   };
 
@@ -113,15 +159,77 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
     resetForm();
   };
 
+  const handleEpisodeChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+    field: keyof Episode
+  ) => {
+    const value: string = e.target.value;
+    setEpisode({
+      ...episode,
+      [field]: value && value.trim()
+    });
+    resetForm();
+  };
+
+  // @TODO: Delete episode
+  const handleAddEpisode = async () => {
+    setSubmitEp(true);
+    if (isValidEpisode()) {
+      // @TODO: Dispatch redux action
+      // await addEpisode(episode);
+      // setEpisodes([...episodes, episode]);
+      setEpisode({
+        date: '',
+        duration: 0,
+        num: 0,
+        season: 0,
+        synopsis: '',
+        title: ''
+      });
+      resetForm();
+      setAddingEps(false);
+    }
+  };
+
+  const handleChecked = (value: Genre) => {
+    resetForm();
+    if (editorContent.genres.includes(value)) {
+      setEditorContent({
+        ...editorContent,
+        genres: editorContent.genres.filter(genre => genre !== value) || []
+      });
+    } else {
+      setEditorContent({
+        ...editorContent,
+        genres: [...editorContent.genres, value]
+      });
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>, value: Genre) => {
+    if (e.keyCode === 13) {
+      handleChecked(value);
+    }
+  };
+
   const handleSubmit = async () => {
     try {
       setSubmit(true);
       if (isValidForm()) {
         setLoading(true);
         console.log('Valid', editorContent);
+
+        if (params && params.id) {
+          // await updateContent({ ...editorContent, role });
+          history.goBack();
+          return;
+        }
+
         // @TODO: Dispatch redux action
-        // await registerUser({ ...editorContent, role });
-        history.push(routes.home.path);
+        // await addContent({ ...editorContent, role });
+        history.goBack();
       }
     } catch (err) {
       console.error(err);
@@ -145,6 +253,7 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
     { label: 'PG-13', value: 'PG-13' },
     { label: 'R', value: 'R' }
   ];
+
   const tvMpaOptions = [
     { label: 'G', value: 'G' },
     { label: 'PG', value: 'PG' },
@@ -152,31 +261,25 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
     { label: 'TV-MA', value: 'TV-MA' }
   ];
 
+  const genres: Genre[] = [
+    'Action',
+    'Comedy',
+    'Drama',
+    'Family',
+    'Horror',
+    'Musical',
+    'Romance',
+    'Thriller'
+  ];
+
   return (
-    <Layout>
+    <Layout user={admin1}>
       <Container>
         <Form classes="editor-page__form" onSubmit={handleSubmit}>
           <h1 className="form__title">Content Editor</h1>
           <Container>
+            <FormValidation submit={submit} errors={errors} valid={false} />
             <div className="editor-page__row">
-              <FormValidation submit={submit} errors={errors} valid={false} />
-              <Label htmlFor="title">
-                <FormValidation
-                  submit={submit}
-                  {...getValidation(
-                    validateRequired(editorContent.title),
-                    submit
-                  )}
-                >
-                  <p>Title</p>
-                  <TextInput
-                    classes="editor-page__input"
-                    id="title"
-                    value={editorContent.title}
-                    onChange={e => handleChange(e, 'title')}
-                  />
-                </FormValidation>
-              </Label>
               <Label htmlFor="type">
                 <FormValidation
                   submit={submit}
@@ -186,132 +289,205 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
                   )}
                 >
                   <p>Content Type</p>
-                  <div className="editor-page__input">
-                    <Button
-                      id="movie-type"
-                      type="button"
-                      onClick={() =>
-                        setEditorContent({ ...editorContent, type: 'Movie' })
-                      }
-                    >
-                      <i className="fas fa-video" />
-                      <p>Movie</p>
-                    </Button>
-                    <Button
-                      id="tv-type"
-                      type="button"
-                      onClick={() =>
-                        setEditorContent({ ...editorContent, type: 'Series' })
-                      }
-                    >
-                      <i className="fas fa-tv" />
-                      <p>TV Show</p>
-                    </Button>
+                  <div className="editor-page__row-buttons">
+                    <div className="editor-page__input">
+                      <Button
+                        id="movie-type"
+                        type="button"
+                        selected={editorContent.type === 'Movie'}
+                        onClick={() =>
+                          setEditorContent({ ...editorContent, type: 'Movie' })
+                        }
+                      >
+                        <i className="fas fa-video" />
+                        <p>Movie</p>
+                      </Button>
+                      <Button
+                        id="tv-type"
+                        type="button"
+                        selected={editorContent.type === 'Series'}
+                        onClick={() =>
+                          setEditorContent({ ...editorContent, type: 'Series' })
+                        }
+                      >
+                        <i className="fas fa-tv" />
+                        <p>TV Show</p>
+                      </Button>
+                    </div>
                   </div>
                 </FormValidation>
               </Label>
+              <div className="editor-page__row-around">
+                <Label htmlFor="year">
+                  <FormValidation
+                    submit={submit}
+                    {...getValidation(
+                      validateRequired(editorContent.year),
+                      submit
+                    )}
+                  >
+                    <p>Year</p>
+                    <NumberInput
+                      id="year"
+                      value={editorContent.year}
+                      onChange={e => handleChange(e, 'year')}
+                    />
+                  </FormValidation>
+                </Label>
+                <Label htmlFor="duration">
+                  <FormValidation
+                    submit={submit}
+                    {...getValidation(
+                      validateRequired(editorContent.duration),
+                      submit
+                    )}
+                  >
+                    <p>Duration</p>
+                    <NumberInput
+                      id="duration"
+                      value={editorContent.duration}
+                      onChange={e => handleChange(e, 'duration')}
+                    />
+                    &nbsp;&nbsp;mins
+                  </FormValidation>
+                </Label>
+              </div>
             </div>
             <div className="editor-page__row">
-              <Label htmlFor="synopsis">
-                <FormValidation
-                  submit={submit}
-                  {...getValidation(
-                    validateRequired(editorContent.synopsis),
-                    submit
-                  )}
-                >
-                  <p>Synopsis</p>
-                  <TextArea
-                    classes="editor-page__input"
-                    id="synopsis"
-                    maxLength={300}
-                    value={editorContent.synopsis}
-                    onChange={e => handleChange(e, 'synopsis')}
-                  />
-                </FormValidation>
-              </Label>
-              <Label htmlFor="image">
-                <p>Image</p>
-                <TextInput
-                  classes="editor-page__input"
-                  id="image"
-                  value={editorContent.title}
-                  onChange={e => handleChange(e, 'image')}
-                />
-              </Label>
-            </div>
-            <div className="editor-page__row">
-              <Label htmlFor="actors">
-                <FormValidation
-                  submit={submit}
-                  {...getValidation(
-                    validateRequired(editorContent.actors),
-                    submit
-                  )}
-                >
-                  <p>Actors</p>
+              <div className="editor-page__col">
+                <Label htmlFor="title" classes="editor-page__label-left">
+                  <FormValidation
+                    submit={submit}
+                    {...getValidation(
+                      validateRequired(editorContent.title),
+                      submit
+                    )}
+                  >
+                    <p>Title</p>
+                    <TextInput
+                      classes="editor-page__input"
+                      id="title"
+                      value={editorContent.title}
+                      onChange={e => handleChange(e, 'title')}
+                    />
+                  </FormValidation>
+                </Label>
+                <Label htmlFor="synopsis" classes="editor-page__label-left">
+                  <FormValidation
+                    submit={submit}
+                    {...getValidation(
+                      validateRequired(editorContent.synopsis),
+                      submit
+                    )}
+                  >
+                    <p>Synopsis</p>
+                    <TextArea
+                      classes="editor-page__input"
+                      id="synopsis"
+                      maxLength={300}
+                      value={editorContent.synopsis}
+                      onChange={e => handleChange(e, 'synopsis')}
+                    />
+                  </FormValidation>
+                </Label>
+                <Label htmlFor="image" classes="editor-page__label-left">
+                  <p>Image</p>
                   <TextInput
                     classes="editor-page__input"
-                    id="actors"
-                    value={editorContent.actors}
-                    onChange={e => handleChange(e, 'actors')}
+                    id="image"
+                    value={editorContent.image}
+                    onChange={e => handleChange(e, 'image')}
                   />
-                </FormValidation>
-              </Label>
-              <Label htmlFor="director">
+                </Label>
+              </div>
+              <div className="editor-page__col">
+                <Label htmlFor="director">
+                  <FormValidation
+                    submit={submit}
+                    {...getValidation(
+                      validateRequired(editorContent.director),
+                      submit
+                    )}
+                  >
+                    <p>
+                      {editorContent.type === 'Movie' ? 'Director' : 'Creator'}
+                    </p>
+                    <TextInput
+                      classes="editor-page__input"
+                      id="director"
+                      value={editorContent.director}
+                      onChange={e => handleChange(e, 'director')}
+                    />
+                  </FormValidation>
+                </Label>
+                <Label htmlFor="actors">
+                  <FormValidation
+                    submit={submit}
+                    {...getValidation(
+                      validateRequired(editorContent.actors),
+                      submit
+                    )}
+                  >
+                    <p>Actors</p>
+                    <TextInput
+                      classes="editor-page__input"
+                      id="actors"
+                      value={editorContent.actors}
+                      onChange={e => handleChange(e, 'actors')}
+                    />
+                  </FormValidation>
+                </Label>
+                <p className="editor-page__fieldset-title">Genres</p>
                 <FormValidation
                   submit={submit}
                   {...getValidation(
-                    validateRequired(editorContent.director),
+                    validateRequired(editorContent.genres),
                     submit
                   )}
                 >
-                  <p>
-                    {editorContent.type === 'Movie' ? 'Director' : 'Creator'}
-                  </p>
-                  <TextInput
-                    classes="editor-page__input"
-                    id="director"
-                    value={editorContent.director}
-                    onChange={e => handleChange(e, 'director')}
-                  />
+                  <div className="editor-page__fieldset" role="group">
+                    {genres.map(genre => (
+                      <Label
+                        classes="editor-page__checkbox-label"
+                        id={`${genre}-label`}
+                        htmlFor={genre}
+                        key={genre}
+                      >
+                        <i
+                          className={classNames({
+                            'editor-page__checkbox': true,
+                            'editor-page__checkbox--checked': editorContent.genres.includes(
+                              genre
+                            ),
+                            'fas fa-check-square': editorContent.genres.includes(
+                              genre
+                            ),
+                            'far fa-square': !editorContent.genres.includes(
+                              genre
+                            )
+                          })}
+                          role="checkbox"
+                          aria-labelledby={`${genre}-label`}
+                          tabIndex={0}
+                          onKeyDown={e => handleKeyDown(e, genre)}
+                        />
+                        {genre}
+                        <Checkbox
+                          className="editor-page__checkInput"
+                          id={genre}
+                          tabIndex={-1}
+                          aria-checked={editorContent.genres.includes(genre)}
+                          aria-labelledby={`${genre}-label`}
+                          checked={editorContent.genres.includes(genre)}
+                          onChange={() => handleChecked(genre)}
+                        />
+                      </Label>
+                    ))}
+                  </div>
                 </FormValidation>
-              </Label>
-              {/* @TODO: Add genres multiselect */}
+              </div>
             </div>
             <div className="editor-page__row">
-              <Label htmlFor="year">
-                <FormValidation
-                  submit={submit}
-                  {...getValidation(
-                    validateRequired(editorContent.year),
-                    submit
-                  )}
-                >
-                  <p>Year</p>
-                  <NumberInput
-                    id="year"
-                    value={editorContent.year}
-                    onChange={e => handleChange(e, 'year')}
-                  />
-                </FormValidation>
-              </Label>
-              <Label htmlFor="duration">
-                <FormValidation
-                  submit={submit}
-                  {...getValidation(
-                    validateRequired(editorContent.duration),
-                    submit
-                  )}
-                >
-                  <p>Duration</p>
-                  <NumberInput
-                    id="duration"
-                    value={editorContent.duration}
-                    onChange={e => handleChange(e, 'duration')}
-                  />
-                </FormValidation>
-              </Label>
               <Label htmlFor="mpa">
                 <FormValidation
                   submit={submit}
@@ -323,6 +499,7 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
                   <p>MPA Rating</p>
                   <SelectInput
                     id="mpa"
+                    classes="editor-page__input"
                     options={
                       editorContent.type === 'Movie'
                         ? movieMpaOptions
@@ -345,6 +522,7 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
                     <p>Network</p>
                     <TextInput
                       id="network"
+                      classes="editor-page__input"
                       value={editorContent.network}
                       onChange={e => handleChange(e, 'network')}
                     />
@@ -352,14 +530,156 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
                 </Label>
               )}
             </div>
-            <div className="editor-page__row">
-              {editorContent.type === 'Series' && (
-                <Button type="button" size="sm">
-                  <i className="fas fa-plus" />
-                  &nbsp;&nbsp;Add Seasons
-                </Button>
-              )}
-            </div>
+            {editorContent.type === 'Series' && (
+              <>
+                <h2 className="editor-page__header">Episodes</h2>
+                <section className="editor-page__section">
+                  <ul className="editor-page__episode-list">
+                    {episodes &&
+                      episodes.length > 0 &&
+                      episodes.map(ep => (
+                        <li className="editor-page__episode-item" key={ep.num}>
+                          <EpisodeItem episode={{ ...ep, id: '' }} />
+                        </li>
+                      ))}
+                  </ul>
+                  {addingEps && (
+                    <>
+                      <FormValidation
+                        submit={submit}
+                        errors={episodeErrors}
+                        valid={false}
+                      />
+                      <div className="editor-page__episode-container">
+                        <Label htmlFor="season">
+                          <FormValidation
+                            submit={submitEp || submit}
+                            {...getValidation(
+                              validateRequired(episode.season),
+                              submitEp || submit
+                            )}
+                          >
+                            <p>Season Number</p>
+                            <NumberInput
+                              id="season"
+                              value={episode.season}
+                              onChange={e => handleEpisodeChange(e, 'season')}
+                            />
+                          </FormValidation>
+                        </Label>
+                        <Label htmlFor="num">
+                          <FormValidation
+                            submit={submitEp || submit}
+                            {...getValidation(
+                              validateRequired(episode.num),
+                              submitEp || submit
+                            )}
+                          >
+                            <p>Episode Number</p>
+                            <NumberInput
+                              id="num"
+                              value={episode.num}
+                              onChange={e => handleEpisodeChange(e, 'num')}
+                            />
+                          </FormValidation>
+                        </Label>
+                        <Label htmlFor="episode-duration">
+                          <FormValidation
+                            submit={submitEp || submit}
+                            {...getValidation(
+                              validateRequired(episode.duration),
+                              submitEp || submit
+                            )}
+                          >
+                            <p>Duration</p>
+                            <NumberInput
+                              id="episode-duration"
+                              value={episode.duration}
+                              onChange={e => handleEpisodeChange(e, 'duration')}
+                            />
+                            &nbsp;&nbsp;mins
+                          </FormValidation>
+                        </Label>
+                        <Label htmlFor="episode-date">
+                          <FormValidation
+                            submit={submitEp || submit}
+                            {...getValidation(
+                              validateRequired(episode.date),
+                              submitEp || submit
+                            )}
+                          >
+                            <p>Air Date</p>
+                            <DateInput
+                              id="episode-date"
+                              value={episode.date}
+                              onChange={e => handleEpisodeChange(e, 'date')}
+                            />
+                          </FormValidation>
+                        </Label>
+                      </div>
+                      <div className="editor-page__episode-container">
+                        <Label htmlFor="episode-title">
+                          <FormValidation
+                            submit={submitEp || submit}
+                            {...getValidation(
+                              validateRequired(episode.title),
+                              submitEp || submit
+                            )}
+                          >
+                            <p>Title</p>
+                            <TextInput
+                              classes="editor-page__input"
+                              id="episode-title"
+                              value={episode.title}
+                              onChange={e => handleEpisodeChange(e, 'title')}
+                            />
+                          </FormValidation>
+                        </Label>
+                        <Label htmlFor="episode-synopsis">
+                          <FormValidation
+                            submit={submitEp || submit}
+                            {...getValidation(
+                              validateRequired(episode.synopsis),
+                              submitEp || submit
+                            )}
+                          >
+                            <p>Synopsis</p>
+                            <TextArea
+                              classes="editor-page__input"
+                              id="episode-synopsis"
+                              maxLength={300}
+                              value={episode.synopsis}
+                              onChange={e => handleEpisodeChange(e, 'synopsis')}
+                            />
+                          </FormValidation>
+                        </Label>
+                      </div>
+                      <div className="editor-page__buttons-add">
+                        <Button
+                          type="button"
+                          size="sm"
+                          onClick={handleAddEpisode}
+                        >
+                          Add Episode
+                        </Button>
+                      </div>
+                    </>
+                  )}
+                </section>
+                <div className="editor-page__buttons-add">
+                  {!addingEps && editorContent.type === 'Series' && (
+                    <Button
+                      type="button"
+                      size="sm"
+                      onClick={() => setAddingEps(true)}
+                    >
+                      <i className="fas fa-plus" />
+                      &nbsp;&nbsp;Add Another Episode
+                    </Button>
+                  )}
+                </div>
+              </>
+            )}
           </Container>
           <Button type="submit" disabled={loading}>
             Submit

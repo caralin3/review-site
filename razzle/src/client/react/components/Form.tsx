@@ -48,9 +48,13 @@ export const FormValidation: React.FC<FormValidationProps> = ({
   </div>
 );
 
-export const Label: React.FC<React.HTMLProps<HTMLLabelElement>> = ({
-  ...props
-}) => <label className="form__label" {...props} />;
+export interface LabelProps extends React.HTMLProps<HTMLLabelElement> {
+  classes?: string;
+}
+
+export const Label: React.FC<LabelProps> = ({ classes, ...props }) => (
+  <label className={`form__label ${classes}`} {...props} />
+);
 
 export interface TextInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -83,6 +87,12 @@ export const PasswordInput: React.FC<
   <input className="form__input" type="password" {...props} />
 );
 
+export const DateInput: React.FC<
+  React.InputHTMLAttributes<HTMLInputElement>
+> = ({ ...props }) => (
+  <input className="form__input form__input-date" type="date" {...props} />
+);
+
 export const SearchInput: React.FC<
   React.InputHTMLAttributes<HTMLInputElement>
 > = ({ ...props }) => (
@@ -93,6 +103,16 @@ export const NumberInput: React.FC<
   React.InputHTMLAttributes<HTMLInputElement>
 > = ({ ...props }) => (
   <input className="form__input form__input-number" type="number" {...props} />
+);
+
+export const Checkbox: React.FC<
+  React.InputHTMLAttributes<HTMLInputElement>
+> = ({ ...props }) => (
+  <input
+    className="form__input form__input-checkbox"
+    type="checkbox"
+    {...props}
+  />
 );
 
 export interface SelectInputProps

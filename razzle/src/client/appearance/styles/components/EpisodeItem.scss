@@ -1,0 +1,23 @@
+@import './mixins.scss';
+@import './variables.scss';
+
+.episode-item {
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    margin: 0;
+  }
+
+  &__row {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    > p {
+      margin: 0;
+      line-height: 1.5;
+    }
+  }
+}

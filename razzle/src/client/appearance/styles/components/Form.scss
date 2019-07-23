@@ -32,6 +32,15 @@
       width: 25rem;
     }
 
+    &-date {
+      width: 18rem;
+
+      @media #{$medium} {
+        max-width: none;
+        width: 10rem;
+      }
+    }
+
     &-search {
       @media #{$medium} {
         max-width: none;
@@ -40,6 +49,7 @@
     }
 
     &-number {
+      width: 5rem;
       @media #{$medium} {
         max-width: none;
         width: 5rem;
