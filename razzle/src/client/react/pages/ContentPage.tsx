@@ -13,7 +13,7 @@ import {
   EpisodeItem,
   ReviewEditor
 } from '../components';
-import { content as mockContent, user1, show1, episodes } from '../../mock';
+import { content as mockContent, user1, episodes } from '../../mock';
 
 export interface ContentPageProps extends RouteComponentProps<{ id?: string }> {
   allContent: {
@@ -27,7 +27,6 @@ export interface ContentPageProps extends RouteComponentProps<{ id?: string }> {
 export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
   allContent,
   currContent,
-  history,
   location,
   match: { params },
   user
@@ -66,7 +65,7 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
         <Container>
           <ContentItem
             content={curCon}
-            episodes={episodes}
+            episodes={curCon.type === 'Series' ? episodes : undefined}
             handleRating={handleRating}
             handleWatch={handleWatch}
             user={user1}
@@ -114,22 +113,24 @@ export const ContentItem: React.FC<ContentItemProps> = ({
           onWatch={() => handleWatch(content.watchList)}
         />
       </section>
-      <section>
-        <h2 className="profile-page__header">Episodes</h2>
-        <ul className="episode-item__list">
-          {episodes &&
-            episodes.episodes.length > 0 &&
-            episodes.episodes.map(ep => (
-              <li className="episode-item__list-item" key={ep.id}>
-                <EpisodeItem episode={ep} />
-              </li>
-            ))}
-        </ul>
-      </section>
+      {episodes && (
+        <section>
+          <h2 className="profile-page__header">Episodes</h2>
+          <ul className="episode-item__list">
+            {episodes.episodes.length > 0 &&
+              episodes.episodes.map(ep => (
+                <li className="episode-item__list-item" key={ep.id}>
+                  <EpisodeItem episode={ep} />
+                </li>
+              ))}
+          </ul>
+        </section>
+      )}
       <section>
         <h2 className="profile-page__header">Reviews</h2>
         <div className="profile-page__reviews">
           {user && (
+            // @TODO: Replace with correct props
             <ReviewEditor
               errors={[]}
               loading={false}
@@ -143,6 +144,9 @@ export const ContentItem: React.FC<ContentItemProps> = ({
           )}
         </div>
       </section>
+      {/* <section>
+        <h2 className="profile-page__header">Related</h2>
+      </section> */}
     </div>
   );
 };
