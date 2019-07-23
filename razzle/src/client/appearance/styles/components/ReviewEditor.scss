@@ -1,0 +1,18 @@
+@import './mixins.scss';
+@import './variables.scss';
+
+.review-editor {
+  @media #{$medium} {
+    align-items: flex-start;
+    width: 30rem;
+  }
+
+  &__rate {
+    align-items: center;
+    display: flex;
+  }
+
+  > button {
+    align-self: center;
+  }
+}

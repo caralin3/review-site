@@ -8,6 +8,8 @@ export * from './Footer';
 export * from './Form';
 export * from './Header';
 export * from './Layout';
+export * from './Review';
+export * from './ReviewEditor';
 export * from './SearchBar';
 export * from './StarRating';
 export * from './Tabs';

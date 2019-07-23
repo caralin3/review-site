@@ -35,7 +35,7 @@ export const StarRating: React.FC<StarRatingProps> = ({
           key={star}
           onMouseEnter={() => setHovering(star)}
           onMouseLeave={() => setHovering(-1)}
-          onClick={() => onClick(star)}
+          onClick={() => onClick(star + 1)}
         />
       ))}
     </div>
