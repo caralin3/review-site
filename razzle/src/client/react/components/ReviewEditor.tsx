@@ -23,35 +23,35 @@ export const ReviewEditor: React.FC<ReviewEditorProps> = ({
   review,
   submit
 }) => (
-  <Form classes="review-editor" onSubmit={onSubmit}>
-    <FormValidation submit={submit} errors={errors} valid={false} />
-    <Label>
-      <FormValidation
-        submit={submit}
-        {...getValidation(validateRequired(rating), submit)}
-      >
-        <span className="review-editor__rate">
-          <p>Rate</p>&nbsp;&nbsp;
+    <Form classes="review-editor" onSubmit={onSubmit}>
+      <Label>
+        <FormValidation
+          submit={submit}
+          {...getValidation(validateRequired(rating), submit)}
+        >
+          <span className="review-editor__rate">
+            Rate&nbsp;&nbsp;
           <StarRating rating={0} myRating={rating} onClick={onRate} />
-        </span>
-      </FormValidation>
-    </Label>
-    <Label htmlFor="review">
-      <FormValidation
-        submit={submit}
-        {...getValidation(validateRequired(review), submit)}
-      >
-        <p>Review</p>
-        <TextArea
-          id="review"
-          rows={5}
-          defaultValue={review}
-          onChange={onChange}
-        />
-      </FormValidation>
-    </Label>
-    <Button type="submit" disabled={loading}>
-      Submit
+          </span>
+        </FormValidation>
+      </Label>
+      <Label htmlFor="review">
+        <FormValidation
+          submit={submit}
+          {...getValidation(validateRequired(review), submit)}
+        >
+          <p className="review-editor__review">Review</p>
+          <TextArea
+            id="review"
+            rows={5}
+            defaultValue={review}
+            onChange={onChange}
+          />
+        </FormValidation>
+      </Label>
+      <FormValidation submit={submit} errors={errors} valid={false} />
+      <Button type="submit" disabled={loading}>
+        Submit
     </Button>
-  </Form>
-);
+    </Form>
+  );

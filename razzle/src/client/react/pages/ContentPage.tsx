@@ -10,7 +10,8 @@ import {
   TabPanel,
   ContentDetails,
   ContentPreviewList,
-  EpisodeItem
+  EpisodeItem,
+  ReviewEditor
 } from '../components';
 import { content as mockContent, user1, show1, episodes } from '../../mock';
 
@@ -68,17 +69,18 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
             episodes={episodes}
             handleRating={handleRating}
             handleWatch={handleWatch}
+            user={user1}
           />
         </Container>
       ) : (
-        <ContentList
-          allContent={mockContent} // @TODO: Replace with allContent prop
-          handleRating={handleRating}
-          handleWatch={handleWatch}
-          type={type}
-          user={user1}
-        />
-      )}
+          <ContentList
+            allContent={mockContent} // @TODO: Replace with allContent prop
+            handleRating={handleRating}
+            handleWatch={handleWatch}
+            type={type}
+            user={user1}
+          />
+        )}
     </Layout>
   );
 };
@@ -100,7 +102,8 @@ export const ContentItem: React.FC<ContentItemProps> = ({
   content,
   episodes,
   handleRating,
-  handleWatch
+  handleWatch,
+  user
 }) => {
   return (
     <div className="profile-page">
@@ -125,6 +128,18 @@ export const ContentItem: React.FC<ContentItemProps> = ({
       </section>
       <section>
         <h2 className="profile-page__header">Reviews</h2>
+        <div className="profile-page__reviews">
+          {user && (<ReviewEditor
+            errors={[]}
+            loading={false}
+            onChange={() => null}
+            onRate={val => null}
+            onSubmit={() => null}
+            rating={0}
+            review=""
+            submit={false}
+          />)}
+        </div>
       </section>
     </div>
   );
