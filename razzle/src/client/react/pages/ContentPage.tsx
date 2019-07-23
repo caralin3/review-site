@@ -8,10 +8,9 @@ import {
   Tab,
   TabList,
   TabPanel,
-  ContentPreview,
+  ContentDetails,
   ContentPreviewList,
-  EpisodeItem,
-  ContentDetails
+  EpisodeItem
 } from '../components';
 import { content as mockContent, user1, show1, episodes } from '../../mock';
 

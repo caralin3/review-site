@@ -19,11 +19,11 @@ export const ContentDetails: React.FC<ContentDetailsProps> = ({
   user = user1
 }) => {
   const titleSection = (
-    <div className="content-preview__header">
-      <span className="content-preview__title">
+    <div className="content__header">
+      <span className="content__title">
         <div>{content.title}</div>
         {content.network && (
-          <span className="content-preview__network">{content.network}</span>
+          <span className="content__network">{content.network}</span>
         )}
       </span>
       <StarRating
@@ -35,7 +35,7 @@ export const ContentDetails: React.FC<ContentDetailsProps> = ({
   );
 
   const detailsSection = (
-    <div className="content-preview__details">
+    <div className="content__details">
       <p>{content.type}</p>
       <p>
         {content.type === 'Movie'
@@ -73,21 +73,21 @@ export const ContentDetails: React.FC<ContentDetailsProps> = ({
   );
 
   return (
-    <div className="content-preview">
+    <div className="content">
       <div className="show-small">
         {titleSection}
         {detailsSection}
       </div>
-      <div className="content-preview__mobile show-small">
+      <div className="content__mobile show-small">
         <img
-          className="content-preview__image"
+          className="content__image"
           src={content.image}
           alt="poster image"
         />
-        <p className="content-preview__synopsis">
+        <p className="content__synopsis">
           {content.synopsis && content.synopsis.substring(0, 175)}
           {content.synopsis && content.synopsis.length > 175 && '...'}
-          <span className="content-preview__footer-mobile">
+          <span className="content__footer-mobile">
             {user && (
               <WatchButton watching={content.watchList} onClick={onWatch} />
             )}
@@ -96,21 +96,21 @@ export const ContentDetails: React.FC<ContentDetailsProps> = ({
       </div>
       <div className="show-small">{peopleSection}</div>
       <img
-        className="content-preview__image show-medium"
+        className="content__image show-medium"
         src={content.image}
         alt="poster image"
       />
-      <div className="content-preview__text show-medium">
+      <div className="content__text show-medium">
         <div>
           {titleSection}
           {detailsSection}
         </div>
-        <p className="content-preview__synopsis">
+        <p className="content__synopsis">
           {content.synopsis && content.synopsis.substring(0, 450)}
           {content.synopsis && content.synopsis.length > 450 && '...'}
         </p>
         {peopleSection}
-        <p className="content-preview__footer">
+        <p className="content__footer">
           {user && (
             <WatchButton watching={content.watchList} onClick={onWatch} />
           )}

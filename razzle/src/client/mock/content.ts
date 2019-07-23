@@ -93,7 +93,7 @@ export const episodes = {
 
 export const show1: Content = {
   actors: ['Sutton Foster', 'Hilary Duff', 'Miriam Shor', 'Peter Herman'],
-  director: 'Dan',
+  director: 'Darren Starr',
   duration: 24,
   id: '444f885d-f4b5-4a06-8c5b-ae0e449c1ccd',
   image: '',

@@ -15,9 +15,9 @@ export const ContentPreviewList: React.FC<ContentPreviewListProps> = ({
   handleWatch,
   user
 }) => (
-  <ul className="content-preview__list">
+  <ul className="content__list">
     {contentList.map(content => (
-      <li className="content-preview__item" key={content.id}>
+      <li className="content__item" key={content.id}>
         <ContentPreview
           content={content}
           onRate={val => handleRating(val, content.id)}
