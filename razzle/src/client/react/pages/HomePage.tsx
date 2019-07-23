@@ -9,7 +9,6 @@ import {
   Tab,
   TabList,
   TabPanel,
-  ContentPreview,
   ContentPreviewList
 } from '../components';
 import { admin1, content, user1 } from '../../mock';

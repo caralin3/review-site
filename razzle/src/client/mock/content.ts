@@ -88,7 +88,7 @@ export const episode3: Episode = {
 
 export const episodes = {
   episodes: [episode1, episode2, episode3],
-  contentCount: 3
+  episodesCount: 3
 };
 
 export const show1: Content = {

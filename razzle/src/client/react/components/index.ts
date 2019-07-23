@@ -1,5 +1,6 @@
 export * from './Banner';
 export * from './Button';
+export * from './ContentDetails';
 export * from './ContentPreview';
 export * from './ContentPreviewList';
 export * from './EpisodeItem';

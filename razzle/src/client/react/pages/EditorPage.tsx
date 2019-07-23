@@ -534,11 +534,11 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
               <>
                 <h2 className="editor-page__header">Episodes</h2>
                 <section className="editor-page__section">
-                  <ul className="editor-page__episode-list">
+                  <ul className="episode-item__list">
                     {episodes &&
                       episodes.length > 0 &&
                       episodes.map(ep => (
-                        <li className="editor-page__episode-item" key={ep.num}>
+                        <li className="episode-item__list-item" key={ep.num}>
                           <EpisodeItem episode={{ ...ep, id: '' }} />
                         </li>
                       ))}

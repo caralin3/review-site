@@ -20,4 +20,18 @@
       line-height: 1.5;
     }
   }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+
+    &-item {
+      border-bottom: 1px solid $gray;
+      padding-top: 1rem;
+
+      &:last-of-type {
+        border-bottom: none;
+      }
+    }
+  }
 }

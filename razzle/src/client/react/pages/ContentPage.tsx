@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { Content, User, ContentType } from '../../../common';
+import { Content, User, ContentType, Episode } from '../../../common';
 import {
   Banner,
   Container,
@@ -9,9 +9,11 @@ import {
   TabList,
   TabPanel,
   ContentPreview,
-  ContentPreviewList
+  ContentPreviewList,
+  EpisodeItem,
+  ContentDetails
 } from '../components';
-import { content, user1 } from '../../mock';
+import { content as mockContent, user1, show1, episodes } from '../../mock';
 
 export interface ContentPageProps extends RouteComponentProps<{ id?: string }> {
   allContent: {
@@ -27,18 +29,24 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
   currContent,
   history,
   location,
-  match,
+  match: { params },
   user
 }) => {
+  const [curCon, setCurCon] = React.useState<Content>({} as Content);
   const [type, setType] = React.useState<ContentType>('Movie');
 
   React.useEffect(() => {
+    if (params && params.id) {
+      // loadContent(params.id);
+      const [con] = mockContent.content.filter(con => con.id === params.id);
+      setCurCon(con);
+    }
     if (location.pathname.includes('movies')) {
       setType('Movie');
     } else if (location.pathname.includes('shows')) {
       setType('Series');
     }
-  }, [location.pathname, match.params.id]);
+  }, [location.pathname, params.id]);
 
   const handleRating = (value: number, id: string) => {
     if (user) {
@@ -54,11 +62,18 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
 
   return (
     <Layout user={user1}>
-      {match.params.id ? (
-        <Container>content for {match.params.id}</Container>
+      {params.id ? (
+        <Container>
+          <ContentItem
+            content={curCon}
+            episodes={episodes}
+            handleRating={handleRating}
+            handleWatch={handleWatch}
+          />
+        </Container>
       ) : (
         <ContentList
-          allContent={content} // @TODO: Replace with allContent prop
+          allContent={mockContent} // @TODO: Replace with allContent prop
           handleRating={handleRating}
           handleWatch={handleWatch}
           type={type}
@@ -70,6 +85,51 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
 };
 
 export const ContentPage = withRouter(DisconnectedContentPage);
+
+export interface ContentItemProps {
+  content: Content;
+  episodes?: {
+    episodes: Episode[];
+    episodesCount: number;
+  };
+  handleRating: (value: number, id: string) => void;
+  handleWatch: (watching: boolean) => void;
+  user?: User;
+}
+
+export const ContentItem: React.FC<ContentItemProps> = ({
+  content,
+  episodes,
+  handleRating,
+  handleWatch
+}) => {
+  return (
+    <div className="profile-page">
+      <section>
+        <ContentDetails
+          content={content}
+          onRate={val => handleRating(val, content.id)}
+          onWatch={() => handleWatch(content.watchList)}
+        />
+      </section>
+      <section>
+        <h2 className="profile-page__header">Episodes</h2>
+        <ul className="episode-item__list">
+          {episodes &&
+            episodes.episodes.length > 0 &&
+            episodes.episodes.map(ep => (
+              <li className="episode-item__list-item" key={ep.id}>
+                <EpisodeItem episode={ep} />
+              </li>
+            ))}
+        </ul>
+      </section>
+      <section>
+        <h2 className="profile-page__header">Reviews</h2>
+      </section>
+    </div>
+  );
+};
 
 export interface ContentListProps {
   allContent: {

@@ -5,6 +5,7 @@ import {
   EditorPage,
   HomePage,
   LoginPage,
+  ProfilePage,
   RegisterPage,
   SearchPage
 } from '../pages';
@@ -57,6 +58,7 @@ export const routeMap: RouteMap = {
   [routes.login.path]: LoginPage,
   [routes.register.path]: RegisterPage,
   [routes.editor.path]: EditorPage,
+  [routes.profile.path]: ProfilePage,
   [routes.search.path]: SearchPage,
   [routes.movie.path]: ContentPage,
   [routes.show.path]: ContentPage
@@ -88,6 +90,11 @@ export const Router = () => (
       exact={true}
       path={`${routes.editor.path}/:id?`}
       component={routeMap[routes.editor.path]}
+    />
+    <Route
+      exact={true}
+      path={`${routes.profile.path}/:id`}
+      component={routeMap[routes.profile.path]}
     />
     <Route
       exact={true}

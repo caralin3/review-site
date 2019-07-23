@@ -22,6 +22,7 @@ export const StarRating: React.FC<StarRatingProps> = ({
     return stars;
   };
   // @TODO: Prevent hover if no user
+  // @TODO: Add keyboard
   return (
     <div className="stars">
       {stars().map(star => (
