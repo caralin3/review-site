@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import { UserRole } from '../../../common';
+import { UserRole, RegisterUser } from '../../../common';
 import {
   Button,
   Container,
@@ -22,13 +22,6 @@ import {
   validatePassword
 } from '../utility';
 
-export interface NewUser {
-  email: string;
-  password: string;
-  role: UserRole;
-  username: string;
-}
-
 export interface RegisterPageProps extends RouteComponentProps {
   // registerUser: (user: NewUser) => void;
 }
@@ -40,7 +33,7 @@ export const DisconnectedRegisterPage: React.FC<RegisterPageProps> = ({
   const [loading, setLoading] = React.useState(false);
   const [submit, setSubmit] = React.useState(false);
   const [confirmPass, setConfirmPass] = React.useState('');
-  const [newUser, setNewUser] = React.useState<NewUser>({
+  const [newUser, setNewUser] = React.useState<RegisterUser>({
     email: '',
     password: '',
     role: 'general',

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { ContentType, Genre, MPA, Episode } from '../../../common';
+import { Genre, Episode, NewContent } from '../../../common';
 import { admin1 } from '../../mock';
 import {
   Button,
@@ -29,21 +29,6 @@ export interface EditorEpisode {
   title: string;
 }
 
-export interface EditorContent {
-  actors: string[];
-  director: string;
-  duration: number;
-  endYear?: number;
-  image: string;
-  genres: Genre[];
-  mpa: MPA;
-  network?: string;
-  synopsis: string;
-  title: string;
-  year: number;
-  type: ContentType;
-}
-
 export interface EditorPageProps extends RouteComponentProps<{ id?: string }> {
   // addContent: (user: EditorContent) => void;
   // updateContent: (user: EditorContent) => void;
@@ -68,7 +53,7 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
     synopsis: '',
     title: ''
   });
-  const [editorContent, setEditorContent] = React.useState<EditorContent>({
+  const [editorContent, setEditorContent] = React.useState<NewContent>({
     actors: [],
     director: '',
     duration: 0,
@@ -149,7 +134,7 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >,
-    field: keyof EditorContent
+    field: keyof NewContent
   ) => {
     const value: string = e.target.value;
     setEditorContent({

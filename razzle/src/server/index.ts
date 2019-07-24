@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import config from '../client/config';
-// import { createRoutes } from './routes';
+import { createRoutes } from './routes';
 import * as reactWeb from './react-website';
 
 const server = express()
@@ -9,7 +9,7 @@ const server = express()
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR!))
   .use(bodyParser.json());
 
-// createRoutes(server);
+createRoutes(server);
 
 // if (config.frontend === 'vue') {
 //   server.get('*', vueWeb.render);

@@ -2,7 +2,9 @@ export type UserRole = 'admin' | 'general';
 
 export interface User {
   email: string;
-  id: string;
+  bio: string;
+  image: string;
+  token: string;
   role: UserRole;
   username: string;
 }

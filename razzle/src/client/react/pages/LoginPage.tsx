@@ -1,6 +1,7 @@
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+import { LoginUser } from '../../../common';
 import {
   Button,
   Container,
@@ -18,11 +19,6 @@ import {
   validateEmail,
   validatePassword
 } from '../utility';
-
-export interface LoginUser {
-  email: string;
-  password: string;
-}
 
 export interface LoginPageProps extends RouteComponentProps {
   // loginUser: (user: LoginUser) => void;
