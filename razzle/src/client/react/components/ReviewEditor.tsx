@@ -1,6 +1,7 @@
 import React from 'react';
 import { getValidation, validateRequired } from '../utility';
 import { Button, Form, FormValidation, Label, StarRating, TextArea } from '.';
+import { User } from '../../../common';
 
 export interface ReviewEditorProps {
   errors: string[];
@@ -11,6 +12,7 @@ export interface ReviewEditorProps {
   rating: number;
   review: string;
   submit: boolean;
+  user?: User;
 }
 
 export const ReviewEditor: React.FC<ReviewEditorProps> = ({
@@ -21,37 +23,43 @@ export const ReviewEditor: React.FC<ReviewEditorProps> = ({
   onSubmit,
   rating,
   review,
-  submit
+  submit,
+  user
 }) => (
   <Form classes="review-editor" onSubmit={onSubmit}>
-    <Label>
-      <FormValidation
-        submit={submit}
-        {...getValidation(validateRequired(rating), submit)}
-      >
-        <span className="review-editor__rate">
-          Rate&nbsp;&nbsp;
-          <StarRating rating={0} myRating={rating} onClick={onRate} />
-        </span>
-      </FormValidation>
-    </Label>
     <Label htmlFor="review">
       <FormValidation
         submit={submit}
         {...getValidation(validateRequired(review), submit)}
       >
         <p className="review-editor__review">Review</p>
+        <FormValidation submit={submit} errors={errors} valid={false} />
+        {errors && errors.length > 0 && <br />}
         <TextArea
+          classes="review-editor__input"
           id="review"
+          placeholder="Write a review..."
           rows={5}
           defaultValue={review}
           onChange={onChange}
         />
       </FormValidation>
     </Label>
-    <FormValidation submit={submit} errors={errors} valid={false} />
-    <Button type="submit" disabled={loading}>
-      Submit
-    </Button>
+    <div className="review-editor__footer">
+      <Label>
+        <span className="review-editor__rate">
+          Rate&nbsp;&nbsp;
+          <StarRating
+            rating={0}
+            myRating={rating}
+            onClick={onRate}
+            user={user}
+          />
+        </span>
+      </Label>
+      <Button type="submit" disabled={loading} size="sm">
+        Submit
+      </Button>
+    </div>
   </Form>
 );

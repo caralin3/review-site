@@ -4,16 +4,22 @@ import { Content, User, ContentType, Episode } from '../../../common';
 import {
   Banner,
   Container,
-  Layout,
-  Tab,
-  TabList,
-  TabPanel,
   ContentDetails,
   ContentPreviewList,
   EpisodeItem,
-  ReviewEditor
+  Layout,
+  Review,
+  ReviewEditor,
+  Tab,
+  TabList,
+  TabPanel
 } from '../components';
-import { content as mockContent, user1, episodes } from '../../mock';
+import {
+  content as mockContent,
+  user1,
+  episodes,
+  reviewMovie1
+} from '../../mock';
 
 export interface ContentPageProps extends RouteComponentProps<{ id?: string }> {
   allContent: {
@@ -48,14 +54,18 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
   }, [location.pathname, params.id]);
 
   const handleRating = (value: number, id: string) => {
-    if (user) {
-      console.log('Rating ', value, id);
-    }
+    console.log('Rating ', value, id);
   };
 
   const handleWatch = (watching: boolean) => {
     if (user) {
       console.log('Watching ', watching);
+    }
+  };
+
+  const handleDelete = (id: string) => {
+    if (user) {
+      console.log('Delete ', id);
     }
   };
 
@@ -66,6 +76,7 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
           <ContentItem
             content={curCon}
             episodes={curCon.type === 'Series' ? episodes : undefined}
+            handleDelete={handleDelete}
             handleRating={handleRating}
             handleWatch={handleWatch}
             user={user1}
@@ -93,6 +104,7 @@ export interface ContentItemProps {
     episodesCount: number;
   };
   handleRating: (value: number, id: string) => void;
+  handleDelete: (id: string) => void;
   handleWatch: (watching: boolean) => void;
   user?: User;
 }
@@ -100,12 +112,13 @@ export interface ContentItemProps {
 export const ContentItem: React.FC<ContentItemProps> = ({
   content,
   episodes,
+  handleDelete,
   handleRating,
   handleWatch,
   user
 }) => {
   return (
-    <div className="profile-page">
+    <div className="content-page">
       <section>
         <ContentDetails
           content={content}
@@ -115,7 +128,7 @@ export const ContentItem: React.FC<ContentItemProps> = ({
       </section>
       {episodes && (
         <section>
-          <h2 className="profile-page__header">Episodes</h2>
+          <h2 className="content-page__header">Episodes</h2>
           <ul className="episode-item__list">
             {episodes.episodes.length > 0 &&
               episodes.episodes.map(ep => (
@@ -127,8 +140,8 @@ export const ContentItem: React.FC<ContentItemProps> = ({
         </section>
       )}
       <section>
-        <h2 className="profile-page__header">Reviews</h2>
-        <div className="profile-page__reviews">
+        <h2 className="content-page__header">Reviews</h2>
+        <div className="content-page__reviews">
           {user && (
             // @TODO: Replace with correct props
             <ReviewEditor
@@ -140,12 +153,35 @@ export const ContentItem: React.FC<ContentItemProps> = ({
               rating={0}
               review=""
               submit={false}
+              user={user1}
             />
           )}
+          <ul className="content-page__reviews-list">
+            <li className="content-page__reviews-item">
+              <Review
+                date={reviewMovie1.created}
+                onDelete={() => handleDelete(reviewMovie1.id)}
+                rating={4}
+                review={reviewMovie1.body}
+                user={user1}
+                username={reviewMovie1.author.username}
+              />
+            </li>
+            <li className="content-page__reviews-item">
+              <Review
+                date={reviewMovie1.created}
+                onDelete={() => handleDelete(reviewMovie1.id)}
+                rating={4}
+                review={reviewMovie1.body}
+                user={user1}
+                username={reviewMovie1.author.username}
+              />
+            </li>
+          </ul>
         </div>
       </section>
       {/* <section>
-        <h2 className="profile-page__header">Related</h2>
+        <h2 className="content-page__header">Related</h2>
       </section> */}
     </div>
   );

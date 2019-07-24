@@ -47,9 +47,7 @@ export const DisconnectedProfilePage: React.FC<ProfilePageProps> = ({
   };
 
   const handleRating = (value: number, id: string) => {
-    if (user) {
-      console.log('Rating ', value, id);
-    }
+    console.log('Rating ', value, id);
   };
 
   const handleWatch = (watching: boolean) => {

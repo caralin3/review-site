@@ -20,6 +20,28 @@
     color: $primary;
   }
 
+  &--enabled {
+    &:hover,
+    &:focus,
+    &:active {
+      color: $primary;
+      cursor: pointer;
+    }
+
+    &:focus {
+      outline-color: $primary;
+    }
+  }
+
+  &--disabled {
+    &:hover,
+    &:focus,
+    &:active {
+      cursor: default;
+      outline: none;
+    }
+  }
+
   > .fa-star {
     margin-right: 0.3rem;
 
@@ -29,13 +51,6 @@
 
     &:last-of-type {
       margin-right: 0;
-    }
-
-    &:hover,
-    &:focus,
-    &:active {
-      color: $primary;
-      cursor: pointer;
     }
   }
 }

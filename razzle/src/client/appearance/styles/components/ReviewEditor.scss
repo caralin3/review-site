@@ -17,8 +17,27 @@
     margin-top: 0;
   }
 
+  &__input {
+    width: 18rem;
+
+    @media #{$medium} {
+      max-width: none;
+      width: 40rem;
+    }
+  }
+
+  > label {
+    padding: 0;
+  }
+
   > button {
-    align-self: center;
     margin-top: 0;
+  }
+
+  &__footer {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
 }

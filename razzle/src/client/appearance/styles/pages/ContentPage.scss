@@ -1,7 +1,7 @@
 @import './mixins.scss';
 @import './variables.scss';
 
-.profile-page {
+.content-page {
   &__header {
     align-items: center;
     color: $primary;
@@ -24,5 +24,17 @@
     align-items: center;
     display: flex;
     flex-direction: column;
+
+    &-list {
+      padding: 2rem 0;
+    }
+
+    &-item {
+      padding-bottom: 2rem;
+
+      &:last-of-type {
+        padding-bottom: 0;
+      }
+    }
   }
 }

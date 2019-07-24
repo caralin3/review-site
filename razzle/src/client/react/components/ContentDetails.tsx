@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Content, User } from '../../../common';
-import { routes } from '../routes';
 import { StarRating, WatchButton } from '.';
 import { user1 } from '../../mock';
 
@@ -30,6 +28,7 @@ export const ContentDetails: React.FC<ContentDetailsProps> = ({
         rating={content.rating}
         myRating={content.myRating}
         onClick={onRate}
+        user={user}
       />
     </div>
   );

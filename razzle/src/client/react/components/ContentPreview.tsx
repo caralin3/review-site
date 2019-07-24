@@ -29,6 +29,7 @@ export const ContentPreview: React.FC<ContentPreviewProps> = ({
         rating={content.rating}
         myRating={content.myRating}
         onClick={onRate}
+        user={user}
       />
     </div>
   );

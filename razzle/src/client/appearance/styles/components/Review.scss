@@ -1,6 +1,52 @@
 @import './mixins.scss';
 @import './variables.scss';
 
-// .review {
+.review {
+  border: 1px solid $gray;
+  border-radius: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  width: 18rem;
 
-// }
+  @media #{$medium} {
+    width: 40rem;
+  }
+
+  &__body {
+    padding: 0 1rem;
+  }
+
+  &__footer {
+    align-items: center;
+    background-color: $light;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0.5rem 0 1rem;
+
+    &-username {
+      color: $primary;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:focus {
+        outline-color: $primary;
+      }
+    }
+
+    &-delete {
+      margin-left: 1rem;
+
+      &:hover,
+      &:focus {
+        color: $primary;
+        cursor: pointer;
+      }
+
+      &:focus {
+        outline-color: $primary;
+      }
+    }
+  }
+}
