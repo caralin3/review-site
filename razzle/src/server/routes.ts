@@ -16,12 +16,12 @@ export const routes = {
   contentItem: `${base_url}/content/:id`,
   episodes: `${base_url}/episodes`,
   episode: `${base_url}/episodes/:id`,
-  review: `${base_url}/content/:id/review/:id`,
+  review: `${base_url}/content/:id/reviews/:reviewId`,
   reviews: `${base_url}/content/:id/reviews`,
   rating: `${base_url}/content/:id/rating`,
-  watchlist: `${base_url}/profiles/:username/watchlist`,
+  watchlist: `${base_url}/content/:id/watchlist`,
   login: `${base_url}/users/login`,
-  profile: `${base_url}/profiles/:username`,
+  profile: `${base_url}/users/profile/:username`,
   registration: `${base_url}/users`,
   user: `${base_url}/user`
 };
@@ -67,19 +67,19 @@ export const postRoutes: RouteDictionary = {
   },
   [routes.registration]: {
     endpoint: endpoints.createUser
-  }
+  },
   // [routes.reviews]: {
   //   endpoint: endpoints.getCurrentUser,
   //   auth: 'required'
   // },
-  // [routes.rating]: {
-  //   endpoint: endpoints.getCurrentUser,
-  //   auth: 'required'
-  // },
-  // [routes.watchlist]: {
-  //   endpoint: endpoints.getCurrentUser,
-  //   auth: 'required'
-  // }
+  [routes.rating]: {
+    endpoint: endpoints.addRating,
+    auth: 'required'
+  },
+  [routes.watchlist]: {
+    endpoint: endpoints.addToWatchList,
+    auth: 'required'
+  }
 };
 
 export const putRoutes: RouteDictionary = {
@@ -91,10 +91,10 @@ export const putRoutes: RouteDictionary = {
     endpoint: endpoints.updateEpisode,
     auth: 'required'
   },
-  // [routes.rating]: {
-  //   endpoint: endpoints.getCurrentUser,
-  //   auth: 'required'
-  // },
+  [routes.rating]: {
+    endpoint: endpoints.updateRating,
+    auth: 'required'
+  },
   // [routes.review]: {
   //   endpoint: endpoints.getCurrentUser,
   //   auth: 'required'
@@ -113,15 +113,15 @@ export const deleteRoutes: RouteDictionary = {
   [routes.episode]: {
     endpoint: endpoints.deleteEpisode,
     auth: 'required'
-  }
+  },
   // [routes.review]: {
   //   endpoint: endpoints.getCurrentUser,
   //   auth: 'required'
   // },
-  // [routes.watchlist]: {
-  //   endpoint: endpoints.getCurrentUser,
-  //   auth: 'required'
-  // }
+  [routes.watchlist]: {
+    endpoint: endpoints.deleteFromWatchList,
+    auth: 'required'
+  }
 };
 
 export function createRoutes(server: Application) {

@@ -40,27 +40,28 @@ export async function createEpisode(
 
   const currentUser = getAuthUser(req);
   if (currentUser) {
-    if (currentUser.role === 'admin') {
-      const episodes = getEpisodeCollection();
-      const newEpisode: Episode = {
-        ...episode,
-        id: uuidv4()
-      };
-      const dbEpisode = episodes.insertOne(newEpisode);
-
-      if (dbEpisode) {
-        const response: SingleEpisodeResponse = {
-          episode: dbEpisode
-        };
-        res.status(status.CREATED).send(response);
-        return;
-      }
-      res
-        .status(status.UNPROCESSABLE)
-        .json({ episode: ['could not be created'] });
+    if (currentUser.role !== 'admin') {
+      res.status(status.FORBIDDEN).json({ user: ['does not have permission'] });
       return;
     }
-    res.status(status.FORBIDDEN).json({ user: ['does not have permission'] });
+    const episodes = getEpisodeCollection();
+    const newEpisode: Episode = {
+      ...episode,
+      id: uuidv4()
+    };
+    const dbEpisode = episodes.insertOne(newEpisode);
+
+    if (dbEpisode) {
+      const response: SingleEpisodeResponse = {
+        episode: dbEpisode
+      };
+      res.status(status.CREATED).send(response);
+      return;
+    }
+    res
+      .status(status.UNPROCESSABLE)
+      .json({ episode: ['could not be created'] });
+    return;
   }
 }
 
@@ -168,45 +169,46 @@ export async function updateEpisode(
   }
   const currentUser = getAuthUser(req);
   if (currentUser) {
-    if (currentUser.role === 'admin') {
-      const { episode } = req.body as UpdateEpisodeRequest;
-      if (!episode) {
-        const bodyErrors: ErrorResponse = {
-          episode: ['post body is undefined']
-        };
-        res.status(status.BAD_REQUEST).json(bodyErrors);
-        return;
-      }
-
-      const dbEpisode = getDbEpisode('id', req.params.id);
-
-      if (!dbEpisode) {
-        const bodyErrors: ErrorResponse = {
-          episode: [`with ${req.params.id} not found`]
-        };
-        res.status(status.UNPROCESSABLE).json(bodyErrors);
-        return;
-      }
-
-      const episodes = getEpisodeCollection();
-      const { date, duration, num, season, synopsis, title } = episode;
-
-      const changedEpisode: Episode = {
-        ...dbEpisode,
-        date: date || dbEpisode.date,
-        duration: duration || dbEpisode.duration,
-        num: num || dbEpisode.num,
-        season: season || dbEpisode.season,
-        synopsis: synopsis || dbEpisode.synopsis,
-        title: title || dbEpisode.title
-      };
-      const updatedEpisode = episodes.update(changedEpisode);
-
-      const response: SingleEpisodeResponse = { episode: updatedEpisode };
-      res.send(response);
+    if (currentUser.role !== 'admin') {
+      res.status(status.FORBIDDEN).json({ user: ['does not have permission'] });
       return;
     }
-    res.status(status.FORBIDDEN).json({ user: ['does not have permission'] });
+    const { episode } = req.body as UpdateEpisodeRequest;
+    if (!episode) {
+      const bodyErrors: ErrorResponse = {
+        episode: ['post body is undefined']
+      };
+      res.status(status.BAD_REQUEST).json(bodyErrors);
+      return;
+    }
+
+    const dbEpisode = getDbEpisode('id', req.params.id);
+
+    if (!dbEpisode) {
+      const bodyErrors: ErrorResponse = {
+        episode: [`with ${req.params.id} not found`]
+      };
+      res.status(status.UNPROCESSABLE).json(bodyErrors);
+      return;
+    }
+
+    const episodes = getEpisodeCollection();
+    const { date, duration, num, season, synopsis, title } = episode;
+
+    const changedEpisode: Episode = {
+      ...dbEpisode,
+      date: date || dbEpisode.date,
+      duration: duration || dbEpisode.duration,
+      num: num || dbEpisode.num,
+      season: season || dbEpisode.season,
+      synopsis: synopsis || dbEpisode.synopsis,
+      title: title || dbEpisode.title
+    };
+    const updatedEpisode = episodes.update(changedEpisode);
+
+    const response: SingleEpisodeResponse = { episode: updatedEpisode };
+    res.send(response);
+    return;
   }
 }
 
@@ -229,29 +231,30 @@ export async function deleteEpisode(
   }
   const currentUser = getAuthUser(req);
   if (currentUser) {
-    if (currentUser.role === 'admin') {
-      const dbEpisode = getDbEpisode('id', req.params.id);
-
-      if (!dbEpisode) {
-        const error: ErrorResponse = {
-          episode: [`with ${req.params.id} not found`]
-        };
-        res.status(status.UNPROCESSABLE).json(error);
-        return;
-      }
-      const episodes = getEpisodeCollection();
-      const deletedEpisode = episodes.remove(dbEpisode);
-      if (deletedEpisode) {
-        const response = { id: deletedEpisode.id };
-        res.send(response);
-        return;
-      }
-      const deleteError: ErrorResponse = {
-        episode: [`with ${req.params.id} could not be deleted`]
-      };
-      res.status(status.UNPROCESSABLE).json(deleteError);
+    if (currentUser.role !== 'admin') {
+      res.status(status.FORBIDDEN).json({ user: ['does not have permission'] });
       return;
     }
-    res.status(status.FORBIDDEN).json({ user: ['does not have permission'] });
+    const dbEpisode = getDbEpisode('id', req.params.id);
+
+    if (!dbEpisode) {
+      const error: ErrorResponse = {
+        episode: [`with ${req.params.id} not found`]
+      };
+      res.status(status.UNPROCESSABLE).json(error);
+      return;
+    }
+    const episodes = getEpisodeCollection();
+    const deletedEpisode = episodes.remove(dbEpisode);
+    if (deletedEpisode) {
+      const response = { id: deletedEpisode.id };
+      res.send(response);
+      return;
+    }
+    const deleteError: ErrorResponse = {
+      episode: [`with ${req.params.id} could not be deleted`]
+    };
+    res.status(status.UNPROCESSABLE).json(deleteError);
+    return;
   }
 }
