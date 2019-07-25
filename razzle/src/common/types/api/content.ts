@@ -14,7 +14,7 @@ export interface NewContent {
   actors: string[];
   director: string;
   duration: number;
-  // endYear?: number;
+  endYear?: number;
   image: string;
   genres: Genre[];
   mpa: MPA;
@@ -33,7 +33,7 @@ export interface UpdateContent {
   actors?: string[];
   director?: string;
   duration?: number;
-  // endYear?: number;
+  endYear?: number;
   image?: string;
   genres?: Genre[];
   mpa?: MPA;

@@ -62,7 +62,7 @@ export interface Content {
   rating: number;
   synopsis: string; // @TODO: rich text field
   title: string;
+  type: ContentType;
   watchList: boolean;
   year: number;
-  type: ContentType;
 }

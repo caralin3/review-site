@@ -27,14 +27,14 @@ export const routes = {
 };
 
 export const getRoutes: RouteDictionary = {
-  // [routes.content]: {
-  //   endpoint: endpoints.getCurrentUser,
-  //   auth: 'optional'
-  // },
-  // [routes.contentItem]: {
-  //   endpoint: endpoints.getCurrentUser,
-  //   auth: 'optional'
-  // },
+  [routes.content]: {
+    endpoint: endpoints.getContent,
+    auth: 'optional'
+  },
+  [routes.contentItem]: {
+    endpoint: endpoints.getContentItem,
+    auth: 'optional'
+  },
   [routes.episodes]: {
     endpoint: endpoints.getEpisodesBySeason,
     auth: 'optional'
@@ -54,10 +54,10 @@ export const getRoutes: RouteDictionary = {
 };
 
 export const postRoutes: RouteDictionary = {
-  // [routes.content]: {
-  //   endpoint: endpoints.getCurrentUser,
-  //   auth: 'required'
-  // },
+  [routes.content]: {
+    endpoint: endpoints.createContent,
+    auth: 'required'
+  },
   [routes.episodes]: {
     endpoint: endpoints.createEpisode,
     auth: 'required'
@@ -83,10 +83,10 @@ export const postRoutes: RouteDictionary = {
 };
 
 export const putRoutes: RouteDictionary = {
-  // [routes.contentItem]: {
-  //   endpoint: endpoints.getCurrentUser,
-  //   auth: 'required'
-  // },
+  [routes.contentItem]: {
+    endpoint: endpoints.updateContent,
+    auth: 'required'
+  },
   [routes.episode]: {
     endpoint: endpoints.updateEpisode,
     auth: 'required'
@@ -106,10 +106,10 @@ export const putRoutes: RouteDictionary = {
 };
 
 export const deleteRoutes: RouteDictionary = {
-  // [routes.contentItem]: {
-  //   endpoint: endpoints.getCurrentUser,
-  //   auth: 'required'
-  // },
+  [routes.contentItem]: {
+    endpoint: endpoints.deleteContent,
+    auth: 'required'
+  },
   [routes.episode]: {
     endpoint: endpoints.deleteEpisode,
     auth: 'required'
