@@ -1,13 +1,13 @@
-import { Author } from '../../common';
+import { Profile } from '../../common';
 
-export const author1: Author = {
+export const profile1: Profile = {
   bio: 'Movie Lover',
   email: 'jDoe@email.com',
   image: '',
   username: 'jDoe'
 };
 
-export const author2: Author = {
+export const profile2: Profile = {
   bio: '',
   email: 'jane@email.com',
   image: '',

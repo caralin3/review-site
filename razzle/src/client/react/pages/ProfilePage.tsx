@@ -9,7 +9,7 @@ import {
   TabPanel,
   ContentPreviewList
 } from '../components';
-import { admin1, content, user1, author1 } from '../../mock';
+import { admin1, content, user1, profile1 } from '../../mock';
 import { routes } from '../routes';
 
 export interface ProfilePageProps
@@ -56,14 +56,14 @@ export const DisconnectedProfilePage: React.FC<ProfilePageProps> = ({
     }
   };
 
-  const author = author1;
+  const profile = profile1;
 
   return (
     <Layout user={admin}>
       <Banner>
-        <img src={author.image} alt={`${author.username}`} />
-        <h1 className="banner__brand">{author.username}</h1>
-        <p className="banner__text">{author.bio}</p>
+        <img src={profile.image} alt={`${profile.username}`} />
+        <h1 className="banner__brand">{profile.username}</h1>
+        <p className="banner__text">{profile.bio}</p>
       </Banner>
       <Container>
         <TabList>

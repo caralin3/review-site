@@ -72,7 +72,7 @@ export const episode2: Episode = {
   duration: 24,
   num: 2,
   season: 1,
-  synopsis: 'Liza and Kelsey must land an author.',
+  synopsis: 'Liza and Kelsey must land an profile.',
   title: 'Millenial'
 };
 

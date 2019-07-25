@@ -21,7 +21,7 @@ export const routes = {
   rating: `${base_url}/content/:id/rating`,
   watchlist: `${base_url}/content/:id/watchlist`,
   login: `${base_url}/users/login`,
-  profile: `${base_url}/users/profile/:username`,
+  profile: `${base_url}/user/profile/:username`,
   registration: `${base_url}/users`,
   user: `${base_url}/user`
 };
@@ -41,6 +41,10 @@ export const getRoutes: RouteDictionary = {
   },
   [routes.episode]: {
     endpoint: endpoints.getEpisode,
+    auth: 'optional'
+  },
+  [routes.profile]: {
+    endpoint: endpoints.getUserProfile,
     auth: 'optional'
   },
   // [routes.reviews]: {

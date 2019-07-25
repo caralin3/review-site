@@ -1,4 +1,4 @@
-import { Author, User, UserRole } from '..';
+import { Profile, User, UserRole } from '..';
 
 export interface UserResponse {
   user: User;
@@ -41,5 +41,5 @@ export interface ProfileRequest {
 }
 
 export interface ProfileResponse {
-  profile: Author;
+  profile: Profile;
 }

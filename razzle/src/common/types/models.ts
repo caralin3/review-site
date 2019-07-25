@@ -9,7 +9,7 @@ export interface User {
   username: string;
 }
 
-export interface Author {
+export interface Profile {
   bio: string;
   email: string;
   image: string;
@@ -17,7 +17,7 @@ export interface Author {
 }
 
 export interface Review {
-  author: Author;
+  author: Profile;
   body: string; // @TODO: rich text field
   created: string;
   id: string;

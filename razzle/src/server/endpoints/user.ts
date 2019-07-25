@@ -2,6 +2,8 @@ import express from 'express';
 import uuidv4 from 'uuid/v4';
 import {
   LoginUserRequest,
+  ProfileRequest,
+  ProfileResponse,
   RegisterUser,
   RegisterUserRequest,
   UpdateUser,
@@ -11,7 +13,7 @@ import {
 import { createToken, getAuthUser, getTokenFromHeader } from '../auth';
 import { User, getUserCollection, getDbUser } from '../database';
 import { status, ErrorResponse } from '../types';
-import { formatUser } from '../utility';
+import { formatUser, formatProfile } from '../utility';
 
 function getUserErrors(user: RegisterUser | UpdateUser, currentUser?: User) {
   const users = getUserCollection();
@@ -234,4 +236,37 @@ export async function updateCurrentUser(
     });
     return;
   }
+}
+
+/**
+ * @summary Get user profile.
+ * @method GET
+ * @authorization Optional
+ * @url /api/v1/user/profile/:username
+ */
+export async function getUserProfile(
+  req: express.Request,
+  res: express.Response
+) {
+  if (!req.params || !req.params.username) {
+    const reqErrors: ErrorResponse = {
+      profile: ['username not provided']
+    };
+    res.status(status.BAD_REQUEST).json(reqErrors);
+    return;
+  }
+
+  const { username } = req.params as ProfileRequest;
+
+  const user = getDbUser('username', username);
+  if (!user) {
+    res.status(status.NOT_FOUND).json({
+      profile: ['not found']
+    });
+    return;
+  }
+  const response: ProfileResponse = {
+    profile: formatProfile(user)
+  };
+  res.send(response);
 }

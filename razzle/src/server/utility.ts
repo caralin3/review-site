@@ -1,4 +1,12 @@
-import { Content, ContentType, Genre, MPA, User, UserRole } from '../common';
+import {
+  Content,
+  ContentType,
+  Genre,
+  MPA,
+  Profile,
+  User,
+  UserRole
+} from '../common';
 import {
   Content as DbContent,
   User as DbUser,
@@ -11,6 +19,13 @@ export const formatUser = (user: DbUser, token: string): User => ({
   email: user.email,
   image: user.image,
   role: user.role as UserRole,
+  username: user.username
+});
+
+export const formatProfile = (user: DbUser): Profile => ({
+  bio: user.bio,
+  email: user.email,
+  image: user.image,
   username: user.username
 });
 

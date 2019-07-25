@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { Review } from '../../src/client/react/components';
-import { author1, author2, reviewMovie1, user1 } from '../../src/client/mock';
+import { profile1, profile2, reviewMovie1, user1 } from '../../src/client/mock';
 
 storiesOf('Components|Review', module)
   .add('with other user', () => (
@@ -12,7 +12,7 @@ storiesOf('Components|Review', module)
       rating={4}
       review={reviewMovie1.body}
       user={user1}
-      username={author2.username}
+      username={profile2.username}
     />
   ))
   .add('with current user', () => (
@@ -22,6 +22,6 @@ storiesOf('Components|Review', module)
       rating={4}
       review={reviewMovie1.body}
       user={user1}
-      username={author1.username}
+      username={profile1.username}
     />
   ));
