@@ -73,12 +73,10 @@ export async function login(req: express.Request, res: express.Response) {
   }
 
   const storedUser = getDbUser('email', loginUser.email);
-  console.log(storedUser);
 
   if (storedUser) {
     if (loginUser.password === storedUser.password) {
       const dbUser = getDbUser('email', loginUser.email);
-      console.log(dbUser);
 
       if (dbUser) {
         const token: string = createToken(dbUser.id);
@@ -126,6 +124,7 @@ export async function createUser(req: express.Request, res: express.Response) {
 
   const duplicate = errors.email || errors.username;
 
+  // @TODO: Hash password
   if (!duplicate) {
     const dbUser = users.insertOne({
       bio: '',
@@ -134,7 +133,7 @@ export async function createUser(req: express.Request, res: express.Response) {
       password: newUser.password,
       image: '',
       ratings: [],
-      role: '',
+      role: newUser.role,
       watchList: [],
       username: newUser.username
     });

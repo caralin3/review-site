@@ -60,8 +60,7 @@
       "synopsis": "As students are paralyzed, Harry and the gang must go to the chamber of secrets to find the culprit.",
       "title": "Harry Potter and the Chamber of Secrets",
       "year": 2002,
-      "type": "Movie",
-      "userId": "f950a032-8110-4ff0-8e60-fe57c45b6481"
+      "type": "Movie"
     },
     {
       "id": "816697dc-345f-4d2f-9a3c-ce4a88de6f0d",
@@ -84,8 +83,7 @@
       "synopsis": "A dozen children in one house.",
       "title": "Cheaper By the Dozen",
       "year": 2001,
-      "type": "Movie",
-      "userId": "f950a032-8110-4ff0-8e60-fe57c45b6481"
+      "type": "Movie"
     },
     {
       "id": "2aeb26b0-334e-43a4-bc39-0abb157d77f6",
@@ -104,8 +102,7 @@
       "synopsis": "She's looking for the perfect man.",
       "title": "The Perfect Man",
       "year": 2003,
-      "type": "Movie",
-      "userId": "f950a032-8110-4ff0-8e60-fe57c45b6481"
+      "type": "Movie"
     },
     {
       "id": "1fb69fe3-ac0b-49ce-9daf-f3e774eb981f",
@@ -125,8 +122,7 @@
       "synopsis": "As students are paralyzed, Harry and the gang must go to the chamber of secrets to find the culprit.",
       "title": "Harry Potter and the Chamber of Secrets",
       "year": 2002,
-      "type": "Movie",
-      "userId": "f950a032-8110-4ff0-8e60-fe57c45b6481"
+      "type": "Movie"
     },
     {
       "id": "444f885d-f4b5-4a06-8c5b-ae0e449c1ccd",
@@ -149,8 +145,7 @@
       "synopsis": "A 40 year old pretends to be 26 to get back into the publishing world. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
       "title": "Younger",
       "year": 2015,
-      "type": "Series",
-      "userId": "f950a032-8110-4ff0-8e60-fe57c45b6481"
+      "type": "Series"
     }
   ],
   "episodes": [

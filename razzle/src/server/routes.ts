@@ -2,6 +2,8 @@ import { Application, RequestHandler } from 'express';
 import * as auth from './auth';
 import * as endpoints from './endpoints';
 
+const base_url = '/api/v1';
+
 export interface RouteDictionary {
   [route: string]: {
     endpoint: RequestHandler;
@@ -10,16 +12,18 @@ export interface RouteDictionary {
 }
 
 export const routes = {
-  content: '/api/v1/content',
-  contentItem: '/api/v1/contentItem/:id',
-  review: '/api/v1/contentItem/:id/review/:id',
-  reviews: '/api/v1/contentItem/:id/reviews',
-  rating: '/api/v1/contentItem/:id/rating',
-  watchlist: '/api/v1/profiles/:username/watchlist',
-  login: '/api/v1/users/login',
-  profile: '/api/v1/profiles/:username',
-  registration: '/api/v1/users',
-  user: '/api/v1/user'
+  content: `${base_url}/content`,
+  contentItem: `${base_url}/content/:id`,
+  episodes: `${base_url}/episodes`,
+  episode: `${base_url}/episodes/:id`,
+  review: `${base_url}/content/:id/review/:id`,
+  reviews: `${base_url}/content/:id/reviews`,
+  rating: `${base_url}/content/:id/rating`,
+  watchlist: `${base_url}/profiles/:username/watchlist`,
+  login: `${base_url}/users/login`,
+  profile: `${base_url}/profiles/:username`,
+  registration: `${base_url}/users`,
+  user: `${base_url}/user`
 };
 
 export const getRoutes: RouteDictionary = {
@@ -31,6 +35,14 @@ export const getRoutes: RouteDictionary = {
   //   endpoint: endpoints.getCurrentUser,
   //   auth: 'optional'
   // },
+  [routes.episodes]: {
+    endpoint: endpoints.getEpisodesBySeason,
+    auth: 'optional'
+  },
+  [routes.episode]: {
+    endpoint: endpoints.getEpisode,
+    auth: 'optional'
+  },
   // [routes.reviews]: {
   //   endpoint: endpoints.getCurrentUser,
   //   auth: 'optional'
@@ -46,6 +58,10 @@ export const postRoutes: RouteDictionary = {
   //   endpoint: endpoints.getCurrentUser,
   //   auth: 'required'
   // },
+  [routes.episodes]: {
+    endpoint: endpoints.createEpisode,
+    auth: 'required'
+  },
   [routes.login]: {
     endpoint: endpoints.login
   },
@@ -71,6 +87,10 @@ export const putRoutes: RouteDictionary = {
   //   endpoint: endpoints.getCurrentUser,
   //   auth: 'required'
   // },
+  [routes.episode]: {
+    endpoint: endpoints.updateEpisode,
+    auth: 'required'
+  },
   // [routes.rating]: {
   //   endpoint: endpoints.getCurrentUser,
   //   auth: 'required'
@@ -90,6 +110,10 @@ export const deleteRoutes: RouteDictionary = {
   //   endpoint: endpoints.getCurrentUser,
   //   auth: 'required'
   // },
+  [routes.episode]: {
+    endpoint: endpoints.deleteEpisode,
+    auth: 'required'
+  }
   // [routes.review]: {
   //   endpoint: endpoints.getCurrentUser,
   //   auth: 'required'
