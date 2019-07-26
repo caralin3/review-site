@@ -3,14 +3,12 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import {
   Banner,
   Container,
-  Layout,
   Tab,
   TabList,
   TabPanel,
   ContentPreviewList
 } from '../components';
-import { admin1, content, user1, profile1 } from '../../mock';
-import { routes } from '../routes';
+import { content, profile1 } from '../../mock';
 
 export interface ProfilePageProps
   extends RouteComponentProps<{ username: string }> {}
@@ -23,7 +21,6 @@ export const DisconnectedProfilePage: React.FC<ProfilePageProps> = ({
   const reviewedTab = React.useRef(null);
 
   const user = undefined;
-  const admin = admin1;
 
   React.useEffect(() => {
     // loadProfile(params.username);
@@ -59,7 +56,7 @@ export const DisconnectedProfilePage: React.FC<ProfilePageProps> = ({
   const profile = profile1;
 
   return (
-    <Layout user={admin}>
+    <div>
       <Banner>
         <img src={profile.image} alt={`${profile.username}`} />
         <h1 className="banner__brand">{profile.username}</h1>
@@ -106,7 +103,7 @@ export const DisconnectedProfilePage: React.FC<ProfilePageProps> = ({
           />
         </TabPanel>
       </Container>
-    </Layout>
+    </div>
   );
 };
 

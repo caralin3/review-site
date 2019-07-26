@@ -7,7 +7,6 @@ import {
   ContentDetails,
   ContentPreviewList,
   EpisodeItem,
-  Layout,
   Review,
   ReviewEditor,
   Tab,
@@ -70,7 +69,7 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
   };
 
   return (
-    <Layout user={user1}>
+    <div>
       {params.id ? (
         <Container>
           <ContentItem
@@ -91,7 +90,7 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
           user={user1}
         />
       )}
-    </Layout>
+    </div>
   );
 };
 

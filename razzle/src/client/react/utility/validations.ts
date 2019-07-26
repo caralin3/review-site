@@ -20,6 +20,17 @@ export const isValid = (validation: Validation[]) => {
   return true;
 };
 
+export const getApiErrors = (res: any) => {
+  const apiErrors = res.data;
+  const formErrors: string[] = [];
+  Object.keys(apiErrors).forEach(key => {
+    if (apiErrors) {
+      formErrors.push(`${key} ${apiErrors[key]}`);
+    }
+  });
+  return formErrors;
+};
+
 // A validation to validate arbitrary length
 export const minLength = (value: any, length: number, message?: string) => ({
   valid: (value || '').length >= length,

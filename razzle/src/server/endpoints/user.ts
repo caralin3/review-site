@@ -150,7 +150,7 @@ export async function createUser(req: express.Request, res: express.Response) {
   }
 
   return res.status(status.UNPROCESSABLE).json({
-    errors
+    ...errors
   });
 }
 

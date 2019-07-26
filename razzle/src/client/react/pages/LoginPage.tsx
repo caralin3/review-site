@@ -1,6 +1,8 @@
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { LoginUser } from '../../../common';
 import {
   Button,
@@ -8,12 +10,13 @@ import {
   EmailInput,
   Form,
   FormValidation,
-  Layout,
   PasswordInput,
   Label
 } from '../components';
 import { routes } from '../routes';
+import * as userState from '../store/user';
 import {
+  getApiErrors,
   getValidation,
   isValid,
   validateEmail,
@@ -21,11 +24,12 @@ import {
 } from '../utility';
 
 export interface LoginPageProps extends RouteComponentProps {
-  // loginUser: (user: LoginUser) => void;
+  login: (user: LoginUser) => void;
 }
 
 export const DisconnectedLoginPage: React.FC<LoginPageProps> = ({
-  history
+  history,
+  login
 }) => {
   const [errors, setErrors] = React.useState<string[]>([]);
   const [loading, setLoading] = React.useState(false);
@@ -63,69 +67,72 @@ export const DisconnectedLoginPage: React.FC<LoginPageProps> = ({
       setSubmit(true);
       if (isValidForm()) {
         setLoading(true);
-        console.log('Valid', loginUser);
-        // @TODO: Dispatch redux action
-        // await loginUser(loginUser);
+        await login(loginUser);
+        setLoading(false);
         history.push(routes.home.path);
       }
     } catch (err) {
-      console.error(err);
       if (err.response) {
-        const apiErrors = err.response.data.errors;
-        const formErrors: string[] = [];
-        Object.keys(apiErrors).forEach(key => {
-          if (apiErrors) {
-            formErrors.push(`${key} ${apiErrors[key]}`);
-          }
-        });
+        const formErrors = getApiErrors(err.response);
         setErrors(formErrors);
       }
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
-    <Layout>
-      <Container>
-        <Form onSubmit={handleSubmit}>
-          <h1 className="form__title">Sign Up</h1>
-          <Link className="link" to={routes.register.path}>
-            Already have an account?
-          </Link>
-          <FormValidation submit={submit} errors={errors} valid={false} />
-          <Label htmlFor="email">
-            <FormValidation
-              submit={submit}
-              {...getValidation(emailValid, submit)}
-            >
-              <p>Email</p>
-              <EmailInput
-                id="email"
-                value={loginUser.email}
-                onChange={e => handleChange(e, 'email')}
-              />
-            </FormValidation>
-          </Label>
-          <Label htmlFor="password">
-            <FormValidation
-              submit={submit}
-              {...getValidation(passwordValid, submit)}
-            >
-              <p>Password</p>
-              <PasswordInput
-                id="password"
-                value={loginUser.password}
-                onChange={e => handleChange(e, 'password')}
-              />
-            </FormValidation>
-          </Label>
-          <Button type="submit" disabled={loading}>
-            Submit
-          </Button>
-        </Form>
-      </Container>
-    </Layout>
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <h1 className="form__title">Sign Up</h1>
+        <Link className="link" to={routes.register.path}>
+          Already have an account?
+        </Link>
+        <FormValidation submit={submit} errors={errors} valid={false} />
+        <Label htmlFor="email">
+          <FormValidation
+            submit={submit}
+            {...getValidation(emailValid, submit)}
+          >
+            <p>Email</p>
+            <EmailInput
+              id="email"
+              value={loginUser.email}
+              onChange={e => handleChange(e, 'email')}
+            />
+          </FormValidation>
+        </Label>
+        <Label htmlFor="password">
+          <FormValidation
+            submit={submit}
+            {...getValidation(passwordValid, submit)}
+          >
+            <p>Password</p>
+            <PasswordInput
+              id="password"
+              value={loginUser.password}
+              onChange={e => handleChange(e, 'password')}
+            />
+          </FormValidation>
+        </Label>
+        <Button type="submit" disabled={loading}>
+          Submit
+        </Button>
+      </Form>
+    </Container>
   );
 };
 
-export const LoginPage = withRouter(DisconnectedLoginPage);
+const actionCreators = {
+  login: (user: LoginUser) => userState.login({ user })
+};
+
+const mapActionsToProps = (dispatch: Dispatch) => ({
+  ...bindActionCreators(actionCreators, dispatch)
+});
+
+export const LoginPage = withRouter(
+  connect(
+    null,
+    mapActionsToProps
+  )(DisconnectedLoginPage)
+);

@@ -4,14 +4,13 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import {
   Banner,
   Container,
-  Layout,
   SearchBar,
   Tab,
   TabList,
   TabPanel,
   ContentPreviewList
 } from '../components';
-import { admin1, content, user1 } from '../../mock';
+import { content } from '../../mock';
 import { routes } from '../routes';
 
 export interface HomePageProps extends RouteComponentProps<{}> {}
@@ -24,7 +23,6 @@ export const DisconnectedHomePage: React.FC<HomePageProps> = ({ history }) => {
   const showTab = React.useRef(null);
 
   const user = undefined;
-  const admin = admin1;
 
   React.useEffect(() => {
     if (user) {
@@ -96,7 +94,7 @@ export const DisconnectedHomePage: React.FC<HomePageProps> = ({ history }) => {
   };
 
   return (
-    <Layout user={admin}>
+    <div>
       <Banner>
         <i className="fas fa-film banner__icon" />
         <h1 className="banner__brand">reviewer</h1>
@@ -172,7 +170,7 @@ export const DisconnectedHomePage: React.FC<HomePageProps> = ({ history }) => {
           />
         </TabPanel>
       </Container>
-    </Layout>
+    </div>
   );
 };
 

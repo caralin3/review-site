@@ -1,7 +1,7 @@
 import qs from 'querystring';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { Banner, Container, Layout, SearchBar } from '../components';
+import { Banner, Container, SearchBar } from '../components';
 import { routes } from '../routes';
 
 export interface SearchPageProps extends RouteComponentProps<{}> {}
@@ -26,7 +26,7 @@ export const DisconnectedSearchPage: React.FC<SearchPageProps> = ({
   };
 
   return (
-    <Layout>
+    <div>
       <Banner>
         <SearchBar
           onChange={handleChange}
@@ -39,7 +39,7 @@ export const DisconnectedSearchPage: React.FC<SearchPageProps> = ({
           Search results for: &nbsp;<span>{query}</span>
         </h2>
       </Container>
-    </Layout>
+    </div>
   );
 };
 

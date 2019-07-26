@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { User } from '../../../common';
 import { Footer, Header } from '.';
+import { ApplicationState } from '../store';
 
 export interface LayoutProps {
   user?: User;
@@ -17,7 +19,11 @@ export const DisconnectedLayout: React.FC<LayoutProps> = ({
   </div>
 );
 
-export const Layout = DisconnectedLayout;
+export const mapStateToProps = (state: ApplicationState) => ({
+  user: state.User.response
+});
+
+export const Layout = connect(mapStateToProps)(DisconnectedLayout);
 
 export interface ContainerProps {
   className?: any;
