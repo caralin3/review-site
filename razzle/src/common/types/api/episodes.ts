@@ -1,5 +1,11 @@
 import { Episode } from '..';
 
+export interface EpisodesQuery {
+  season: number;
+  num?: number;
+  year?: number;
+}
+
 export interface SingleEpisodeResponse {
   episode: Episode;
 }

@@ -2,7 +2,7 @@ import { Application, RequestHandler } from 'express';
 import * as auth from './auth';
 import * as endpoints from './endpoints';
 
-const base_url = '/api/v1';
+export const baseUrl = '/api/v1';
 
 export interface RouteDictionary {
   [route: string]: {
@@ -12,18 +12,18 @@ export interface RouteDictionary {
 }
 
 export const routes = {
-  content: `${base_url}/content`,
-  contentItem: `${base_url}/content/:id`,
-  episodes: `${base_url}/content/:id/episodes`,
-  episode: `${base_url}/content/:id/episodes/:episodeId`,
-  review: `${base_url}/content/:id/reviews/:reviewId`,
-  reviews: `${base_url}/content/:id/reviews`,
-  rating: `${base_url}/content/:id/rating`,
-  watchlist: `${base_url}/content/:id/watchlist`,
-  login: `${base_url}/users/login`,
-  profile: `${base_url}/user/profile/:username`,
-  registration: `${base_url}/users`,
-  user: `${base_url}/user`
+  content: `${baseUrl}/content`,
+  contentItem: `${baseUrl}/content/:id`,
+  episodes: `${baseUrl}/content/:id/episodes`,
+  episode: `${baseUrl}/content/:id/episodes/:episodeId`,
+  review: `${baseUrl}/content/:id/reviews/:reviewId`,
+  reviews: `${baseUrl}/content/:id/reviews`,
+  rating: `${baseUrl}/content/:id/rating`,
+  watchlist: `${baseUrl}/content/:id/watchlist`,
+  login: `${baseUrl}/users/login`,
+  profile: `${baseUrl}/user/profile/:username`,
+  registration: `${baseUrl}/users`,
+  user: `${baseUrl}/user`
 };
 
 export const getRoutes: RouteDictionary = {

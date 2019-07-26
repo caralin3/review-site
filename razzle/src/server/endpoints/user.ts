@@ -2,7 +2,6 @@ import express from 'express';
 import uuidv4 from 'uuid/v4';
 import {
   LoginUserRequest,
-  ProfileRequest,
   ProfileResponse,
   RegisterUser,
   RegisterUserRequest,
@@ -256,7 +255,7 @@ export async function getUserProfile(
     return;
   }
 
-  const { username } = req.params as ProfileRequest;
+  const { username } = req.params;
 
   const user = getDbUser('username', username);
   if (!user) {

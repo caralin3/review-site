@@ -36,10 +36,6 @@ export interface UpdateUserRequest {
   user: UpdateUser;
 }
 
-export interface ProfileRequest {
-  username: string;
-}
-
 export interface ProfileResponse {
   profile: Profile;
 }

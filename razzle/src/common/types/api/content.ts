@@ -1,5 +1,21 @@
 import { Content, ContentType, Genre, MPA } from '..';
 
+export interface ContentQuery {
+  actor?: string;
+  director?: string;
+  genres?: string;
+  limit?: number;
+  mpa?: MPA;
+  myRating?: number;
+  network?: string;
+  offset?: number;
+  rating?: number;
+  title?: string;
+  type?: ContentType;
+  watchList?: string;
+  year?: number;
+}
+
 export interface SingleContentResponse {
   content: Content;
 }
