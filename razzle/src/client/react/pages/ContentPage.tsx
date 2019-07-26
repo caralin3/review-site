@@ -33,6 +33,8 @@ export interface ContentPageProps extends RouteComponentProps<{ id?: string }> {
   loadReviews: (contentId: string) => void;
   loadEpisodes: (contentId: string, query: EpisodesQuery) => void;
   reviews?: MultipleReviewsResponse;
+  reviewsError?: Error;
+  reviewsLoading: boolean;
   updateRating: (id: string, rating: number) => void;
   unwatch: (id: string) => void;
   user?: User;
@@ -55,6 +57,8 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
   location,
   match: { params },
   reviews,
+  reviewsError,
+  reviewsLoading,
   updateRating,
   unwatch,
   user,
@@ -112,7 +116,7 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
     <div>
       {params.id ? (
         <Container>
-          {content && !contentLoading && (
+          {content && !contentLoading && !contentError && (
             <ContentItem
               content={content}
               episodes={content.type === 'Series' ? episodes : undefined}
@@ -126,7 +130,8 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
         </Container>
       ) : (
         contentList &&
-        !contentListLoading && (
+        !contentListLoading &&
+        !contentListError && (
           <ContentList
             content={contentList}
             handleRating={handleRating}
@@ -149,6 +154,8 @@ const mapStateToProps = (state: ApplicationState) => ({
   contentLoading: state.ContentItem.loading,
   episodes: state.Episodes.response,
   reviews: state.Reviews.response,
+  reviewsError: state.Reviews.error,
+  reviewsLoading: state.Reviews.loading,
   user: state.User.response
 });
 

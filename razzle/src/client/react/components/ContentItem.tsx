@@ -3,6 +3,7 @@ import {
   Content,
   MultipleEpisodesResponse,
   MultipleReviewsResponse,
+  Review as ReviewType,
   User
 } from '../../../common';
 import {
@@ -19,6 +20,8 @@ export interface ContentItemProps {
   handleDeleteReview: (id: string) => void;
   handleWatch: (watching: boolean, id: string) => void;
   reviews?: MultipleReviewsResponse;
+  reviewsError?: Error;
+  reviewsLoading: boolean;
   user?: User;
 }
 
@@ -29,8 +32,13 @@ export const ContentItem: React.FC<ContentItemProps> = ({
   handleRating,
   handleWatch,
   reviews,
+  reviewsError,
+  reviewsLoading,
   user
 }) => {
+  const reviewsList: ReviewType[] =
+    reviews && reviews.reviews ? reviews.reviews : [];
+
   return (
     <div className="content-page">
       <section>
@@ -71,23 +79,25 @@ export const ContentItem: React.FC<ContentItemProps> = ({
               user={user}
             />
           )}
-          {/* {reviews && reviews.reviews && reviews.reviews.length > 0 && (
-            <ul className="content-page__reviews-list">
-              {console.log(reviews)}
-              {reviews.reviews.map(review => (
-                <li className="content-page__reviews-item">
-                  <Review
-                    date={review.created}
-                    onDelete={() => handleDeleteReview(review.id)}
-                    rating={review.rating}
-                    review={review.body}
-                    user={user}
-                    username={review.author.username}
-                  />
-                </li>
-              ))}
-            </ul>
-          )} */}
+          {reviewsList &&
+            !reviewsLoading &&
+            !reviewsError &&
+            reviewsList.length > 0 && (
+              <ul className="content-page__reviews-list">
+                {reviewsList.map(review => (
+                  <li className="content-page__reviews-item">
+                    <Review
+                      date={review.created}
+                      onDelete={() => handleDeleteReview(review.id)}
+                      rating={review.rating}
+                      review={review.body}
+                      user={user}
+                      username={review.author.username}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
         </div>
       </section>
       {/* <section>
