@@ -47,10 +47,14 @@ export const getRoutes: RouteDictionary = {
     endpoint: endpoints.getUserProfile,
     auth: 'optional'
   },
-  // [routes.reviews]: {
-  //   endpoint: endpoints.getCurrentUser,
-  //   auth: 'optional'
-  // },
+  [routes.reviews]: {
+    endpoint: endpoints.getReviews,
+    auth: 'optional'
+  },
+  [routes.review]: {
+    endpoint: endpoints.getReview,
+    auth: 'optional'
+  },
   [routes.user]: {
     endpoint: endpoints.getCurrentUser,
     auth: 'required'
@@ -72,10 +76,10 @@ export const postRoutes: RouteDictionary = {
   [routes.registration]: {
     endpoint: endpoints.createUser
   },
-  // [routes.reviews]: {
-  //   endpoint: endpoints.getCurrentUser,
-  //   auth: 'required'
-  // },
+  [routes.reviews]: {
+    endpoint: endpoints.createReview,
+    auth: 'required'
+  },
   [routes.rating]: {
     endpoint: endpoints.addRating,
     auth: 'required'
@@ -99,10 +103,10 @@ export const putRoutes: RouteDictionary = {
     endpoint: endpoints.updateRating,
     auth: 'required'
   },
-  // [routes.review]: {
-  //   endpoint: endpoints.getCurrentUser,
-  //   auth: 'required'
-  // },
+  [routes.review]: {
+    endpoint: endpoints.updateReview,
+    auth: 'required'
+  },
   [routes.user]: {
     endpoint: endpoints.updateCurrentUser,
     auth: 'required'
@@ -118,10 +122,10 @@ export const deleteRoutes: RouteDictionary = {
     endpoint: endpoints.deleteEpisode,
     auth: 'required'
   },
-  // [routes.review]: {
-  //   endpoint: endpoints.getCurrentUser,
-  //   auth: 'required'
-  // },
+  [routes.review]: {
+    endpoint: endpoints.deleteReview,
+    auth: 'required'
+  },
   [routes.watchlist]: {
     endpoint: endpoints.deleteFromWatchList,
     auth: 'required'

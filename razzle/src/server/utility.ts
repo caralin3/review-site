@@ -4,11 +4,13 @@ import {
   Genre,
   MPA,
   Profile,
+  Review,
   User,
   UserRole
 } from '../common';
 import {
   Content as DbContent,
+  Review as DbReview,
   User as DbUser,
   getUserCollection
 } from './database';
@@ -44,6 +46,18 @@ export const formatContent = (
   mpa: content.mpa as MPA,
   network: content.network ? content.network : undefined,
   type: content.type as ContentType
+});
+
+export const formatReview = (
+  dbReview: DbReview,
+  rating: number,
+  user: DbUser
+): Review => ({
+  rating,
+  author: formatProfile(user),
+  body: dbReview.body,
+  created: dbReview.created,
+  id: dbReview.id
 });
 
 export const calcMyRating = (currentUser: DbUser, content: DbContent) => {

@@ -7,7 +7,7 @@ import {
   UpdateContentRequest
 } from '../../common';
 import { getAuthUser } from '../auth';
-import db, {
+import {
   Content,
   getContentCollection,
   getDbContent,
