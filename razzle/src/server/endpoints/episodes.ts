@@ -7,19 +7,32 @@ import {
   UpdateEpisodeRequest
 } from '../../common';
 import { getAuthUser } from '../auth';
-import { Episode, getEpisodeCollection, getDbEpisode } from '../database';
+import {
+  Episode,
+  getEpisodeCollection,
+  getDbEpisode,
+  getDbContent
+} from '../database';
 import { status, ErrorResponse } from '../types';
 
 /**
  * @summary Create an episode. Only admin role.
  * @method POST
  * @authorization Required
- * @url /api/v1/episodes
+ * @url /api/v1/content/:id/episodes
  */
 export async function createEpisode(
   req: express.Request,
   res: express.Response
 ) {
+  if (!req.params || !req.params.id) {
+    const reqErrors: ErrorResponse = {
+      id: ['not provided']
+    };
+    res.status(status.BAD_REQUEST).json(reqErrors);
+    return;
+  }
+
   if (!req.body) {
     const reqErrors: ErrorResponse = {
       body: ['not provided']
@@ -28,18 +41,25 @@ export async function createEpisode(
     return;
   }
 
-  const { episode } = req.body as NewEpisodeRequest;
-
-  if (!episode) {
-    const bodyErrors: ErrorResponse = {
-      episode: ['post body is undefined']
-    };
-    res.status(status.BAD_REQUEST).json(bodyErrors);
-    return;
-  }
-
   const currentUser = getAuthUser(req);
   if (currentUser) {
+    const { episode } = req.body as NewEpisodeRequest;
+
+    if (!episode) {
+      const bodyErrors: ErrorResponse = {
+        episode: ['post body is undefined']
+      };
+      res.status(status.BAD_REQUEST).json(bodyErrors);
+      return;
+    }
+    const dbContent = getDbContent('id', req.params.id);
+    if (!dbContent) {
+      const error: ErrorResponse = {
+        content: [`with ${req.params.id} not found`]
+      };
+      res.status(status.UNPROCESSABLE).json(error);
+      return;
+    }
     if (currentUser.role !== 'admin') {
       res.status(status.FORBIDDEN).json({ user: ['does not have permission'] });
       return;
@@ -47,6 +67,7 @@ export async function createEpisode(
     const episodes = getEpisodeCollection();
     const newEpisode: Episode = {
       ...episode,
+      contentId: dbContent.id,
       id: uuidv4()
     };
     const dbEpisode = episodes.insertOne(newEpisode);
@@ -73,12 +94,20 @@ export async function createEpisode(
  *
  * @method GET
  * @authorization Optional
- * @url /api/v1/episodes
+ * @url /api/v1/content/:id/episodes
  */
 export async function getEpisodesBySeason(
   req: express.Request,
   res: express.Response
 ) {
+  if (!req.params || !req.params.id) {
+    const reqErrors: ErrorResponse = {
+      id: ['not provided']
+    };
+    res.status(status.BAD_REQUEST).json(reqErrors);
+    return;
+  }
+
   if (!req.query.season) {
     const reqErrors: ErrorResponse = {
       season: ['not provided']
@@ -87,10 +116,20 @@ export async function getEpisodesBySeason(
     return;
   }
 
+  const dbContent = getDbContent('id', req.params.id);
+  if (!dbContent) {
+    const error: ErrorResponse = {
+      content: [`with ${req.params.id} not found`]
+    };
+    res.status(status.UNPROCESSABLE).json(error);
+    return;
+  }
+
   const { limit, offset, num, season, year } = req.query;
 
   const episodes = getEpisodeCollection();
   const filtered = episodes.chain();
+  filtered.find({ contentId: { $eq: req.params.id } });
   filtered.find({ season: { $eq: parseInt(season, 10) } });
   if (num) {
     filtered.find({ num: { $eq: parseInt(num, 10) } });
@@ -125,10 +164,10 @@ export async function getEpisodesBySeason(
  * @summary Get an episode.
  * @method GET
  * @authorization Optional
- * @url /api/v1/episodes/:id
+ * @url /api/v1/content/:id/episodes/:episodeId
  */
 export async function getEpisode(req: express.Request, res: express.Response) {
-  if (!req.params || !req.params.id) {
+  if (!req.params || !req.params.id || !req.params.episodeId) {
     const reqErrors: ErrorResponse = {
       id: ['not provided']
     };
@@ -136,11 +175,19 @@ export async function getEpisode(req: express.Request, res: express.Response) {
     return;
   }
 
-  const dbEpisode = getDbEpisode('id', req.params.id);
+  const dbContent = getDbContent('id', req.params.id);
+  if (!dbContent) {
+    const error: ErrorResponse = {
+      content: [`with ${req.params.id} not found`]
+    };
+    res.status(status.UNPROCESSABLE).json(error);
+    return;
+  }
 
+  const dbEpisode = getDbEpisode('id', req.params.episodeId);
   if (!dbEpisode) {
     const error: ErrorResponse = {
-      episode: [`with ${req.params.id} not found`]
+      episode: [`with ${req.params.episodeId} not found`]
     };
     res.status(status.UNPROCESSABLE).json(error);
     return;
@@ -154,13 +201,13 @@ export async function getEpisode(req: express.Request, res: express.Response) {
  * @summary Update an episode. Only admin role.
  * @method PUT
  * @authorization Required
- * @url /api/v1/episodes/:id
+ * @url /api/v1/content/:id/episodes/:episodeId
  */
 export async function updateEpisode(
   req: express.Request,
   res: express.Response
 ) {
-  if (!req.params || !req.params.id) {
+  if (!req.params || !req.params.id || !req.params.episodeId) {
     const reqErrors: ErrorResponse = {
       id: ['not provided']
     };
@@ -169,6 +216,14 @@ export async function updateEpisode(
   }
   const currentUser = getAuthUser(req);
   if (currentUser) {
+    const dbContent = getDbContent('id', req.params.id);
+    if (!dbContent) {
+      const error: ErrorResponse = {
+        content: [`with ${req.params.id} not found`]
+      };
+      res.status(status.UNPROCESSABLE).json(error);
+      return;
+    }
     if (currentUser.role !== 'admin') {
       res.status(status.FORBIDDEN).json({ user: ['does not have permission'] });
       return;
@@ -182,11 +237,11 @@ export async function updateEpisode(
       return;
     }
 
-    const dbEpisode = getDbEpisode('id', req.params.id);
+    const dbEpisode = getDbEpisode('id', req.params.episodeId);
 
     if (!dbEpisode) {
       const bodyErrors: ErrorResponse = {
-        episode: [`with ${req.params.id} not found`]
+        episode: [`with ${req.params.episodeId} not found`]
       };
       res.status(status.UNPROCESSABLE).json(bodyErrors);
       return;
@@ -216,13 +271,13 @@ export async function updateEpisode(
  * @summary Delete an episode. Only admin role.
  * @method DELETE
  * @authorization Required
- * @url /api/v1/episodes/:id
+ * @url /api/v1//content/:id/episodes/:episodeId
  */
 export async function deleteEpisode(
   req: express.Request,
   res: express.Response
 ) {
-  if (!req.params || !req.params.id) {
+  if (!req.params || !req.params.id || !req.params.episodeId) {
     const reqErrors: ErrorResponse = {
       id: ['not provided']
     };
@@ -231,15 +286,23 @@ export async function deleteEpisode(
   }
   const currentUser = getAuthUser(req);
   if (currentUser) {
+    const dbContent = getDbContent('id', req.params.id);
+    if (!dbContent) {
+      const error: ErrorResponse = {
+        content: [`with ${req.params.id} not found`]
+      };
+      res.status(status.UNPROCESSABLE).json(error);
+      return;
+    }
     if (currentUser.role !== 'admin') {
       res.status(status.FORBIDDEN).json({ user: ['does not have permission'] });
       return;
     }
-    const dbEpisode = getDbEpisode('id', req.params.id);
+    const dbEpisode = getDbEpisode('id', req.params.episodeId);
 
     if (!dbEpisode) {
       const error: ErrorResponse = {
-        episode: [`with ${req.params.id} not found`]
+        episode: [`with ${req.params.episodeId} not found`]
       };
       res.status(status.UNPROCESSABLE).json(error);
       return;
@@ -252,7 +315,7 @@ export async function deleteEpisode(
       return;
     }
     const deleteError: ErrorResponse = {
-      episode: [`with ${req.params.id} could not be deleted`]
+      episode: [`with ${req.params.episodeId} could not be deleted`]
     };
     res.status(status.UNPROCESSABLE).json(deleteError);
     return;

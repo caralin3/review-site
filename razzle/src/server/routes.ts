@@ -14,8 +14,8 @@ export interface RouteDictionary {
 export const routes = {
   content: `${base_url}/content`,
   contentItem: `${base_url}/content/:id`,
-  episodes: `${base_url}/episodes`,
-  episode: `${base_url}/episodes/:id`,
+  episodes: `${base_url}/content/:id/episodes`,
+  episode: `${base_url}/content/:id/episodes/:episodeId`,
   review: `${base_url}/content/:id/reviews/:reviewId`,
   reviews: `${base_url}/content/:id/reviews`,
   rating: `${base_url}/content/:id/rating`,

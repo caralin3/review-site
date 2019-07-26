@@ -1,0 +1,1153 @@
+{
+	"info": {
+		"_postman_id": "c7e306a2-9976-483e-a79f-f995840d7372",
+		"name": "Reviewer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "10367146-5ae7-4b72-a070-24cc2f40ebbb",
+								"exec": [
+									"const response = pm.response.json();",
+									"const user = response.user;",
+									"pm.environment.set(\"token\", user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": {\n        \"email\": \"{{email}}\",\n        \"password\": \"password\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/users/login",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e2f1eb4f-8892-479e-aa06-6395c4d961fa",
+								"exec": [
+									"const response = pm.response.json();",
+									"const user = response.user;",
+									"pm.environment.set(\"token\", user.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": {\n        \"email\": \"{{newEmail}}\",\n        \"password\": \"password\",\n        \"role\": \"general\",\n        \"username\": \"{{newUsername}}\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/users",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Current User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/user",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": {\n        \"bio\": \"\",\n        \"email\": \"test@test.com\",\n        \"image\": \"\",\n        \"username\": \"testUser\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/user",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Get Profile",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/user/profile/:username",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"user",
+								"profile",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "jDoe"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Episodes",
+			"item": [
+				{
+					"name": "Create Episode",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e410052c-45cb-453b-968e-400b27ed1c5d",
+								"exec": [
+									"const response = pm.response.json();",
+									"const episode = response.episode;",
+									"pm.environment.set(\"episodeId\", episode.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"episode\": {\n\t\t\"date\": \"2019-07-25T13:39:44.618Z\",\n\t\t\"duration\": 43,\n\t\t\"num\": 1,\n\t\t\"season\": 1,\n\t\t\"synopsis\": \"First episode\",\n\t\t\"title\": \"Pilot\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/content/:id/episodes",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id",
+								"episodes"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{contentId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Episode",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"episode\": {\n\t\t\"synopsis\": \"First episode aired\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/content/:id/episodes/:episodeId",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id",
+								"episodes",
+								":episodeId"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{contentId}}"
+								},
+								{
+									"key": "episodeId",
+									"value": "{{episodeId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Episodes By Season",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/content/:id/episodes?season=1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id",
+								"episodes"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "num",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "year",
+									"value": "2015",
+									"disabled": true
+								},
+								{
+									"key": "season",
+									"value": "1"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{contentId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Episode",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/content/:id/episodes/:episodeId",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id",
+								"episodes",
+								":episodeId"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{contentId}}"
+								},
+								{
+									"key": "episodeId",
+									"value": "{{episodeId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Episode",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/content/:id/episodes/:episodeId",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id",
+								"episodes",
+								":episodeId"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{episodeId}}"
+								},
+								{
+									"key": "episodeId",
+									"value": "{{episodeId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Create Review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e410052c-45cb-453b-968e-400b27ed1c5d",
+								"exec": [
+									"const response = pm.response.json();",
+									"const review = response.review;",
+									"pm.environment.set(\"reviewId\", review.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"review\": {\n\t\t\"body\": \"A Review\",\n\t\t\"rating\": 3\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/content/:id/reviews",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id",
+								"reviews"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{contentId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"review\": {\n\t\t\"body\": \"A review\",\n\t\t\"rating\": 3\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/content/:id/reviews/:reviewId",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id",
+								"reviews",
+								":reviewId"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{episodeId}}"
+								},
+								{
+									"key": "reviewId",
+									"value": "{{reviewId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/content/:id/reviews?",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id",
+								"reviews"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "rating",
+									"value": "3",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{contentId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Review",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/content/:id/reviews/:reviewId",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id",
+								"reviews",
+								":reviewId"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{contentId}}"
+								},
+								{
+									"key": "reviewId",
+									"value": "{{reviewId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/content/:id/reviews/:reviewId",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id",
+								"reviews",
+								":reviewId"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{episodeId}}"
+								},
+								{
+									"key": "reviewId",
+									"value": "{{reviewId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Content",
+			"item": [
+				{
+					"name": "Create Content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "efef5a53-0534-4ddf-8def-03c9c28c98fa",
+								"exec": [
+									"const response = pm.response.json();",
+									"const content = response.content;",
+									"pm.environment.set(\"contentId\", content.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": {\n        \"actors\": [\n            \"Bryce Dallas Howard\",\n            \"Chris Pratt\"\n        ],\n        \"director\": \"Stephen Spielberg\",\n        \"duration\": 120,\n        \"image\": \"\",\n        \"genres\": [\n            \"Action\",\n            \"Family\"\n        ],\n        \"mpa\": \"PG-13\",\n        \"synopsis\": \"Dinosaurs escape Jurassic World and terrorize tourists.\",\n        \"title\": \"Jurassic World\",\n        \"year\": 2015,\n        \"type\": \"Series\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/content",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Content",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": {\n    \t\n    \t\"title\": \"Jurassic World 2\",\n        \"type\": \"Movie\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/content/:id",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{contentId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Content",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/content?",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "actor",
+									"value": "Cat",
+									"disabled": true
+								},
+								{
+									"key": "director",
+									"value": "Shawn Levy",
+									"disabled": true
+								},
+								{
+									"key": "genres",
+									"value": "Comedy, Romance",
+									"disabled": true
+								},
+								{
+									"key": "mpa",
+									"value": "PG",
+									"disabled": true
+								},
+								{
+									"key": "myRating",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "network",
+									"value": "CBS",
+									"disabled": true
+								},
+								{
+									"key": "rating",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "Younger",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "Movie",
+									"disabled": true
+								},
+								{
+									"key": "watchList",
+									"value": "janeDoe",
+									"disabled": true
+								},
+								{
+									"key": "year",
+									"value": "2003",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Content Item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/content/:id",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2aeb26b0-334e-43a4-bc39-0abb157d77f6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Content",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/content/:id",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{contentId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Rating",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"rating\": 3\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/content/:id/rating",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id",
+								"rating"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{contentId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Rating",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"rating\": 2\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/content/:id/rating",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id",
+								"rating"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{contentId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add to Watch List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/content/:id/watchlist",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id",
+								"watchlist"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{contentId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete from Watch List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/content/:id/watchlist",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"content",
+								":id",
+								"watchlist"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{contentId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0482fe15-009a-47c7-a7a3-a145121886d9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f343b348-0a03-4f35-94eb-15a9cbbcadad",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "7ad9a050-3372-4d8b-b83f-5c85f2ab2f1c",
+			"key": "API_URL",
+			"value": "localhost:3000/api/v1",
+			"type": "string"
+		},
+		{
+			"id": "5dcd2b37-4666-4cca-9dce-7231fe9c3d6b",
+			"key": "newEmail",
+			"value": "test@test.com",
+			"type": "string"
+		},
+		{
+			"id": "a8755921-59fa-49f4-bd8b-bf96871cb411",
+			"key": "newUsername",
+			"value": "test",
+			"type": "string"
+		},
+		{
+			"id": "f9845414-f3ba-4752-bdcb-718ed4125fd2",
+			"key": "email",
+			"value": "jDoe@email.com",
+			"type": "string"
+		},
+		{
+			"id": "9a13f9e7-17f4-4313-9c64-927c4cbe7a42",
+			"key": "username",
+			"value": "jDoe",
+			"type": "string"
+		}
+	]
+}

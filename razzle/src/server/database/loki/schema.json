@@ -155,6 +155,7 @@
   ],
   "episodes": [
     {
+      "contentId": "444f885d-f4b5-4a06-8c5b-ae0e449c1ccd",
       "id": "b1c2094b-9e6a-43d7-8802-a25ee6bf32e8",
       "date": "2015-06-03",
       "duration": 22,
@@ -164,6 +165,7 @@
       "title": "Pilot"
     },
     {
+      "contentId": "444f885d-f4b5-4a06-8c5b-ae0e449c1ccd",
       "id": "0cc13a19-d04d-4ed3-9602-3345e2d579db",
       "date": "2015-06-10",
       "duration": 24,
@@ -173,6 +175,7 @@
       "title": "Millenial"
     },
     {
+      "contentId": "444f885d-f4b5-4a06-8c5b-ae0e449c1ccd",
       "id": "d2f13170-a98c-48e3-9fa6-d4526152b80f",
       "date": "2016-06-12",
       "duration": 32,
@@ -180,6 +183,16 @@
       "season": 2,
       "synopsis": "Josh know's Liza's secret.",
       "title": "The New Normal"
+    },
+    {
+      "contentId": "ea3e44c6-edc8-49e4-bafc-64ec6c60f2b4",
+      "id": "b4f19370-a98c-48e3-9fa6-e4526482b80f",
+      "date": "1995-06-12",
+      "duration": 90,
+      "num": 1,
+      "season": 1,
+      "synopsis": "JAG officer Lieutenant Harmon Rabb Jr. investigates Navy crimes.",
+      "title": "Pilot"
     }
   ],
   "reviews": [
