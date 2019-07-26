@@ -1,11 +1,10 @@
 import React from 'react';
 import { Content, User } from '../../../common';
 import { StarRating, WatchButton } from '.';
-import { user1 } from '../../mock';
 
 export interface ContentDetailsProps {
   content: Content;
-  onRate: (star: number) => void;
+  onRate: (star: number, rated: boolean) => void;
   onWatch: () => void;
   user?: User;
 }
@@ -14,7 +13,7 @@ export const ContentDetails: React.FC<ContentDetailsProps> = ({
   content,
   onRate,
   onWatch,
-  user = user1
+  user
 }) => {
   const titleSection = (
     <div className="content__header">
@@ -27,7 +26,7 @@ export const ContentDetails: React.FC<ContentDetailsProps> = ({
       <StarRating
         rating={content.rating}
         myRating={content.myRating}
-        onClick={onRate}
+        onClick={star => onRate(star, !!content.myRating)}
         user={user}
       />
     </div>

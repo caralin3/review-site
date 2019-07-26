@@ -1,14 +1,21 @@
 import qs from 'querystring';
 import React from 'react';
+import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
+import { bindActionCreators, Dispatch } from 'redux';
+import { User } from '../../../common';
 import { Banner, Container, SearchBar } from '../components';
+import { ApplicationState } from '../store';
 import { routes } from '../routes';
 
-export interface SearchPageProps extends RouteComponentProps<{}> {}
+export interface SearchPageProps extends RouteComponentProps {
+  user?: User;
+}
 
 export const DisconnectedSearchPage: React.FC<SearchPageProps> = ({
   history,
-  location
+  location,
+  user
 }) => {
   const [query, setQuery] = React.useState('');
 
@@ -43,4 +50,10 @@ export const DisconnectedSearchPage: React.FC<SearchPageProps> = ({
   );
 };
 
-export const SearchPage = withRouter(DisconnectedSearchPage);
+const mapStateToProps = (state: ApplicationState) => ({
+  user: state.User.response
+});
+
+export const SearchPage = withRouter(
+  connect(mapStateToProps)(DisconnectedSearchPage)
+);

@@ -12,10 +12,6 @@
         {
           "rating": 3,
           "contentId": "1fb69fe3-ac0b-49ce-9daf-f3e774eb981f"
-        },
-        {
-          "rating": 1,
-          "contentId": "816697dc-345f-4d2f-9a3c-ce4a88de6f0d"
         }
       ],
       "watchList": [
@@ -34,6 +30,10 @@
         {
           "rating": 2,
           "contentId": "1fb69fe3-ac0b-49ce-9daf-f3e774eb981f"
+        },
+        {
+          "rating": 1,
+          "contentId": "816697dc-345f-4d2f-9a3c-ce4a88de6f0d"
         }
       ],
       "watchList": [

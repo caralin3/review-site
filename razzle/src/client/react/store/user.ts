@@ -71,8 +71,8 @@ export const update = (body: UpdateUserRequest) =>
 export const reducer = reducerWithInitialState(initialState)
   .case(rehydrateAction, state => state)
   .case(resetAction, _ => ({ ...initialState }))
-  .case(loadAction.async.started, _state => ({
-    response: _state.response,
+  .case(loadAction.async.started, state => ({
+    response: state.response,
     loading: true,
     error: undefined
   }))
@@ -81,9 +81,9 @@ export const reducer = reducerWithInitialState(initialState)
     loading: false,
     error: undefined
   }))
-  .case(loadAction.async.failed, (_state, { error }) => ({
+  .case(loadAction.async.failed, (state, { error }) => ({
     error,
-    response: _state.response,
+    response: state.response,
     loading: false
   }))
   .case(registerAction.async.started, _ => ({
@@ -116,8 +116,8 @@ export const reducer = reducerWithInitialState(initialState)
     response: undefined,
     loading: false
   }))
-  .case(updateAction.async.started, _state => ({
-    response: _state.response,
+  .case(updateAction.async.started, state => ({
+    response: state.response,
     loading: true,
     error: undefined
   }))
@@ -126,8 +126,8 @@ export const reducer = reducerWithInitialState(initialState)
     loading: false,
     error: undefined
   }))
-  .case(updateAction.async.failed, (_state, { error }) => ({
+  .case(updateAction.async.failed, (state, { error }) => ({
     error,
-    response: _state.response,
+    response: state.response,
     loading: false
   }));

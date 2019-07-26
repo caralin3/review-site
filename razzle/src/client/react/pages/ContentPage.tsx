@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
+import { bindActionCreators, Dispatch } from 'redux';
 import { Content, User, ContentType, Episode } from '../../../common';
 import {
   Banner,

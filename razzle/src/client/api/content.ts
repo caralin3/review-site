@@ -1,10 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
 import {
   ContentQuery,
-  MultipleEpisodesResponse,
+  MultipleContentResponse,
   NewContentRequest,
   UpdateContentRequest,
-  SingleEpisodeResponse
+  SingleContentResponse
 } from '../../common';
 import { contentUrl, contentItemUrl, ratingUrl, watchlistUrl } from './routes';
 import { getOptions } from '.';
@@ -15,7 +15,7 @@ import { getOptions } from '.';
  * @param {string} token Token of current user (Optional).
  */
 export const fetchContent = async (query?: ContentQuery, token?: string) => {
-  const request: AxiosResponse<MultipleEpisodesResponse> = await axios.get(
+  const request: AxiosResponse<MultipleContentResponse> = await axios.get(
     contentUrl(query),
     getOptions(token)
   );
@@ -28,7 +28,7 @@ export const fetchContent = async (query?: ContentQuery, token?: string) => {
  * @param {string} token Token of current user (Optional).
  */
 export const fetchContentItem = async (id: string, token?: string) => {
-  const request: AxiosResponse<SingleEpisodeResponse> = await axios.get(
+  const request: AxiosResponse<SingleContentResponse> = await axios.get(
     contentItemUrl(id),
     getOptions(token)
   );
@@ -41,7 +41,7 @@ export const fetchContentItem = async (id: string, token?: string) => {
  * @param {string} token Token of current user.
  */
 export const createContent = async (body: NewContentRequest, token: string) => {
-  const request: AxiosResponse<SingleEpisodeResponse> = await axios.post(
+  const request: AxiosResponse<SingleContentResponse> = await axios.post(
     contentUrl(),
     body,
     getOptions(token)
@@ -60,7 +60,7 @@ export const updateContent = async (
   body: UpdateContentRequest,
   token: string
 ) => {
-  const request: AxiosResponse<SingleEpisodeResponse> = await axios.put(
+  const request: AxiosResponse<SingleContentResponse> = await axios.put(
     contentItemUrl(id),
     body,
     getOptions(token)
@@ -74,7 +74,7 @@ export const updateContent = async (
  * @param {string} token Token of current user.
  */
 export const deleteContent = async (id: string, token: string) => {
-  const request: AxiosResponse<SingleEpisodeResponse> = await axios.delete(
+  const request: AxiosResponse<{ id: string }> = await axios.delete(
     contentItemUrl(id),
     getOptions(token)
   );
@@ -88,7 +88,7 @@ export const deleteContent = async (id: string, token: string) => {
  * @param {string} token Token of current user.
  */
 export const addRating = async (id: string, rating: number, token: string) => {
-  const request: AxiosResponse<SingleEpisodeResponse> = await axios.post(
+  const request: AxiosResponse<SingleContentResponse> = await axios.post(
     ratingUrl(id),
     { rating },
     getOptions(token)
@@ -107,7 +107,7 @@ export const updateRating = async (
   rating: number,
   token: string
 ) => {
-  const request: AxiosResponse<SingleEpisodeResponse> = await axios.put(
+  const request: AxiosResponse<SingleContentResponse> = await axios.put(
     ratingUrl(id),
     { rating },
     getOptions(token)
@@ -121,7 +121,7 @@ export const updateRating = async (
  * @param {string} token Token of current user.
  */
 export const watch = async (id: string, token: string) => {
-  const request: AxiosResponse<SingleEpisodeResponse> = await axios.post(
+  const request: AxiosResponse<SingleContentResponse> = await axios.post(
     watchlistUrl(id),
     undefined,
     getOptions(token)
@@ -135,7 +135,7 @@ export const watch = async (id: string, token: string) => {
  * @param {string} token Token of current user.
  */
 export const unwatch = async (id: string, token: string) => {
-  const request: AxiosResponse<SingleEpisodeResponse> = await axios.delete(
+  const request: AxiosResponse<SingleContentResponse> = await axios.delete(
     watchlistUrl(id),
     getOptions(token)
   );

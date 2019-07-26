@@ -1,3 +1,8 @@
+import { ContentState } from './content';
+import { ContentItemState } from './contentItem';
+import { EpisodeState } from './episode';
+import { EpisodesState } from './episodes';
+import { ReviewsState } from './reviews';
 import { UserState } from './user';
 
 export interface AsyncState<T> {
@@ -7,5 +12,10 @@ export interface AsyncState<T> {
 }
 
 export interface ApplicationState {
+  Content: ContentState;
+  ContentItem: ContentItemState;
+  Episode: EpisodeState;
+  Episodes: EpisodesState;
+  Review: ReviewsState;
   User: UserState;
 }

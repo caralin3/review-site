@@ -6,7 +6,7 @@ import { StarRating, WatchButton } from '.';
 
 export interface ContentPreviewProps {
   content: Content;
-  onRate: (star: number) => void;
+  onRate: (star: number, rated: boolean) => void;
   onWatch: () => void;
   user?: User;
 }
@@ -28,7 +28,7 @@ export const ContentPreview: React.FC<ContentPreviewProps> = ({
       <StarRating
         rating={content.rating}
         myRating={content.myRating}
-        onClick={onRate}
+        onClick={user ? star => onRate(star, !!content.myRating) : undefined}
         user={user}
       />
     </div>

@@ -1,5 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
+import { bindActionCreators, Dispatch } from 'redux';
+import { User } from '../../../common';
 import {
   Banner,
   Container,
@@ -11,16 +14,17 @@ import {
 import { content, profile1 } from '../../mock';
 
 export interface ProfilePageProps
-  extends RouteComponentProps<{ username: string }> {}
+  extends RouteComponentProps<{ username: string }> {
+  user?: User;
+}
 
 export const DisconnectedProfilePage: React.FC<ProfilePageProps> = ({
-  match: { params }
+  match: { params },
+  user
 }) => {
   const [tab, setTab] = React.useState<'reviewed' | 'watch'>('watch');
   const watchTab = React.useRef(null);
   const reviewedTab = React.useRef(null);
-
-  const user = undefined;
 
   React.useEffect(() => {
     // loadProfile(params.username);

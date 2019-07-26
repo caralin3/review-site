@@ -37,7 +37,7 @@ export const fetchEpisode = async (
   id: string,
   token?: string
 ) => {
-  const request: AxiosResponse<MultipleEpisodesResponse> = await axios.get(
+  const request: AxiosResponse<SingleEpisodeResponse> = await axios.get(
     episodeUrl(contentId, id),
     getOptions(token)
   );
@@ -95,7 +95,7 @@ export const deleteEpisode = async (
   id: string,
   token: string
 ) => {
-  const request: AxiosResponse<SingleEpisodeResponse> = await axios.delete(
+  const request: AxiosResponse<{ id: string }> = await axios.delete(
     episodeUrl(contentId, id),
     getOptions(token)
   );

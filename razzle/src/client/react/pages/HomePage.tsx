@@ -1,6 +1,9 @@
 import qs from 'querystring';
 import React from 'react';
+import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
+import { bindActionCreators, Dispatch } from 'redux';
+import { User, ContentQuery, MultipleContentResponse } from '../../../common';
 import {
   Banner,
   Container,
@@ -10,25 +13,51 @@ import {
   TabPanel,
   ContentPreviewList
 } from '../components';
-import { content } from '../../mock';
 import { routes } from '../routes';
+import { ApplicationState } from '../store';
+import * as contentState from '../store/content';
 
-export interface HomePageProps extends RouteComponentProps<{}> {}
+export interface HomePageProps extends RouteComponentProps {
+  addRating: (id: string, rating: number) => void;
+  content?: MultipleContentResponse;
+  contentLoading: boolean;
+  contentError?: Error;
+  loadContent: (query?: ContentQuery) => void;
+  updateRating: (id: string, rating: number) => void;
+  unwatch: (id: string) => void;
+  user?: User;
+  watch: (id: string) => void;
+}
 
-export const DisconnectedHomePage: React.FC<HomePageProps> = ({ history }) => {
+export const DisconnectedHomePage: React.FC<HomePageProps> = ({
+  addRating,
+  content,
+  contentLoading,
+  contentError,
+  history,
+  location,
+  loadContent,
+  updateRating,
+  unwatch,
+  user,
+  watch
+}) => {
   const [tab, setTab] = React.useState<'movie' | 'show' | 'watch'>('movie');
   const [query, setQuery] = React.useState('');
   const watchTab = React.useRef(null);
   const movieTab = React.useRef(null);
   const showTab = React.useRef(null);
 
-  const user = undefined;
-
   React.useEffect(() => {
     if (user) {
       setTab('watch');
     }
-  }, []);
+    loadData();
+  }, [location.pathname]);
+
+  const loadData = async () => {
+    await loadContent();
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     if (e.keyCode === 37) {
@@ -81,15 +110,23 @@ export const DisconnectedHomePage: React.FC<HomePageProps> = ({ history }) => {
     history.push(`${routes.search.path}?${queryString}`);
   };
 
-  const handleRating = (value: number, id: string) => {
+  const handleRating = async (value: number, id: string, rated: boolean) => {
     if (user) {
-      console.log('Rating ', value, id);
+      if (rated) {
+        await updateRating(id, value);
+      } else {
+        await addRating(id, value);
+      }
     }
   };
 
-  const handleWatch = (watching: boolean) => {
+  const handleWatch = async (watching: boolean, id: string) => {
     if (user) {
-      console.log('Watching ', watching);
+      if (watching) {
+        await unwatch(id);
+      } else {
+        await watch(id);
+      }
     }
   };
 
@@ -143,35 +180,68 @@ export const DisconnectedHomePage: React.FC<HomePageProps> = ({ history }) => {
             TV Shows
           </Tab>
         </TabList>
-        {user && (
+        {user && content && !contentLoading && (
           <TabPanel selected={tab} id="watch-list" tabId="watch">
             <ContentPreviewList
-              contentList={content.content.filter(con => con.watchList)}
+              contentList={content.allContent.filter(con => con.watchList)}
               handleRating={handleRating}
               handleWatch={handleWatch}
               user={user}
             />
           </TabPanel>
         )}
-        <TabPanel selected={tab} id="movie-panel" tabId="movie">
-          <ContentPreviewList
-            contentList={content.content.filter(con => con.type === 'Movie')}
-            handleRating={handleRating}
-            handleWatch={handleWatch}
-            user={user}
-          />
-        </TabPanel>
-        <TabPanel selected={tab} id="show-panel" tabId="show">
-          <ContentPreviewList
-            contentList={content.content.filter(con => con.type === 'Series')}
-            handleRating={handleRating}
-            handleWatch={handleWatch}
-            user={user}
-          />
-        </TabPanel>
+        {content && !contentLoading && (
+          <TabPanel selected={tab} id="movie-panel" tabId="movie">
+            <ContentPreviewList
+              contentList={content.allContent.filter(
+                con => con.type === 'Movie'
+              )}
+              handleRating={handleRating}
+              handleWatch={handleWatch}
+              user={user}
+            />
+          </TabPanel>
+        )}
+        {content && !contentLoading && (
+          <TabPanel selected={tab} id="show-panel" tabId="show">
+            <ContentPreviewList
+              contentList={content.allContent.filter(
+                con => con.type === 'Series'
+              )}
+              handleRating={handleRating}
+              handleWatch={handleWatch}
+              user={user}
+            />
+          </TabPanel>
+        )}
       </Container>
     </div>
   );
 };
 
-export const HomePage = withRouter(DisconnectedHomePage);
+const mapStateToProps = (state: ApplicationState) => ({
+  content: state.Content.response,
+  contentError: state.Content.error,
+  contentLoading: state.Content.loading,
+  user: state.User.response
+});
+
+const actionCreators = {
+  loadContent: (query?: ContentQuery) => contentState.load(query),
+  addRating: (id: string, rating: number) => contentState.addRating(id, rating),
+  updateRating: (id: string, rating: number) =>
+    contentState.updateRating(id, rating),
+  watch: (id: string) => contentState.watch(id),
+  unwatch: (id: string) => contentState.unwatch(id)
+};
+
+const mapActionsToProps = (dispatch: Dispatch) => ({
+  ...bindActionCreators(actionCreators, dispatch)
+});
+
+export const HomePage = withRouter(
+  connect(
+    mapStateToProps,
+    mapActionsToProps
+  )(DisconnectedHomePage)
+);

@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
+import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { Genre, Episode, NewContent } from '../../../common';
+import { bindActionCreators, Dispatch } from 'redux';
+import { Genre, Episode, NewContent, User } from '../../../common';
 import {
   Button,
   Checkbox,
@@ -16,6 +18,7 @@ import {
   TextArea,
   TextInput
 } from '../components';
+import { ApplicationState } from '../store';
 import { getValidation, isValid, validateRequired } from '../utility';
 
 export interface EditorEpisode {
@@ -30,11 +33,13 @@ export interface EditorEpisode {
 export interface EditorPageProps extends RouteComponentProps<{ id?: string }> {
   // addContent: (user: EditorContent) => void;
   // updateContent: (user: EditorContent) => void;
+  user?: User;
 }
 
 export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
   history,
-  match: { params }
+  match: { params },
+  user
 }) => {
   const [errors, setErrors] = React.useState<string[]>([]);
   const [episodeErrors, setEpisodeErrors] = React.useState<string[]>([]);
@@ -663,6 +668,10 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
   );
 };
 
+const mapStateToProps = (state: ApplicationState) => ({
+  user: state.User.response
+});
+
 // const actionCreators = {
 //   registerUser: (user: EditorContent) => userState.register(user)
 // };
@@ -671,4 +680,6 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
 //   ...bindActionCreators(actionCreators, dispatch)
 // });
 
-export const EditorPage = withRouter(DisconnectedEditorPage);
+export const EditorPage = withRouter(
+  connect(mapStateToProps)(DisconnectedEditorPage)
+);

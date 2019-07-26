@@ -4,8 +4,8 @@ import { ContentPreview } from '.';
 
 export interface ContentPreviewListProps {
   contentList: Content[];
-  handleRating: (value: number, id: string) => void;
-  handleWatch: (watching: boolean) => void;
+  handleRating: (star: number, id: string, rated: boolean) => void;
+  handleWatch: (watching: boolean, id: string) => void;
   user?: User;
 }
 
@@ -16,15 +16,19 @@ export const ContentPreviewList: React.FC<ContentPreviewListProps> = ({
   user
 }) => (
   <ul className="content__list">
-    {contentList.map(content => (
-      <li className="content__item" key={content.id}>
-        <ContentPreview
-          content={content}
-          onRate={val => handleRating(val, content.id)}
-          onWatch={() => handleWatch(content.watchList)}
-          user={user}
-        />
-      </li>
-    ))}
+    {contentList.length > 0 ? (
+      contentList.map(content => (
+        <li className="content__item" key={content.id}>
+          <ContentPreview
+            content={content}
+            onRate={(val, rated) => handleRating(val, content.id, rated)}
+            onWatch={() => handleWatch(content.watchList, content.id)}
+            user={user}
+          />
+        </li>
+      ))
+    ) : (
+      <li className="content__item">No items to show</li>
+    )}
   </ul>
 );

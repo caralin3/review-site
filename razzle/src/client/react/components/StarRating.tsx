@@ -40,7 +40,6 @@ export const StarRating: React.FC<StarRatingProps> = ({
       }
     }
   };
-
   return (
     <div className="stars">
       {stars().map(star => (
