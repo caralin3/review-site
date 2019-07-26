@@ -8,7 +8,7 @@ storiesOf('Components|ContentPreviewList', module).add(
   'with all content',
   () => (
     <ContentPreviewList
-      contentList={content.content}
+      contentList={content.allContent}
       handleRating={action('rate')}
       handleWatch={action('watch')}
     />

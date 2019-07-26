@@ -10,7 +10,7 @@ import {
 import { ApplicationState, AsyncState } from './types';
 import { rehydrateAction, getToken } from './utility';
 
-const NAME = 'COMMENTS';
+const NAME = 'REVIEWS';
 const RESET = 'RESET';
 const LOAD = 'LOAD';
 const CREATE = 'CREATE';

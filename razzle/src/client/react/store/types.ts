@@ -16,6 +16,6 @@ export interface ApplicationState {
   ContentItem: ContentItemState;
   Episode: EpisodeState;
   Episodes: EpisodesState;
-  Review: ReviewsState;
+  Reviews: ReviewsState;
   User: UserState;
 }

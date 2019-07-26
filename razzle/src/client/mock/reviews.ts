@@ -41,9 +41,7 @@ export const reviewShow1: Review = {
   rating: 5
 };
 
-export const reviews = [
-  reviewMovie1,
-  review2Movie1,
-  reviewMovie2,
-  reviewMovie3
-];
+export const reviews = {
+  reviews: [reviewMovie1, review2Movie1, reviewMovie2, reviewMovie3],
+  count: 4
+};

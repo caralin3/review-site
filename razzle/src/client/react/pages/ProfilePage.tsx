@@ -91,7 +91,7 @@ export const DisconnectedProfilePage: React.FC<ProfilePageProps> = ({
         </TabList>
         <TabPanel selected={tab} id="watch-list" tabId="watch">
           <ContentPreviewList
-            contentList={content.content.filter(con => con.watchList)}
+            contentList={content.allContent.filter(con => con.watchList)}
             handleRating={handleRating}
             handleWatch={handleWatch}
             user={user}
@@ -100,7 +100,7 @@ export const DisconnectedProfilePage: React.FC<ProfilePageProps> = ({
         <TabPanel selected={tab} id="reviewed-panel" tabId="reviewed">
           <ContentPreviewList
             // @TODO: Filter reviewed content
-            contentList={content.content}
+            contentList={content.allContent}
             handleRating={handleRating}
             handleWatch={handleWatch}
             user={user}

@@ -26,7 +26,7 @@ export const ContentDetails: React.FC<ContentDetailsProps> = ({
       <StarRating
         rating={content.rating}
         myRating={content.myRating}
-        onClick={star => onRate(star, !!content.myRating)}
+        onClick={user ? star => onRate(star, !!content.myRating) : undefined}
         user={user}
       />
     </div>
