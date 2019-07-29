@@ -9,6 +9,7 @@ storiesOf('Components|Review', module)
     <Review
       date={reviewMovie1.created}
       onDelete={action('cannot delete review')}
+      onRate={action('cannot rate')}
       rating={4}
       review={reviewMovie1.body}
       user={user1}
@@ -18,8 +19,10 @@ storiesOf('Components|Review', module)
   .add('with current user', () => (
     <Review
       date={reviewMovie1.created}
-      onDelete={action('delete review')}
+      onDelete={action('rate review')}
+      onRate={action('delete review')}
       rating={4}
+      myRating={3}
       review={reviewMovie1.body}
       user={user1}
       username={profile1.username}

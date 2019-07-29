@@ -145,6 +145,7 @@ export async function getReviews(req: express.Request, res: express.Response) {
   const { limit, offset, rating } = req.query;
   const reviews = getReviewCollection();
   const filtered = reviews.chain();
+  filtered.find({ contentId: { $eq: req.params.id } });
   if (rating) {
     reviews.find().forEach(rev => {
       const author = getDbUser('id', rev.userId);

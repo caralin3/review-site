@@ -17,20 +17,27 @@ const props = {
   episodes,
   reviews,
   addRating: action('add rating'),
+  addListRating: action('add rating'),
   content: undefined,
   contentError: undefined,
   contentLoading: false,
   contentList: content,
   contentListError: undefined,
   contentListLoading: false,
+  deleteReview: action('delete review'),
   loadContentList: action('load content list'),
   loadContent: action('load content'),
   loadEpisodes: action('load episodes'),
   loadReviews: action('load reviews'),
+  reviewsError: undefined,
+  reviewsLoading: false,
   updateRating: action('update rating'),
+  updateListRating: action('update rating'),
   unwatch: action('unwatch'),
+  unwatchContentList: action('unwatch'),
   user: user1,
-  watch: action('watch')
+  watch: action('watch'),
+  watchContentList: action('unwatch')
 };
 
 storiesOf('Pages|ContentPage', module)

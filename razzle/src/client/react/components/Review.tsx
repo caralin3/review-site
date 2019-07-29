@@ -8,6 +8,8 @@ import { routes } from '../routes';
 export interface ReviewProps {
   date: string;
   onDelete: () => void;
+  onRate: (star: number) => void;
+  myRating?: number;
   rating: number;
   review: string;
   user?: User;
@@ -17,6 +19,8 @@ export interface ReviewProps {
 export const Review: React.FC<ReviewProps> = ({
   date,
   onDelete,
+  onRate,
+  myRating,
   rating,
   review,
   user,
@@ -38,8 +42,9 @@ export const Review: React.FC<ReviewProps> = ({
       <span className="review__footer">
         <StarRating
           rating={rating}
-          myRating={user && user.username === username ? rating : undefined}
+          myRating={user && user.username === username ? myRating : undefined}
           user={user}
+          onClick={user && user.username === username ? onRate : undefined}
         />
         {user && user.username === username && (
           <i

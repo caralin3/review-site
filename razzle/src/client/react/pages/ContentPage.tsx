@@ -21,12 +21,14 @@ import * as reviewsState from '../store/reviews';
 
 export interface ContentPageProps extends RouteComponentProps<{ id?: string }> {
   addRating: (id: string, rating: number) => void;
+  addListRating: (id: string, rating: number) => void;
   content?: Content;
   contentError?: Error;
   contentLoading: boolean;
   contentList?: MultipleContentResponse;
   contentListError?: Error;
   contentListLoading: boolean;
+  deleteReview: (contentId: string, id: string) => void;
   episodes?: MultipleEpisodesResponse;
   loadContentList: (query?: ContentQuery) => void;
   loadContent: (id: string) => void;
@@ -36,19 +38,24 @@ export interface ContentPageProps extends RouteComponentProps<{ id?: string }> {
   reviewsError?: Error;
   reviewsLoading: boolean;
   updateRating: (id: string, rating: number) => void;
+  updateListRating: (id: string, rating: number) => void;
   unwatch: (id: string) => void;
+  unwatchContentList: (id: string) => void;
   user?: User;
   watch: (id: string) => void;
+  watchContentList: (id: string) => void;
 }
 
 export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
   addRating,
+  addListRating,
   content,
   contentError,
   contentLoading,
   contentList,
   contentListError,
   contentListLoading,
+  deleteReview,
   episodes,
   loadContentList,
   loadContent,
@@ -60,16 +67,21 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
   reviewsError,
   reviewsLoading,
   updateRating,
+  updateListRating,
   unwatch,
+  unwatchContentList,
   user,
-  watch
+  watch,
+  watchContentList
 }) => {
   const [season, setSeason] = React.useState(1);
   const [type, setType] = React.useState<ContentType>('Movie');
 
   React.useEffect(() => {
     if (params && params.id) {
-      loadData(params.id);
+      loadItem(params.id);
+    } else {
+      loadList();
     }
     if (location.pathname.includes('movies')) {
       setType('Movie');
@@ -78,7 +90,11 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
     }
   }, [location.pathname, params.id, type]);
 
-  const loadData = async (id: string) => {
+  const loadList = async () => {
+    await loadContentList();
+  };
+
+  const loadItem = async (id: string) => {
     await loadContent(id);
     await loadReviews(id);
     if (type === 'Series') {
@@ -89,9 +105,17 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
   const handleRating = async (value: number, id: string, rated: boolean) => {
     if (user) {
       if (rated) {
-        await updateRating(id, value);
+        if (params && params.id) {
+          await updateRating(id, value);
+        } else {
+          await updateListRating(id, value);
+        }
       } else {
-        await addRating(id, value);
+        if (params && params.id) {
+          await addRating(id, value);
+        } else {
+          await addListRating(id, value);
+        }
       }
     }
   };
@@ -99,16 +123,24 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
   const handleWatch = async (watching: boolean, id: string) => {
     if (user) {
       if (watching) {
-        await unwatch(id);
+        if (params && params.id) {
+          await unwatch(id);
+        } else {
+          await unwatchContentList(id);
+        }
       } else {
-        await watch(id);
+        if (params && params.id) {
+          await watch(id);
+        } else {
+          await watchContentList(id);
+        }
       }
     }
   };
 
   const handleDeleteReview = (id: string) => {
-    if (user) {
-      console.log('Delete ', id);
+    if (user && params && params.id) {
+      deleteReview(params.id, id);
     }
   };
 
@@ -124,6 +156,8 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
               handleRating={handleRating}
               handleWatch={handleWatch}
               reviews={reviews}
+              reviewsError={reviewsError}
+              reviewsLoading={reviewsLoading}
               user={user}
             />
           )}
@@ -169,8 +203,16 @@ const actionCreators = {
     contentItemState.addRating(id, rating),
   updateRating: (id: string, rating: number) =>
     contentItemState.updateRating(id, rating),
+  addListRating: (id: string, rating: number) =>
+    contentState.addRating(id, rating),
+  updateListRating: (id: string, rating: number) =>
+    contentState.updateRating(id, rating),
+  deleteReview: (contentId: string, id: string) =>
+    reviewsState.remove(contentId, id),
   watch: (id: string) => contentItemState.watch(id),
-  unwatch: (id: string) => contentItemState.unwatch(id)
+  unwatch: (id: string) => contentItemState.unwatch(id),
+  watchContentList: (id: string) => contentState.watch(id),
+  unwatchContentList: (id: string) => contentState.unwatch(id)
 };
 
 const mapActionsToProps = (dispatch: Dispatch) => ({

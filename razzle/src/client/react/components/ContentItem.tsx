@@ -85,11 +85,13 @@ export const ContentItem: React.FC<ContentItemProps> = ({
             reviewsList.length > 0 && (
               <ul className="content-page__reviews-list">
                 {reviewsList.map(review => (
-                  <li className="content-page__reviews-item">
+                  <li className="content-page__reviews-item" key={review.id}>
                     <Review
                       date={review.created}
+                      onRate={val => handleRating(val, content.id, true)}
                       onDelete={() => handleDeleteReview(review.id)}
                       rating={review.rating}
+                      myRating={content.myRating}
                       review={review.body}
                       user={user}
                       username={review.author.username}
