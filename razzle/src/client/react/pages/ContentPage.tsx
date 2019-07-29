@@ -6,11 +6,11 @@ import {
   Content,
   ContentType,
   ContentQuery,
+  EpisodesQuery,
   MultipleContentResponse,
   MultipleEpisodesResponse,
-  User,
-  EpisodesQuery,
-  MultipleReviewsResponse
+  MultipleReviewsResponse,
+  User
 } from '../../../common';
 import { Container, ContentItem, ContentList } from '../components';
 import { ApplicationState } from '../store';
@@ -74,6 +74,7 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
   watch,
   watchContentList
 }) => {
+  // @TODO: Create tabs for seasons
   const [season, setSeason] = React.useState(1);
   const [type, setType] = React.useState<ContentType>('Movie');
 

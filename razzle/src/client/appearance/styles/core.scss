@@ -7,6 +7,10 @@ body {
   font-family: sans-serif;
 }
 
+.no_scroll {
+  overflow: hidden;
+}
+
 a {
   color: currentColor;
   text-decoration: none;

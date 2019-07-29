@@ -42,6 +42,17 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
       : generalLinks
     : nonAuthLinks;
 
+  const toggleScroll = () => {
+    const body = document.getElementsByTagName('BODY')[0];
+    if (body) {
+      if (!showMenu) {
+        body.classList.add('no_scroll');
+      } else {
+        body.classList.remove('no_scroll');
+      }
+    }
+  };
+
   return (
     <header className="header">
       <Container className="header__nav">
@@ -64,7 +75,10 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
           </ul>
           <i
             className="fas fa-bars header__mobile-menu show-small"
-            onClick={() => setShowMenu(!showMenu)}
+            onClick={() => {
+              setShowMenu(!showMenu);
+              toggleScroll();
+            }}
           />
           <ul
             className={classNames('header__mobile-links show-small', {
@@ -74,9 +88,13 @@ export const Header: React.FC<HeaderProps> = ({ user }) => {
             {links.map(link => (
               <li className="header__mobile-link" key={link.name}>
                 <NavLink
+                  exact={true}
                   activeClassName="header__mobile-link--active"
                   to={link.path}
-                  onClick={() => setShowMenu(false)}
+                  onClick={() => {
+                    setShowMenu(false);
+                    toggleScroll();
+                  }}
                 >
                   {link.name}
                 </NavLink>

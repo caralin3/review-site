@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { User } from '../../../common';
-import { Footer, Header } from '.';
 import { ApplicationState } from '../store';
+import { Footer, Header } from '.';
 
 export interface LayoutProps {
   user?: User;
@@ -12,7 +12,7 @@ export const DisconnectedLayout: React.FC<LayoutProps> = ({
   children,
   user
 }) => (
-  <div className="layout">
+  <div className="layout" id="layout">
     <Header user={user} />
     <div className="layout__content">{children}</div>
     <Footer />
