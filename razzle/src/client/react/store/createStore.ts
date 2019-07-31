@@ -8,6 +8,7 @@ import * as content from './content';
 import * as contentItem from './contentItem';
 import * as episode from './episode';
 import * as episodes from './episodes';
+import * as profile from './profile';
 import * as reviews from './reviews';
 import * as user from './user';
 import { ApplicationState } from '.';
@@ -30,6 +31,7 @@ export default (): Store<ApplicationState> => {
     ContentItem: contentItem.reducer,
     Episode: episode.reducer,
     Episodes: episodes.reducer,
+    Profile: profile.reducer,
     Reviews: reviews.reducer,
     User: user.reducer
   });

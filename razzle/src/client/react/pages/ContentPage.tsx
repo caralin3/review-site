@@ -40,10 +40,10 @@ export interface ContentPageProps extends RouteComponentProps<{ id?: string }> {
   updateRating: (id: string, rating: number) => void;
   updateListRating: (id: string, rating: number) => void;
   unwatch: (id: string) => void;
-  unwatchContentList: (id: string) => void;
+  contentListUnwatch: (id: string) => void;
   user?: User;
   watch: (id: string) => void;
-  watchContentList: (id: string) => void;
+  contentListWatch: (id: string) => void;
 }
 
 export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
@@ -55,6 +55,8 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
   contentList,
   contentListError,
   contentListLoading,
+  contentListWatch,
+  contentListUnwatch,
   deleteReview,
   episodes,
   loadContentList,
@@ -69,10 +71,8 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
   updateRating,
   updateListRating,
   unwatch,
-  unwatchContentList,
   user,
-  watch,
-  watchContentList
+  watch
 }) => {
   // @TODO: Create tabs for seasons
   const [season, setSeason] = React.useState(1);
@@ -127,13 +127,13 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
         if (params && params.id) {
           await unwatch(id);
         } else {
-          await unwatchContentList(id);
+          await contentListUnwatch(id);
         }
       } else {
         if (params && params.id) {
           await watch(id);
         } else {
-          await watchContentList(id);
+          await contentListWatch(id);
         }
       }
     }
@@ -212,8 +212,8 @@ const actionCreators = {
     reviewsState.remove(contentId, id),
   watch: (id: string) => contentItemState.watch(id),
   unwatch: (id: string) => contentItemState.unwatch(id),
-  watchContentList: (id: string) => contentState.watch(id),
-  unwatchContentList: (id: string) => contentState.unwatch(id)
+  contentListWatch: (id: string) => contentState.watch(id),
+  contentListUnwatch: (id: string) => contentState.unwatch(id)
 };
 
 const mapActionsToProps = (dispatch: Dispatch) => ({

@@ -24,6 +24,8 @@ const props = {
   contentList: content,
   contentListError: undefined,
   contentListLoading: false,
+  contentListWatch: action('unwatch'),
+  contentListUnwatch: action('unwatch'),
   deleteReview: action('delete review'),
   loadContentList: action('load content list'),
   loadContent: action('load content'),
@@ -34,10 +36,8 @@ const props = {
   updateRating: action('update rating'),
   updateListRating: action('update rating'),
   unwatch: action('unwatch'),
-  unwatchContentList: action('unwatch'),
   user: user1,
-  watch: action('watch'),
-  watchContentList: action('unwatch')
+  watch: action('watch')
 };
 
 storiesOf('Pages|ContentPage', module)

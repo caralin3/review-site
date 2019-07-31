@@ -37,4 +37,15 @@
       }
     }
   }
+
+  &__link {
+    &:visited {
+      color: $black;
+    }
+    &:hover,
+    &:focus,
+    &:active {
+      color: $primary;
+    }
+  }
 }

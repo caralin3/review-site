@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import {
   LoginUserRequest,
+  ProfileResponse,
   RegisterUserRequest,
   UpdateUserRequest,
   UserResponse
@@ -81,8 +82,8 @@ export const updateUser = async (body: UpdateUserRequest, token: string) => {
  * @param {string} username Username of the profile.
  * @param {string} token Token of current user (Optional).
  */
-export const fetchUserProfile = async (username: string, token?: string) => {
-  const request: AxiosResponse<UserResponse> = await axios.get(
+export const fetchProfile = async (username: string, token?: string) => {
+  const request: AxiosResponse<ProfileResponse> = await axios.get(
     profileUrl(username),
     getOptions(token)
   );

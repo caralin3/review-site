@@ -7,10 +7,6 @@ body {
   font-family: sans-serif;
 }
 
-.no_scroll {
-  overflow: hidden;
-}
-
 a {
   color: currentColor;
   text-decoration: none;
@@ -69,6 +65,10 @@ textarea {
   &:active {
     color: $primary;
   }
+}
+
+.no_scroll {
+  overflow: hidden;
 }
 
 .show-small {

@@ -12,7 +12,8 @@ import {
   getContentCollection,
   getDbContent,
   getDbUser,
-  getUserCollection
+  getUserCollection,
+  getReviewCollection
 } from '../database';
 import { status, ErrorResponse } from '../types';
 import { formatContent, calcMyRating, calcAvgRating } from '../utility';
@@ -96,6 +97,7 @@ export async function getContent(req: express.Request, res: express.Response) {
     network,
     offset,
     rating,
+    reviewed,
     title,
     type,
     watchList,
@@ -138,6 +140,16 @@ export async function getContent(req: express.Request, res: express.Response) {
         filtered.find({ id: { $eq: con.id } });
       }
     });
+  }
+  if (reviewed) {
+    const user = getDbUser('username', reviewed);
+    if (user) {
+      const reviews = getReviewCollection().find({ userId: { $eq: user.id } });
+      if (reviews) {
+        const ids = reviews.map(rev => rev.contentId);
+        filtered.find({ id: { $in: ids } });
+      }
+    }
   }
   if (title) {
     filtered.find({ title: { $eq: title } });

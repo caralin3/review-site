@@ -10,6 +10,7 @@ export interface ContentQuery {
   network?: string;
   offset?: number;
   rating?: number;
+  reviewed?: string;
   title?: string;
   type?: ContentType;
   watchList?: string;

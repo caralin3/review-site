@@ -2,6 +2,7 @@ import { ContentState } from './content';
 import { ContentItemState } from './contentItem';
 import { EpisodeState } from './episode';
 import { EpisodesState } from './episodes';
+import { ProfileState } from './profile';
 import { ReviewsState } from './reviews';
 import { UserState } from './user';
 
@@ -16,6 +17,7 @@ export interface ApplicationState {
   ContentItem: ContentItemState;
   Episode: EpisodeState;
   Episodes: EpisodesState;
+  Profile: ProfileState;
   Reviews: ReviewsState;
   User: UserState;
 }

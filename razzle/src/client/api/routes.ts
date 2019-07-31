@@ -21,7 +21,7 @@ const createQuery = (
 export const loginUrl = `${baseUrl}/users/login`;
 
 export const profileUrl = (username: string) =>
-  `${baseUrl}/profile/${username}`;
+  `${baseUrl}/user/profile/${username}`;
 
 export const registrationUrl = `${baseUrl}/users`;
 

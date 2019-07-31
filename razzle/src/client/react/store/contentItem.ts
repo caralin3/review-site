@@ -39,7 +39,7 @@ export const reset = () => resetAction();
 export const loadAction = asyncActionCreator<{ id: string }, Content>(
   LOAD,
   async (params, _, getState) =>
-    (await api.fetchContentItem(params.id, getToken(getState()))).content
+    (await api.fetchContentItem(params.id, getToken(getState(), true))).content
 );
 
 export const load = (id: string) => loadAction.action({ id });

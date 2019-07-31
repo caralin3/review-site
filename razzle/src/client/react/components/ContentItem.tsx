@@ -12,6 +12,8 @@ import {
   Review,
   ReviewEditor
 } from '../components';
+import { Link } from 'react-router-dom';
+import { routes } from '../routes';
 
 export interface ContentItemProps {
   content: Content;
@@ -80,26 +82,42 @@ export const ContentItem: React.FC<ContentItemProps> = ({
             />
           )}
           {reviewsList &&
-            !reviewsLoading &&
-            !reviewsError &&
-            reviewsList.length > 0 && (
-              <ul className="content-page__reviews-list">
-                {reviewsList.map(review => (
-                  <li className="content-page__reviews-item" key={review.id}>
-                    <Review
-                      date={review.created}
-                      onRate={val => handleRating(val, content.id, true)}
-                      onDelete={() => handleDeleteReview(review.id)}
-                      rating={review.rating}
-                      myRating={content.myRating}
-                      review={review.body}
-                      user={user}
-                      username={review.author.username}
-                    />
-                  </li>
-                ))}
-              </ul>
-            )}
+          !reviewsLoading &&
+          !reviewsError &&
+          reviewsList.length > 0 ? (
+            <ul className="content-page__reviews-list">
+              {reviewsList.map(review => (
+                <li className="content-page__reviews-item" key={review.id}>
+                  <Review
+                    date={review.created}
+                    onRate={val => handleRating(val, content.id, true)}
+                    onDelete={() => handleDeleteReview(review.id)}
+                    rating={review.rating}
+                    myRating={content.myRating}
+                    review={review.body}
+                    user={user}
+                    username={review.author.username}
+                  />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            !user && (
+              <p>
+                <Link className="cta content-page__link" to={routes.login.path}>
+                  Login
+                </Link>
+                &nbsp; or &nbsp;
+                <Link
+                  className="cta content-page__link"
+                  to={routes.register.path}
+                >
+                  register
+                </Link>
+                &nbsp; to create reviews
+              </p>
+            )
+          )}
         </div>
       </section>
       {/* <section>

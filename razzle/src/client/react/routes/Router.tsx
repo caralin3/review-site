@@ -93,7 +93,7 @@ export const Router = () => (
     />
     <Route
       exact={true}
-      path={`${routes.profile.path}/:id`}
+      path={`${routes.profile.path}/:username`}
       component={routeMap[routes.profile.path]}
     />
     <Route
