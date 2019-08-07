@@ -313,7 +313,9 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
                     submit
                   )}
                 >
-                  <p>{editorContent.type === 'Movie' ? 'Year' : 'Start Year'}</p>
+                  <p>
+                    {editorContent.type === 'Movie' ? 'Year' : 'Start Year'}
+                  </p>
                   <NumberInput
                     id="year"
                     value={editorContent.year}

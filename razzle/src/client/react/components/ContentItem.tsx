@@ -133,42 +133,42 @@ export const ContentItem: React.FC<ContentItemProps> = ({
             />
           )}
           {reviewsList &&
-            !reviewsLoading &&
-            !reviewsError &&
-            reviewsList.length > 0 ? (
-              <ul className="content-page__reviews-list">
-                {reviewsList.map(rev => (
-                  <li className="content-page__reviews-item" key={rev.id}>
-                    <Review
-                      date={rev.created}
-                      onRate={val => handleRating(val, content.id, true)}
-                      onDelete={() => handleDeleteReview(rev.id)}
-                      rating={rev.rating}
-                      myRating={content.myRating}
-                      review={rev.body}
-                      user={user}
-                      username={rev.author.username}
-                    />
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              !user && (
-                <p>
-                  <Link className="cta content-page__link" to={routes.login.path}>
-                    Login
+          !reviewsLoading &&
+          !reviewsError &&
+          reviewsList.length > 0 ? (
+            <ul className="content-page__reviews-list">
+              {reviewsList.map(rev => (
+                <li className="content-page__reviews-item" key={rev.id}>
+                  <Review
+                    date={rev.created}
+                    onRate={val => handleRating(val, content.id, true)}
+                    onDelete={() => handleDeleteReview(rev.id)}
+                    rating={rev.rating}
+                    myRating={content.myRating}
+                    review={rev.body}
+                    user={user}
+                    username={rev.author.username}
+                  />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            !user && (
+              <p>
+                <Link className="cta content-page__link" to={routes.login.path}>
+                  Login
                 </Link>
-                  &nbsp; or &nbsp;
+                &nbsp; or &nbsp;
                 <Link
-                    className="cta content-page__link"
-                    to={routes.register.path}
-                  >
-                    register
+                  className="cta content-page__link"
+                  to={routes.register.path}
+                >
+                  register
                 </Link>
-                  &nbsp; to create reviews
+                &nbsp; to create reviews
               </p>
-              )
-            )}
+            )
+          )}
         </div>
       </section>
       {/* <section>
