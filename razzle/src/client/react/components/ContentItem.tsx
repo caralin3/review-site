@@ -4,6 +4,8 @@ import {
   MultipleEpisodesResponse,
   MultipleReviewsResponse,
   Review as ReviewType,
+  NewReview,
+  NewReviewRequest,
   User
 } from '../../../common';
 import {
@@ -19,6 +21,7 @@ export interface ContentItemProps {
   content: Content;
   episodes?: MultipleEpisodesResponse;
   handleRating: (value: number, id: string, rated: boolean) => void;
+  handleCreateReview: (body: NewReviewRequest) => void;
   handleDeleteReview: (id: string) => void;
   handleWatch: (watching: boolean, id: string) => void;
   reviews?: MultipleReviewsResponse;
@@ -30,6 +33,7 @@ export interface ContentItemProps {
 export const ContentItem: React.FC<ContentItemProps> = ({
   content,
   episodes,
+  handleCreateReview,
   handleDeleteReview,
   handleRating,
   handleWatch,
@@ -38,8 +42,51 @@ export const ContentItem: React.FC<ContentItemProps> = ({
   reviewsLoading,
   user
 }) => {
+  const [review, setReview] = React.useState<NewReview>({} as NewReview);
+  const [errors, setErrors] = React.useState<string[]>([]);
+  const [loading, setLoading] = React.useState(false);
+  const [submit, setSubmit] = React.useState(false);
+
   const reviewsList: ReviewType[] =
     reviews && reviews.reviews ? reviews.reviews : [];
+
+  const reviewed = reviewsList.filter(
+    rev => user && rev.author.username === user.username
+  );
+
+  const handleSubmit = async () => {
+    setSubmit(true);
+    if (!review.rating) {
+      setErrors(['Rating required']);
+      return;
+    }
+    if (review.body && review.rating) {
+      setLoading(true);
+      try {
+        await handleCreateReview({ review });
+        setSubmit(false);
+      } catch (err) {
+        console.error(err);
+        if (err.response) {
+          const apiErrors = err.response.data.errors;
+          const formErrors: string[] = [];
+          Object.keys(apiErrors).forEach(key => {
+            if (apiErrors) {
+              formErrors.push(`${key} ${apiErrors[key]}`);
+            }
+          });
+          setErrors(formErrors);
+        }
+      }
+    }
+    setLoading(false);
+  };
+
+  const resetForm = () => {
+    setErrors([]);
+    setLoading(false);
+    setSubmit(false);
+  };
 
   return (
     <div className="content-page">
@@ -67,17 +114,22 @@ export const ContentItem: React.FC<ContentItemProps> = ({
       <section>
         <h2 className="content-page__header">Reviews</h2>
         <div className="content-page__reviews">
-          {user && (
-            // @TODO: Replace with correct props
+          {user && reviewed.length === 0 && (
             <ReviewEditor
-              errors={[]}
-              loading={false}
-              onChange={() => null}
-              onRate={val => null}
-              onSubmit={() => null}
-              rating={0}
-              review=""
-              submit={false}
+              errors={errors}
+              loading={loading}
+              onChange={e => {
+                setReview({ ...review, body: e.target.value });
+                resetForm();
+              }}
+              onRate={val => {
+                setReview({ ...review, rating: val });
+                resetForm();
+              }}
+              onSubmit={handleSubmit}
+              rating={review.rating}
+              review={review.body}
+              submit={submit}
               user={user}
             />
           )}
@@ -86,17 +138,17 @@ export const ContentItem: React.FC<ContentItemProps> = ({
           !reviewsError &&
           reviewsList.length > 0 ? (
             <ul className="content-page__reviews-list">
-              {reviewsList.map(review => (
-                <li className="content-page__reviews-item" key={review.id}>
+              {reviewsList.map(rev => (
+                <li className="content-page__reviews-item" key={rev.id}>
                   <Review
-                    date={review.created}
+                    date={rev.created}
                     onRate={val => handleRating(val, content.id, true)}
-                    onDelete={() => handleDeleteReview(review.id)}
-                    rating={review.rating}
+                    onDelete={() => handleDeleteReview(rev.id)}
+                    rating={rev.rating}
                     myRating={content.myRating}
-                    review={review.body}
+                    review={rev.body}
                     user={user}
-                    username={review.author.username}
+                    username={rev.author.username}
                   />
                 </li>
               ))}

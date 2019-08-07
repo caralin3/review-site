@@ -369,10 +369,6 @@ export async function deleteReview(
   }
   const currentUser = getAuthUser(req);
   if (currentUser) {
-    if (currentUser.role !== 'admin') {
-      res.status(status.FORBIDDEN).json({ user: ['does not have permission'] });
-      return;
-    }
     const dbReview = getDbReview('id', req.params.reviewId);
 
     if (!dbReview) {

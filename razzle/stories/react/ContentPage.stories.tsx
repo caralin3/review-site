@@ -26,6 +26,7 @@ const props = {
   contentListLoading: false,
   contentListWatch: action('unwatch'),
   contentListUnwatch: action('unwatch'),
+  createReview: action('delete review'),
   deleteReview: action('delete review'),
   loadContentList: action('load content list'),
   loadContent: action('load content'),

@@ -10,6 +10,7 @@ import {
   MultipleContentResponse,
   MultipleEpisodesResponse,
   MultipleReviewsResponse,
+  NewReviewRequest,
   User
 } from '../../../common';
 import { Container, ContentItem, ContentList } from '../components';
@@ -28,6 +29,7 @@ export interface ContentPageProps extends RouteComponentProps<{ id?: string }> {
   contentList?: MultipleContentResponse;
   contentListError?: Error;
   contentListLoading: boolean;
+  createReview: (contentId: string, body: NewReviewRequest) => void;
   deleteReview: (contentId: string, id: string) => void;
   episodes?: MultipleEpisodesResponse;
   loadContentList: (query?: ContentQuery) => void;
@@ -57,6 +59,7 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
   contentListLoading,
   contentListWatch,
   contentListUnwatch,
+  createReview,
   deleteReview,
   episodes,
   loadContentList,
@@ -76,6 +79,7 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
 }) => {
   // @TODO: Create tabs for seasons
   const [season, setSeason] = React.useState(1);
+  const [created, setCreated] = React.useState(false);
   const [type, setType] = React.useState<ContentType>('Movie');
 
   React.useEffect(() => {
@@ -89,7 +93,7 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
     } else if (location.pathname.includes('shows')) {
       setType('Series');
     }
-  }, [location.pathname, params.id, type]);
+  }, [location.pathname, params.id, type, created]);
 
   const loadList = async () => {
     await loadContentList();
@@ -139,9 +143,16 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
     }
   };
 
-  const handleDeleteReview = (id: string) => {
+  const handleCreateReview = async (body: NewReviewRequest) => {
     if (user && params && params.id) {
-      deleteReview(params.id, id);
+      await createReview(params.id, body);
+      setCreated(!created);
+    }
+  };
+
+  const handleDeleteReview = async (id: string) => {
+    if (user && params && params.id) {
+      await deleteReview(params.id, id);
     }
   };
 
@@ -153,6 +164,7 @@ export const DisconnectedContentPage: React.FC<ContentPageProps> = ({
             <ContentItem
               content={content}
               episodes={content.type === 'Series' ? episodes : undefined}
+              handleCreateReview={handleCreateReview}
               handleDeleteReview={handleDeleteReview}
               handleRating={handleRating}
               handleWatch={handleWatch}
@@ -208,6 +220,8 @@ const actionCreators = {
     contentState.addRating(id, rating),
   updateListRating: (id: string, rating: number) =>
     contentState.updateRating(id, rating),
+  createReview: (contentId: string, body: NewReviewRequest) =>
+    reviewsState.create(contentId, body),
   deleteReview: (contentId: string, id: string) =>
     reviewsState.remove(contentId, id),
   watch: (id: string) => contentItemState.watch(id),
