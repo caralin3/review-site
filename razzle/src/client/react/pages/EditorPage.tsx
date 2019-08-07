@@ -47,7 +47,7 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
   const [submit, setSubmit] = React.useState(false);
   const [submitEp, setSubmitEp] = React.useState(false);
   const [addingEps, setAddingEps] = React.useState(true);
-  const [episodes, setEpisodes] = React.useState<Episode[]>([]);
+  const [episodes, setEpisodes] = React.useState<EditorEpisode[]>([]);
   const [episode, setEpisode] = React.useState<EditorEpisode>({
     date: '',
     duration: 0,
@@ -60,7 +60,7 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
     actors: [],
     director: '',
     duration: 0,
-    // endYear?: number,
+    endYear: 0,
     image: '',
     genres: [],
     mpa: 'G',
@@ -142,7 +142,7 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
     const value: string = e.target.value;
     setEditorContent({
       ...editorContent,
-      [field]: value && value.trim()
+      [field]: value
     });
     resetForm();
   };
@@ -156,18 +156,17 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
     const value: string = e.target.value;
     setEpisode({
       ...episode,
-      [field]: value && value.trim()
+      [field]: value
     });
     resetForm();
   };
 
   // @TODO: Delete episode
+
   const handleAddEpisode = async () => {
     setSubmitEp(true);
     if (isValidEpisode()) {
-      // @TODO: Dispatch redux action
-      // await addEpisode(episode);
-      // setEpisodes([...episodes, episode]);
+      setEpisodes([...episodes, episode]);
       setEpisode({
         date: '',
         duration: 0,
@@ -207,14 +206,18 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
       setSubmit(true);
       if (isValidForm()) {
         setLoading(true);
-        console.log('Valid', editorContent);
+        console.log('Valid', editorContent, episodes);
 
         if (params && params.id) {
+          // @TODO: Dispatch redux action
+          // await addEpisode(episode);
           // await updateContent({ ...editorContent, role });
           history.goBack();
           return;
         }
 
+        // @TODO: Dispatch redux action
+        // await addEpisode(episode);
         // @TODO: Dispatch redux action
         // await addContent({ ...editorContent, role });
         history.goBack();
@@ -310,7 +313,7 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
                     submit
                   )}
                 >
-                  <p>Year</p>
+                  <p>{editorContent.type === 'Movie' ? 'Year' : 'Start Year'}</p>
                   <NumberInput
                     id="year"
                     value={editorContent.year}
@@ -318,6 +321,24 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
                   />
                 </FormValidation>
               </Label>
+              {editorContent.type === 'Series' && (
+                <Label htmlFor="end-ear">
+                  <FormValidation
+                    submit={false}
+                    {...getValidation(
+                      validateRequired(editorContent.endYear),
+                      submit
+                    )}
+                  >
+                    <p>End Year</p>
+                    <NumberInput
+                      id="end-year"
+                      value={editorContent.endYear}
+                      onChange={e => handleChange(e, 'endYear')}
+                    />
+                  </FormValidation>
+                </Label>
+              )}
               <Label htmlFor="duration">
                 <FormValidation
                   submit={submit}
@@ -332,7 +353,6 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
                     value={editorContent.duration}
                     onChange={e => handleChange(e, 'duration')}
                   />
-                  &nbsp;&nbsp;mins
                 </FormValidation>
               </Label>
             </div>
