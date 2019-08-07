@@ -96,10 +96,7 @@ export async function createEpisode(
  * @authorization Optional
  * @url /api/v1/content/:id/episodes
  */
-export async function getEpisodesBySeason(
-  req: express.Request,
-  res: express.Response
-) {
+export async function getEpisodes(req: express.Request, res: express.Response) {
   if (!req.params || !req.params.id) {
     const reqErrors: ErrorResponse = {
       id: ['not provided']
@@ -108,13 +105,13 @@ export async function getEpisodesBySeason(
     return;
   }
 
-  if (!req.query.season) {
-    const reqErrors: ErrorResponse = {
-      season: ['not provided']
-    };
-    res.status(status.BAD_REQUEST).json(reqErrors);
-    return;
-  }
+  // if (!req.query.season) {
+  //   const reqErrors: ErrorResponse = {
+  //     season: ['not provided']
+  //   };
+  //   res.status(status.BAD_REQUEST).json(reqErrors);
+  //   return;
+  // }
 
   const dbContent = getDbContent('id', req.params.id);
   if (!dbContent) {
@@ -130,7 +127,10 @@ export async function getEpisodesBySeason(
   const episodes = getEpisodeCollection();
   const filtered = episodes.chain();
   filtered.find({ contentId: { $eq: req.params.id } });
-  filtered.find({ season: { $eq: parseInt(season, 10) } });
+  if (season) {
+    const s = parseInt(season, 10);
+    filtered.find({ season: { $between: [s - 1, s + 1] } });
+  }
   if (num) {
     filtered.find({ num: { $eq: parseInt(num, 10) } });
   }

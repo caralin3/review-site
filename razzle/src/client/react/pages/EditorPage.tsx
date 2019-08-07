@@ -3,7 +3,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { bindActionCreators, Dispatch } from 'redux';
-import { Genre, Episode, NewContent, User } from '../../../common';
+import {
+  Content,
+  Genre,
+  Episode,
+  EpisodesQuery,
+  MultipleEpisodesResponse,
+  NewContent,
+  NewContentRequest,
+  NewEpisodeRequest,
+  User,
+  UpdateContentRequest
+} from '../../../common';
 import {
   Button,
   Checkbox,
@@ -20,6 +31,10 @@ import {
 } from '../components';
 import { ApplicationState } from '../store';
 import { getValidation, isValid, validateRequired } from '../utility';
+import * as contentItemState from '../store/contentItem';
+import * as episodeState from '../store/episode';
+import * as episodesState from '../store/episodes';
+import { routes } from '../routes';
 
 export interface EditorEpisode {
   date: string;
@@ -31,14 +46,32 @@ export interface EditorEpisode {
 }
 
 export interface EditorPageProps extends RouteComponentProps<{ id?: string }> {
-  // addContent: (user: EditorContent) => void;
-  // updateContent: (user: EditorContent) => void;
+  addContent: (body: NewContentRequest) => void;
+  addEpisode: (contentId: string, body: NewEpisodeRequest) => void;
+  content?: Content;
+  episodeList?: MultipleEpisodesResponse;
+  loadContent: (id: string) => void;
+  loadEpisodes: (contentId: string, query?: EpisodesQuery) => void;
+  updateContent: (id: string, body: UpdateContentRequest) => void;
+  updateEpisode: (
+    contentId: string,
+    id: string,
+    body: NewEpisodeRequest
+  ) => void;
   user?: User;
 }
 
 export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
+  addContent,
+  addEpisode,
+  content,
+  episodeList,
   history,
   match: { params },
+  loadContent,
+  loadEpisodes,
+  updateContent,
+  updateEpisode,
   user
 }) => {
   const [errors, setErrors] = React.useState<string[]>([]);
@@ -73,8 +106,24 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
 
   React.useEffect(() => {
     if (params && params.id) {
+      loadData();
     }
   }, [params]);
+
+  const loadData = async () => {
+    if (params && params.id) {
+      await loadContent(params.id);
+      await loadEpisodes(params.id);
+      if (content) {
+        setEditorContent({
+          ...content
+        });
+      }
+      if (episodeList) {
+        setEpisodes([...episodeList.episodes]);
+      }
+    }
+  };
 
   const resetForm = () => {
     setErrors([]);
@@ -206,24 +255,35 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
       setSubmit(true);
       if (isValidForm()) {
         setLoading(true);
-        console.log('Valid', editorContent, episodes);
-
+        // @TODO: Edit content
         if (params && params.id) {
-          // @TODO: Dispatch redux action
-          // await addEpisode(episode);
-          // await updateContent({ ...editorContent, role });
-          history.goBack();
+          await updateContent(params.id, { content: editorContent });
+          // if (editorContent.type === 'Series') {
+          //   await updateEpisode(params.id, episode);
+
+          // }
+          if (editorContent.type === 'Series') {
+            history.push(`${routes.show.path}/${params.id}`);
+            return;
+          }
+          history.push(`${routes.movie.path}/${params.id}`);
           return;
         }
-
-        // @TODO: Dispatch redux action
-        // await addEpisode(episode);
-        // @TODO: Dispatch redux action
-        // await addContent({ ...editorContent, role });
-        history.goBack();
+        await addContent({ content: editorContent });
+        if (content && editorContent.type === 'Series') {
+          episodes.forEach(async ep => {
+            await addEpisode(content.id, { episode: ep });
+          });
+        }
+        if (content) {
+          if (editorContent.type === 'Series') {
+            history.push(`${routes.show.path}/${content.id}`);
+            return;
+          }
+          history.push(`${routes.movie.path}/${content.id}`);
+        }
       }
     } catch (err) {
-      console.error(err);
       if (err.response) {
         const apiErrors = err.response.data.errors;
         const formErrors: string[] = [];
@@ -691,17 +751,31 @@ export const DisconnectedEditorPage: React.FC<EditorPageProps> = ({
 };
 
 const mapStateToProps = (state: ApplicationState) => ({
+  content: state.ContentItem.response,
+  episodeList: state.Episodes.response,
   user: state.User.response
 });
 
-// const actionCreators = {
-//   registerUser: (user: EditorContent) => userState.register(user)
-// };
+const actionCreators = {
+  addEpisode: (contentId: string, body: NewEpisodeRequest) =>
+    episodeState.create(contentId, body),
+  loadEpisodes: (contentId: string, query?: EpisodesQuery) =>
+    episodesState.load(contentId, query),
+  updateEpisode: (contentId: string, id: string, body: NewEpisodeRequest) =>
+    episodeState.update(contentId, id, body),
+  addContent: (body: NewContentRequest) => contentItemState.create(body),
+  loadContent: (id: string) => contentItemState.load(id),
+  updateContent: (id: string, body: UpdateContentRequest) =>
+    contentItemState.update(id, body)
+};
 
-// const mapActionsToProps = (dispatch: Dispatch) => ({
-//   ...bindActionCreators(actionCreators, dispatch)
-// });
+const mapActionsToProps = (dispatch: Dispatch) => ({
+  ...bindActionCreators(actionCreators, dispatch)
+});
 
 export const EditorPage = withRouter(
-  connect(mapStateToProps)(DisconnectedEditorPage)
+  connect(
+    mapStateToProps,
+    mapActionsToProps
+  )(DisconnectedEditorPage)
 );

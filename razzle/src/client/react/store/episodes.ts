@@ -26,7 +26,7 @@ export const resetAction = actionCreator(RESET);
 export const reset = () => resetAction();
 
 export const loadAction = asyncActionCreator<
-  { contentId: string; query: EpisodesQuery },
+  { contentId: string; query: EpisodesQuery | undefined },
   MultipleEpisodesResponse
 >(
   LOAD,
@@ -38,7 +38,7 @@ export const loadAction = asyncActionCreator<
     )
 );
 
-export const load = (contentId: string, query: EpisodesQuery) =>
+export const load = (contentId: string, query?: EpisodesQuery) =>
   loadAction.action({ contentId, query });
 
 export const reducer = reducerWithInitialState(initialState)

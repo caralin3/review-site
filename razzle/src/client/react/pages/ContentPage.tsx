@@ -35,7 +35,7 @@ export interface ContentPageProps extends RouteComponentProps<{ id?: string }> {
   loadContentList: (query?: ContentQuery) => void;
   loadContent: (id: string) => void;
   loadReviews: (contentId: string) => void;
-  loadEpisodes: (contentId: string, query: EpisodesQuery) => void;
+  loadEpisodes: (contentId: string, query?: EpisodesQuery) => void;
   reviews?: MultipleReviewsResponse;
   reviewsError?: Error;
   reviewsLoading: boolean;
@@ -209,7 +209,7 @@ const mapStateToProps = (state: ApplicationState) => ({
 const actionCreators = {
   loadContentList: (query?: ContentQuery) => contentState.load(query),
   loadContent: (id: string) => contentItemState.load(id),
-  loadEpisodes: (contentId: string, query: EpisodesQuery) =>
+  loadEpisodes: (contentId: string, query?: EpisodesQuery) =>
     episodesState.load(contentId, query),
   loadReviews: (contentId: string) => reviewsState.load(contentId),
   addRating: (id: string, rating: number) =>

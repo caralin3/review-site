@@ -1,7 +1,7 @@
 import { Episode } from '..';
 
 export interface EpisodesQuery {
-  season: number;
+  season?: number;
   num?: number;
   year?: number;
 }

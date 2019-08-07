@@ -36,7 +36,7 @@ export const getRoutes: RouteDictionary = {
     auth: 'optional'
   },
   [routes.episodes]: {
-    endpoint: endpoints.getEpisodesBySeason,
+    endpoint: endpoints.getEpisodes,
     auth: 'optional'
   },
   [routes.episode]: {

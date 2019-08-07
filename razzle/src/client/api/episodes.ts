@@ -16,7 +16,7 @@ import { getOptions } from '.';
  */
 export const fetchEpisodes = async (
   contentId: string,
-  query: EpisodesQuery,
+  query?: EpisodesQuery,
   token?: string
 ) => {
   const request: AxiosResponse<MultipleEpisodesResponse> = await axios.get(
