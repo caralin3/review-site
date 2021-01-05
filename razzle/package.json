@@ -22,7 +22,7 @@
     "check": "yarn run check:lint && yarn run a11y"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "enzyme-to-json": "^3.3.5",
     "express": "^4.17.1",
